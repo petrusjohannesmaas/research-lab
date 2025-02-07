@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>/containerization</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
+</head>
+
+<body>
+  <section class="hero is-fullheight">
+    <!-- Hero head: will stick at the top -->
+    <div class="hero-head">
+      <header class="navbar">
+        <div class="container">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="index.html">
+              <img src="../images/profile_picture.jpeg" alt="">
+              <h1 class="title is-family-code">/research-lab</h1>
+            </a>
+            <span class="navbar-burger" data-target="navbarMenuHeroC">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </div>
+          <div id="navbarMenuHeroC" class="navbar-menu">
+            <div class="navbar-end">
+              <span class="navbar-item">
+                <a class="px-3" href="https://www.linkedin.com/in/pj-maas/" target="_blank" rel="noopener noreferrer">
+                  <span class="icon">
+                    <i class="fab fa-linkedin"></i>
+                  </span>
+                  <span>Linkedin</span>
+                </a>
+                <a class="px-3" href="https://x.com/petrus_j_maas" target="_blank" rel="noopener noreferrer">
+                  <span class="icon">
+                    <i class="fab fa-twitter"></i>
+                  </span>
+                  <span>Twitter</span>
+                </a>
+                <a class="px-3" href="https://github.com/petrusjohannesmaas" target="_blank" rel="noopener noreferrer">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Github</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body">
+      <div class="container">
+        <!-- First Row -->
+        <div class="row mb-4">
+          <div class="columns">
+            <div class="column">
+                <div class="card">
+                  <div class="card-content">
+                    <div class="media">
+                      <div class="level">
+                        <span class="icon">
+                          <i class="fas fa-boxes fa-2x"></i>
+                        </span>
+                        <p class="title">Containerization</p>
+                      </div>
+                    </div>
+                    <div class="content is-size-5">
+                      <p>
+                        In software engineering, containerization is operating-system–level virtualization or application-level virtualization over multiple network resources
+                        so that software applications can run in isolated user spaces called containers in any cloud or non-cloud environment, regardless of type or vendor.
+                      </p>
+                      <p>
+                        Each container is basically a fully functional and portable cloud or non-cloud computing environment surrounding the application and keeping it independent
+                        of other environments running in parallel. Individually, each container simulates a different software application and runs isolated processes by bundling
+                        related configuration files, libraries, and dependencies. Collectively, multiple containers share a common operating system kernel (OS).
+                      </p>
+                      <p>
+                        Containerization technology has been widely adopted by cloud computing platforms like Amazon Web Services, Microsoft Azure, Google Cloud Platform, and IBM Cloud.
+                        It has also been pursued by the U.S. Department of Defense for rapid software development and fielding, with applications like the F-22 air superiority fighter.
+                      </p>
+                      <p>
+                        <strong>Source:</strong>
+                        <a href="https://en.wikipedia.org/wiki/Containerization_(computing)" target="_blank" rel="noopener noreferrer">Wikipedia</a>
+                      </p>
+                      <ul>
+                        <li><strong>Type:</strong> Operating-system–level virtualization</li>
+                        <li><strong>Uses:</strong> Isolated application environments, cloud and non-cloud deployment</li>
+                        <li><strong>Common Platforms:</strong> AWS, Azure, Google Cloud, IBM Cloud</li>
+                        <li><strong>Orchestration Tools:</strong> Kubernetes, Docker Swarm</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <footer class="card-footer">
+                    <p class="card-footer-item">
+                      <span>
+                        <a href="https://kubernetes.io/" target="_blank" rel="noopener noreferrer">📚 Learn more about Kubernetes</a>
+                      </span>
+                    </p>
+                    <p class="card-footer-item">
+                      <span>
+                        <a href="https://docs.docker.com/get-started/" target="_blank" rel="noopener noreferrer">🖥️ Get started with Docker</a>
+                      </span>
+                    </p>
+                  </footer>
+                </div>
+              </div>
+              
+          </div>
+        </div>
+
+        <!-- Second Row -->
+        <div class="row">
+          <div class="columns">
+            <div class="column">
+              <div class="card" id="code-card">
+                <div class="card-content">
+                  <div class="media">
+                    <div class="level">
+                      <span class="icon">
+                        <i class="fa fa-book fa-2x"></i>
+                      </span>
+                      <p class="title">Study Guide</p>
+                    </div>
+                  </div>
+                  <div class="content">
+                    <!-- JSON GOES HERE -->
+                  </div>
+                </div>
+                <footer class="card-footer">
+                </footer>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero footer: will stick at the bottom -->
+    <!-- Hero footer: will stick at the bottom -->
+    <div class="hero-foot">
+      <nav class="tabs is-boxed is-fullwidth">
+        <div class="container">
+          <ul>
+            <li><a href="python.html" class="is-active">Python</a></li>
+            <li><a href="solidity.html">Solidity</a></li>
+            <li><a href="javascript.html">Javascript</a></li>
+            <li><a href="linux.html">Linux</a></li>
+            <li><a href="databases.html">Databases</a></li>
+            <li><a href="containerization.html">Containerization</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Function for Navbar -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Get all "navbar-burger" elements
+      const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+      // Check if there are any navbar burgers
+      if ($navbarBurgers.length > 0) {
+        // Add a click event on each of them
+        $navbarBurgers.forEach(el => {
+          el.addEventListener('click', () => {
+            // Get the target from the "data-target" attribute
+            const target = el.dataset.target;
+            const $target = document.getElementById(target);
+
+            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+            el.classList.toggle('is-active');
+            $target.classList.toggle('is-active');
+          });
+        });
+      }
+    });
+  </script>
+  <!-- Function for study guide -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const data = {
+      "study_plan": [
+      {
+        "level": "Beginner",
+        "topics": [
+          "Introduction to Containerization",
+          "Installing Docker",
+          "Basic Docker Commands",
+          "Creating and Managing Docker Containers",
+          "Docker Images and Dockerfile",
+          "Volumes and Persistent Storage",
+          "Docker Networking Basics",
+          "Docker Compose for Multi-Container Applications",
+          "Introduction to Container Orchestration"
+        ]
+      },
+      {
+        "level": "Intermediate",
+        "topics": [
+          "Advanced Docker Commands",
+          "Dockerfile Best Practices",
+          "Managing Docker Logs",
+          "Docker Swarm Basics",
+          "Introduction to Kubernetes",
+          "Kubernetes Architecture",
+          "Kubernetes Components (Pods, Deployments, Services)",
+          "Kubernetes ConfigMaps and Secrets",
+          "Kubernetes Networking"
+        ]
+      },
+      {
+        "level": "Advanced",
+        "topics": [
+          "Advanced Docker Networking",
+          "Docker Security Best Practices",
+          "Kubernetes Resource Management",
+          "Kubernetes Scheduling and Taints/Tolerations",
+          "Kubernetes Persistent Volumes",
+          "Service Mesh with Istio",
+          "Monitoring and Logging with Prometheus and Grafana",
+          "Helm for Kubernetes Package Management",
+          "CI/CD with Jenkins and Kubernetes",
+          "Kubernetes Operators"
+        ]
+      },
+      {
+        "level": "Expert",
+        "topics": [
+          "Cluster Management and Scaling",
+          "High Availability in Kubernetes",
+          "Cluster Federation",
+          "Disaster Recovery and Backup Strategies",
+          "Advanced Security in Kubernetes",
+          "Custom Resource Definitions (CRDs) and API Extensions",
+          "Performance Tuning and Optimization",
+          "Building and Managing Multi-Cloud Kubernetes Clusters",
+          "Hybrid Cloud Deployments",
+          "Emerging Trends in Containerization and Clustering"
+        ]
+      }
+    ]
+    };
+
+    const contentDiv = document.querySelector('#code-card .content');
+    const formattedJSON = JSON.stringify(data, null, 2);
+    contentDiv.innerHTML = `<pre style="background: #000; padding: 1rem; border-radius: 5px; overflow-y: auto; max-height: 400px;"><code style="color: #00ff00;">${formattedJSON}</code></pre>`;
+  });
+
+  </script>
+  
+</body>
+
+</html>
