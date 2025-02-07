@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>/python</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
+</head>
+
+<body>
+  <section class="hero is-fullheight">
+    <!-- Hero head: will stick at the top -->
+    <div class="hero-head">
+      <header class="navbar">
+        <div class="container">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="index.html">
+              <img src="../images/profile_picture.jpeg" alt="">
+              <h1 class="title is-family-code">/research-lab</h1>
+            </a>
+            <span class="navbar-burger" data-target="navbarMenuHeroC">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </div>
+          <div id="navbarMenuHeroC" class="navbar-menu">
+            <div class="navbar-end">
+              <span class="navbar-item">
+                <a class="px-3" href="https://www.linkedin.com/in/pj-maas/" target="_blank" rel="noopener noreferrer">
+                  <span class="icon">
+                    <i class="fab fa-linkedin"></i>
+                  </span>
+                  <span>Linkedin</span>
+                </a>
+                <a class="px-3" href="https://x.com/petrus_j_maas" target="_blank" rel="noopener noreferrer">
+                  <span class="icon">
+                    <i class="fab fa-twitter"></i>
+                  </span>
+                  <span>Twitter</span>
+                </a>
+                <a class="px-3" href="https://github.com/petrusjohannesmaas" target="_blank" rel="noopener noreferrer">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Github</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body">
+      <div class="container">
+        <!-- First Row -->
+        <div class="row mb-4">
+          <div class="columns">
+            <div class="column">
+              <div class="card">
+                <div class="card-content">
+                  <div class="media">
+                    <div class="level">
+                      <span class="icon">
+                        <i class="fab fa-python fa-2x"></i>
+                      </span>
+                      <p class="title">Python</p>
+                    </div>
+                  </div>
+                  <div class="content is-size-5">
+                    <p>
+                      Python is a high-level, general-purpose programming language known for its
+                      code readability and significant indentation.
+                    </p>
+                    <p>
+                      It is dynamically typed, garbage-collected, and supports various programming
+                      paradigms such as procedural, object-oriented, and functional programming.
+                      Python is often described as a "batteries included" language due to its extensive
+                      standard library.
+                    </p>
+                    <p>
+                      Python was created by Guido van Rossum and first released in 1991. Python 2.0 was
+                      released in 2000, and Python 3.0, a major revision, was released in 2008. Python 2
+                      support ended in 2020. Today, Python is widely used, especially in the machine learning
+                      community.
+                    </p>
+
+                    <p>
+                      <strong>Source:</strong>
+                      <a href="https://en.wikipedia.org/wiki/Python_(programming_language)" target="_blank" rel="noopener noreferrer">Wikipedia</a>
+                    </p>
+                    <ul>
+                      <li><strong>Type:</strong> High-level, general-purpose</li>
+                      <li><strong>Year of Origin:</strong> 1991</li>
+                      <li><strong>Creator:</strong> Guido van Rossum</li>
+                      <li><strong>Current Version:</strong> Python 3.x</li>
+                    </ul>
+                  </div>
+                </div>
+                <footer class="card-footer">
+                  <p class="card-footer-item">
+                    <span>
+                      <a href="https://www.python.org/doc/" target="_blank" rel="noopener noreferrer">📚 Official documentation</a>
+                    </span>
+                  </p>
+                  <p class="card-footer-item">
+                    <span>
+                      <a href="https://github.com/python" target="_blank" rel="noopener noreferrer">🖥️ Check Python on GitHub</a>
+                    </span>
+                  </p>
+                </footer>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Second Row -->
+        <div class="row">
+          <div class="columns">
+            <div class="column">
+              <div class="card" id="code-card">
+                <div class="card-content">
+                  <div class="media">
+                    <div class="level">
+                      <span class="icon">
+                        <i class="fa fa-book fa-2x"></i>
+                      </span>
+                      <p class="title">Study Guide</p>
+                    </div>
+                  </div>
+                  <div class="content">
+                    <!-- JSON GOES HERE -->
+                  </div>
+                </div>
+                <footer class="card-footer">
+                </footer>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero footer: will stick at the bottom -->
+    <!-- Hero footer: will stick at the bottom -->
+    <div class="hero-foot">
+      <nav class="tabs is-boxed is-fullwidth">
+        <div class="container">
+          <ul>
+            <li><a href="python.html" class="is-active">Python</a></li>
+            <li><a href="solidity.html">Solidity</a></li>
+            <li><a href="javascript.html">Javascript</a></li>
+            <li><a href="linux.html">Linux</a></li>
+            <li><a href="databases.html">Databases</a></li>
+            <li><a href="containerization.html">Containerization</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Function for Navbar -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Get all "navbar-burger" elements
+      const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+      // Check if there are any navbar burgers
+      if ($navbarBurgers.length > 0) {
+        // Add a click event on each of them
+        $navbarBurgers.forEach(el => {
+          el.addEventListener('click', () => {
+            // Get the target from the "data-target" attribute
+            const target = el.dataset.target;
+            const $target = document.getElementById(target);
+
+            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+            el.classList.toggle('is-active');
+            $target.classList.toggle('is-active');
+          });
+        });
+      }
+    });
+  </script>
+  <!-- Function for study guide -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const data = {
+      "study_plan": [
+        {
+          "level": "Beginner",
+          "topics": [
+            "Introduction to Python",
+            "Setting up the Python Environment",
+            "Basic Syntax and Hello World",
+            "Variables and Data Types",
+            "Basic Operators",
+            "Conditional Statements (if, elif, else)",
+            "Loops (for, while)",
+            "Functions and Modules",
+            "Lists and Tuples",
+            "Dictionaries and Sets",
+            "Input and Output",
+            "Exception Handling"
+          ]
+        },
+        {
+          "level": "Intermediate",
+          "topics": [
+            "File Handling",
+            "Regular Expressions",
+            "List Comprehensions",
+            "Dictionary Comprehensions",
+            "Lambda Functions",
+            "Map, Filter, and Reduce",
+            "Object-Oriented Programming (OOP)",
+            "Classes and Objects",
+            "Inheritance",
+            "Polymorphism",
+            "Encapsulation",
+            "Decorators",
+            "Generators"
+          ]
+        },
+        {
+          "level": "Advanced",
+          "topics": [
+            "Iterators and Iterables",
+            "Context Managers",
+            "Concurrency and Parallelism",
+            "Multithreading",
+            "Multiprocessing",
+            "Asynchronous Programming",
+            "Unit Testing and Test-Driven Development (TDD)",
+            "Web Scraping",
+            "Working with APIs",
+            "Database Connectivity",
+            "ORMs (e.g., SQLAlchemy, Django ORM)",
+            "Data Analysis with Pandas",
+            "Data Visualization with Matplotlib and Seaborn"
+          ]
+        },
+        {
+          "level": "Expert",
+          "topics": [
+            "Advanced Data Structures",
+            "Algorithm Design and Analysis",
+            "Design Patterns",
+            "Advanced OOP Concepts",
+            "Metaclasses",
+            "Memory Management and Garbage Collection",
+            "Profiling and Optimization",
+            "Packaging and Distribution",
+            "Building RESTful APIs with Flask/Django",
+            "Microservices Architecture",
+            "Machine Learning with scikit-learn",
+            "Deep Learning with TensorFlow/Keras",
+            "Natural Language Processing (NLP)"
+          ]
+        }
+      ]
+    };
+
+    const contentDiv = document.querySelector('#code-card .content');
+    const formattedJSON = JSON.stringify(data, null, 2);
+    contentDiv.innerHTML = `<pre style="background: #000; padding: 1rem; border-radius: 5px; overflow-y: auto; max-height: 400px;"><code style="color: #00ff00;">${formattedJSON}</code></pre>`;
+  });
+
+  </script>
+  
+</body>
+
+</html>
