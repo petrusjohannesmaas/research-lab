@@ -1,32 +1,176 @@
 # Automated Debian Server Provisioning (with Ansible)
 
-You'll be using your Debian machine as the "control node" where Ansible runs and your Debian virtual machine (VM) as the "managed node" (which you'll be configuring). Let’s start with Ansible installation and basic configuration.
+### Overview
+I came across an article by [Henning](https://nerdyarticles.com/author/henning/) on how he configures and hardens his Debian server. In this project, I'll use his article as **inspiration** and set up Ansible to automate some of these processes, but add some of my own like installing a container runtime and a resource monitoring tool, logging and brute force detection.
 
-### 1. Install Ansible using `pip`
+**Reference article:** https://nerdyarticles.com/debian-server-essentials-setup-configure-and-hardening-your-system/
 
-Since you mentioned using `pip`, we’ll do that first. Ansible can be installed in a virtual environment to keep things isolated, but we can also install it system-wide if you're comfortable with that.
+I'll be using my development machine as the "control node" where Ansible runs and configure a virtual machine (VM) with Debian installed as the "managed node".
 
-#### Step 1: Install dependencies
+### 1. Virtual machine provisioning
 
-Before installing Ansible, make sure you have `pip` and other required dependencies:
+* OS: [Debian 12.10.0](https://www.debian.org/distrib/)
+* CPU: 1 core
+* RAM: 2GB
+* Disk: 10GB
+* Network: Bridged Adapter mode
+
+The **managed node** (the machine that Ansible is managing) does not require Ansible to be installed, but requires Python to run Ansible-generated Python code.
+
+Make sure Python is installed on the system by running:
 
 ```bash
-sudo apt update
-sudo apt upgrade -y
-sudo apt install python3-pip python3-venv -y
+python3 --version
 ```
 
-#### Step 2: Install Ansible with pip
+This would be a good time to clone your VM for future use. I am using **VirtualBox**:
 
-Now, let's install Ansible using `pip`. This will give you the latest version.
+```shell
+VBoxManage clonehd /path/to/your.vdi /path/to/cloned.vdi --format VDI
+```
+
+### 1. User accounts & privileges
+
+ The managed node also needs a user account that can connect through SSH to the node with an interactive POSIX shell.
+
+The minimal Debian installation doesn't install `sudo` package. Log in as root and install it:
 
 ```bash
-python3 -m pip install --user ansible
+su -
+apt install sudo
 ```
 
-This will install Ansible in the user’s local directory. If you want to install it globally, you can omit the `--user` flag, but that’s typically less recommended in case you need to work with different versions of Ansible in the future.
+Add your user to the `sudo` group:
 
-#### Step 3: Verify Ansible installation
+```bash
+usermod -aG sudo your_user
+```
+
+⚠️ Reboot after making these changes.
+#### 2. Networking
+
+You might want to automate this process with Ansible later, but I am going to configure a **static IP address** on your Debian server by modifying the network settings. 
+
+Get your interface name by running:
+```bash
+ip a 
+```
+
+Open the network settings:
+```bash
+sudo nano /etc/network/interfaces
+```
+
+For a **static IP setup**, replace your primary interface body with this:
+```ini
+auto enp0s3
+iface enp0s3 inet static
+    address 192.168.0.104
+    netmask 255.255.255.0
+    gateway 192.168.0.1
+    dns-nameservers 8.8.8.8 8.8.4.4
+```
+- Replace `enp0s3` with your actual interface name.
+- Adjust `address`, `gateway`, and DNS as needed.
+
+Restart networking:
+```bash
+sudo systemctl restart networking
+```
+
+Or, manually bring the interface down and up:
+```bash
+sudo ip link set enp0s3 down
+sudo ip link set enp0s3 up
+```
+
+Verify with:
+```bash
+ip a
+```
+
+Try pinging a public IP:
+```bash
+ping 8.8.8.8 -c 4
+```
+
+If everything works, your server now has a **persistent static IP**.
+### 2. Configure SSH
+
+You will get a missing **sudo password** issue when trying to run playbooks. That happens because Ansible **doesn't know how to escalate privileges** when using `become: true`. You need to explicitly tell it **how to use sudo** in your playbook or command.
+
+```bash
+ansible-playbook your-playbook.yml --ask-become-pass
+```
+
+This will prompt you for the sudo password before executing privileged tasks.
+#### **Best Practice: Use SSH Keys + Passwordless Sudo**
+
+**Grant `your-user` passwordless sudo privileges** by modifying:
+
+```bash
+sudo visudo
+```
+
+Add this line at the bottom:
+```
+your_user ALL=(ALL) NOPASSWD: ALL
+```
+
+Generate an SSH key on your host system if you haven't yet:
+
+```bash
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+Add your SSH key to the server by running this command:
+
+```bash
+ssh-copy-id -i ~/.ssh/id_ed25519.pub your_vm_user@192.168.56.101
+```
+
+### 3. Installing Ansible
+
+For the control node (the machine that runs Ansible), you can use nearly any UNIX-like machine with Python installed. This includes Red Hat, Debian, Ubuntu, macOS, BSDs, and Windows under a Windows Subsystem for Linux (WSL) distribution.
+
+**Ansible community installation guide:** [Click here](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#control-node-requirements)
+
+On some systems, it may not be possible to install Ansible with pip, due to decisions made by the operating system developers. In such cases, pipx is a widely available alternative.
+
+`pip` is a general-purpose package installer for both libraries and apps with no environment isolation. `pipx` is made specifically for application installation, as it adds isolation yet still makes the apps available in your shell: `pipx` creates an isolated environment for each application and its associated packages.
+
+Before installing Ansible, make sure you have `pipx` and other required dependencies:
+
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install pipx
+pipx ensurepath
+sudo pipx ensurepath --global # optional to allow pipx actions with --global argument
+```
+
+Now, let's install Ansible using `pipx`. This will give you the latest version.
+
+```bash
+pipx install --include-deps ansible
+```
+
+To install additional `python` dependencies that may be needed, with the example of installing the `argcomplete` python package as described below:
+
+```bash
+pipx inject ansible argcomplete
+```
+
+Include the --include-apps option to make apps in the additional python dependency available on your PATH. This allows you to execute commands for those apps from the shell.
+
+```bash
+pipx inject --include-apps ansible argcomplete
+```
+
+To upgrade Ansible to the latest version:
+
+```bash
+pipx upgrade --include-injected ansible 
+```
 
 Check if Ansible was installed successfully by running:
 
@@ -45,11 +189,9 @@ ansible 2.x.x
 
 ---
 
-### 2. Set up Ansible Configuration
+### 4. Set up Ansible Configuration
 
 Ansible requires a few configurations, particularly an **inventory file** that tells Ansible where the hosts (your virtual machines) are located.
-
-#### Step 1: Create the directory structure
 
 Let’s create the directory for Ansible to work in:
 
@@ -58,29 +200,18 @@ mkdir -p ~/ansible_project
 cd ~/ansible_project
 ```
 
-#### Step 2: Create an inventory file
-
-This inventory file will list the hosts you want to manage (i.e., your Debian VM). Create a file named `hosts.ini`:
+Create an inventory file that will list the hosts you want to manage (i.e., the Debian VM). Create a file named `hosts.ini`:
 
 ```bash
 touch hosts.ini
 ```
 
-Edit the `hosts.ini` file with a text editor (like `nano` or `vim`), and define your VM. For example, if your VM's IP address is `192.168.56.101`, your `hosts.ini` might look like this:
-
-```ini
-[debian_vms]
-192.168.56.101 ansible_user=your_vm_user
-```
-
-Replace `your_vm_user` with the username you’ll be using to connect to the VM (likely `root` or a user with `sudo` privileges). You can also specify an SSH key if needed:
+Replace `your_vm_user` with the username you’ll be using to connect to the server. It'll have to be a user with `sudo` privileges) and specify an SSH key:
 
 ```ini
 [debian_vms]
 192.168.56.101 ansible_user=your_vm_user ansible_ssh_private_key_file=/path/to/your/private_key
 ```
-
-#### Step 3: Create a simple Ansible configuration file (optional)
 
 It’s a good practice to create a default Ansible configuration file (`ansible.cfg`) to define settings that control how Ansible behaves. This is optional but helpful for your setup:
 
@@ -97,15 +228,17 @@ inventory = ./hosts.ini
 
 ---
 
-### 3. Test Connectivity with Your VM
+### 5. Test Connectivity with Your VM
 
 You should now be able to test connectivity to your VM from your control node.
 
-Run this command to check if Ansible can connect to your VM:
+Run this command to check if Ansible can connect to your VM.:
 
 ```bash
 ansible all -m ping
 ```
+
+You'll be prompted for a passphrase. If you want **extra security**, set one when creating your host SSH key; otherwise, just press Enter.
 
 If everything is set up correctly, you should see a `pong` response from your VM:
 
@@ -120,9 +253,7 @@ If not, check the SSH configuration or any firewall settings.
 
 ### 4. Create and Run Your First Playbook
 
-Now that Ansible is installed and your VM is set up as a managed node, let's create a simple playbook to **update the system**, **install HTOP**, and **install Podman**.
-
-#### Step 1: Create a playbook file
+Now that Ansible is installed and your VM is set up as a managed node, let's create a simple playbook to **update the system**, and **install Podman**.
 
 Create a new file called `setup.yml`:
 
@@ -146,27 +277,44 @@ Edit it with your text editor:
       apt:
         upgrade: dist
 
-    - name: Install HTOP
-      apt:
-        name: htop
-        state: present
-
     - name: Install Podman
       apt:
         name: podman
         state: present
+
+    - name: Ensure registry config exists
+      file:
+        path: /etc/containers/registries.conf
+        state: touch
+        mode: '0644'
+
+    - name: Configure Podman registry search
+      blockinfile:
+        path: /etc/containers/registries.conf
+        marker: "# ANSIBLE MANAGED BLOCK"
+        block: |
+          [[registry]]
+          unqualified-search-registries = ["docker.io"]
+      notify: Restart Podman
+
+  handlers:
+    - name: Restart Podman
+      service:
+        name: podman
+        state: restarted
 ```
 
-This playbook will:
+### **What This Does:**
+1. Update the APT repositories.
+2. Upgrade all installed packages.
+3. Install `podman`.
+4. Ensures **`/etc/containers/registries.conf`** exists (avoiding errors).
+5. Uses `blockinfile` to insert or update the **registry search settings**.
+6. Includes a handler to restart Podman when changes are made.
 
-- Update the APT repositories.
-    
-- Upgrade all installed packages.
-    
-- Install `htop` and `podman`.
-    
+This will make sure Podman searches **Docker Hub** when pulling unqualified images.
 
-#### Step 2: Run the playbook
+#### ⛳ Run the playbook
 
 Now, run the playbook with the following command:
 
@@ -174,36 +322,53 @@ Now, run the playbook with the following command:
 ansible-playbook setup.yml
 ```
 
-Ansible will go through the tasks and execute them on your VM. If everything works, you should see the packages being installed.
+Ansible will go through the tasks and execute them on your server. If everything works, you should see the packages being installed.
 
----
-
-### 5. Clean Up and Final Verification
-
-After the playbook finishes, you can verify that `htop` and `podman` are installed:
+After the playbook finishes, you can verify that `podman` is installed:
 
 ```bash
-htop
 podman --version
 ```
 
-That should get everything in place for you to start using Ansible to manage your Debian VM!
+### Implementing a more complex automation setup:
 
----
+TODO: Make your user a super user in the installation steps
+TODO: Implement Monit into the playbook
+TODO: Implement fail2ban
 
-### Wrapping Up
+## Troubleshooting
 
-Here’s a summary of what we did:
+Debian’s **offline installer** adds the installation media (CD/DVD/ISO) as an apt source, causing `apt` to prompt for it. You can fix this by **removing the CD-ROM entry from your APT sources**.
 
-1. **Installed Ansible** via `pip`.
-    
-2. **Configured an inventory file** to manage the VM.
-    
-3. **Tested connection** to the VM with `ansible -m ping`.
-    
-4. **Created and ran a playbook** to update, upgrade, and install packages.
-    
+### **Solution: Disable CD-ROM as a Package Source**
 
-Once this setup is complete, you’re ready to automate more complex tasks and expand your configuration with additional playbooks. If you want to expand this further or have more questions about Ansible, feel free to ask!
+**Check Your Current APT Sources**
 
-Does this make sense, or do you need clarification on any part?
+```bash
+cat /etc/apt/sources.list
+```
+
+If you see something like: `deb cdrom:[Debian GNU/Linux ...] / contrib main`
+
+```bash
+sudo nano /etc/apt/sources.list
+```
+
+Locate the **`deb cdrom`** entry and comment it out by adding a `#` at the beginning:
+
+```
+# deb cdrom:[Debian GNU/Linux ...] / contrib main
+```
+
+Add Online Debian Mirrors If they are missing:
+
+```
+deb http://deb.debian.org/debian stable main contrib non-free
+deb http://security.debian.org/debian-security stable-security main contrib non-free
+```
+
+Refresh your package lists:
+
+```bash
+sudo apt update
+```
