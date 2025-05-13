@@ -234,3 +234,63 @@ After pushing, visit your server IP. You should see JSON like:
 Change to v2 later and repeat the flow.
 
 ---
+
+## 🧰 Where Does GitHub Actions Build Your Project?
+
+When a GitHub Actions workflow runs, **all steps happen inside a temporary virtual machine (VM)** **provisioned by GitHub**.
+
+### ⚙️ By Default:
+
+GitHub provides a **hosted runner** (usually Ubuntu) where your code is:
+
+* Checked out
+* Built
+* Tested
+* Packaged (e.g. into a Docker/Podman image)
+
+These **hosted runners** are clean environments that exist *only during your workflow run*. After the job finishes, **everything is deleted**.
+
+---
+
+### 👇 For our Case
+
+In your workflow:
+
+```yaml
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+```
+
+That means GitHub spins up a **fresh Ubuntu VM** in the cloud, then:
+
+* Clones your repo
+* Installs Podman
+* Builds your Go app
+* Creates a Podman image
+* Saves the image to a file
+* Copies it to **your remote Debian server**
+
+The actual building (compiling Go, building the container image) happens **on GitHub’s infrastructure**. Your server only **receives the image** and runs it.
+
+---
+
+### 🤔 Why This Model?
+
+* ✅ Keeps your server clean
+* ✅ Offloads CPU-heavy build steps to GitHub
+* ❌ Slower if you have large artifacts or images to transfer
+
+---
+
+### 🛠️ Can You Build on Your Own Server?
+
+Yes — using **self-hosted runners**. Instead of using `runs-on: ubuntu-latest`, you could register your **Debian 12.10 server as a GitHub runner**, and builds would happen **on your own machine**.
+
+This is ideal if:
+
+* You want to use your own environment (e.g., already has Podman, Go, etc.)
+* You’re pushing large artifacts and want to skip uploading/downloading
+
+---
+
