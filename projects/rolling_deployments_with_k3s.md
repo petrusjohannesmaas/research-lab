@@ -1,54 +1,85 @@
-# **Rolling Deployments with Kubernetes (K3s)**
-### **Objective**
-Set up a **rolling deployment** in **K3s** where an API continuously updates its version while ensuring zero downtime. This guide includes:
-- Setting up a **K3s Cluster**
-- Deploying an **API container**
-- Implementing **Blue-Green Deployments**
-- Automating updates via **GitHub Actions**
-- Using a **private container registry within K3s**
+# Rolling Deployments with Kubernetes
+### Objective
+This project was inspired by a video from [Anton Putra](https://www.youtube.com/watch?v=lxc4EXZOOvE) where he showcases different deployment strategies in Kubernetes. I want to learn how a **rolling deployment** works.
 
-## **Prerequisites**
-✅ Two VMs running K3s  
-✅ GitHub repository for automation  
-✅ SSH access to the K3s node  
-✅ Basic knowledge of Docker and Kubernetes  
-✅ Helm (optional) for advanced deployment management  
+**References:**
+* Official Minikube documentation: [click here](https://minikube.sigs.k8s.io/docs/)
+* CNCF Distribution Registry: [click here](https://distribution.github.io/distribution/)
+* Anton Putra's Github repository for the video: [click here](https://github.com/antonputra/tutorials/tree/main/lessons/171)
 
----
+**The steps will include:**
 
-## **Step 1: Install K3s on Your Nodes**
-On **each VM**, install K3s (single-node setup for simplicity):
+- Setting up a `minikube` development cluster
+- Hosting a **local container registry**
+- Building, tagging and storing 2 versions of a **Golang API**
+- Deploying an **API** (v1) on Kubernetes
+- Monitoring and applying a Rolling Deployment (v2)
+
+**Future improvements:**
+
+* TODO: Configure the registry to be password protected + TLS. Reference: [FreeCodeCamp](https://www.freecodecamp.org/news/how-to-self-host-a-container-registry/)
+* TODO: Add a Github Actions CI/CD workflow to work with the v1 and v2 of the **API**
+* TODO: Add load balancing instead of node ports for the deployment
+
+## Stage 1: Setting up a `minikube` development cluster
+
+I am running a Debian system and I got many errors when trying to use `podman` as my driver in rootless mode. I used the default `apt` repository when I installed Podman, which is a bit outdated, and will cause possible issues with your `minikube start` command. I didn't want to install Docker with root privileges, so I used Homebrew to install and manage the needed dependencies.
+
+Make sure you have `git` installed, then run the Homebrew installation script and follow the rest of the installation instructions:
+
 ```sh
-curl -sfL https://get.k3s.io | sh -
+git --version
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
-Confirm installation:
+
+Make sure Homebrew is ready to go:
+
+```sh
+brew update
+brew doctor
+```
+
+Now let's check all `minikube` package dependencies:
+
+```
+brew info minikube
+```
+
+You can install everything by running this command:
+
+```sh
+brew install go go-bindata minikube
+```
+
+Start your cluster. By default, it's going to run with the VirtualBox driver:
+
+```sh
+minikube start
+```
+
+The `minikube` package automatically install the `kubernetes-cli` (kubectl) package. Confirm the cluster is running:
+
 ```sh
 kubectl get nodes
 ```
 
-For multi-node clusters:
+## **Stage 2: Hosting a Local Container Registry**
+
+Create a namespace for organizational purposes:
+
 ```sh
-curl -sfL https://get.k3s.io | K3S_URL=https://<MASTER_NODE_IP>:6443 K3S_TOKEN=<TOKEN> sh -
+kubectl create namespace local-registry
+kubectl get namespace
 ```
 
----
+Create a deployment for the registry by creating a file called `registry.yaml`:
 
-## **Step 2: Create a Private Container Registry in K3s**
-To **store container images locally**, deploy a **registry** inside K3s.
-
-### **Deploy Registry in a New Namespace**
 ```yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: registry
-
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: registry
-  namespace: registry
+  namespace: local-registry
 spec:
   replicas: 1
   selector:
@@ -64,43 +95,247 @@ spec:
           image: registry:2
           ports:
             - containerPort: 5000
-```
-
-### **Expose the Registry as a Service**
-```yaml
+---
 apiVersion: v1
 kind: Service
 metadata:
   name: registry-service
-  namespace: registry
+  namespace: local-registry
 spec:
+  type: NodePort
   selector:
-    app: registry
+    app: registry  # Correct structure for selector
   ports:
     - protocol: TCP
       port: 5000
       targetPort: 5000
+      nodePort: 30500
 ```
 
-### **Push an Image to Your Registry**
+### **Making the Registry Accessible**
+In order to push to the cluster from our development environment, we have to **set up an ingress**, which is a bit outside the scope of this tutorial. Instead, I've implemented a simple **NodePort** for testing purposes in the `Service` section of the deployment.
+
+Deploy the local container registry by running this command:
+
 ```sh
-docker tag api-container localhost:5000/api:v1
-docker push localhost:5000/api:v1
+kubectl apply -f registry.yaml
 ```
 
----
+Let's see everything running in the namespace:
 
-## **Step 3: Deploy API with Rolling Updates**
-Now deploy a **simple API** returning its version via Kubernetes.
+```sh
+kubectl get all -n local-registry
+```
+
+### **Extending with PVC for Persistence**
+To extend your **registry deployment** with a **Persistent Volume Claim (PVC)** for data persistence, follow these steps:
+
+#### **1️⃣ Define a Persistent Volume Claim (`registry-pvc.yaml`)**
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: registry-pvc
+  namespace: local-registry
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+```
+
+#### **2️⃣ Modify the Deployment to Mount the PVC**
+
+Extend your **`registry.yaml`**:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry
+  namespace: local-registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: registry
+  template:
+    metadata:
+      labels:
+        app: registry
+    spec:
+      containers:
+        - name: registry
+          image: registry:2
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - name: registry-storage
+              mountPath: /var/lib/registry
+      volumes:
+        - name: registry-storage
+          persistentVolumeClaim:
+            claimName: registry-pvc
+```
+
+#### **3️⃣ Apply the Configuration**
+
+```sh
+kubectl apply -f registry-pvc.yaml
+kubectl apply -f registry.yaml
+```
+
+This ensures that the **registry's stored images persist** across restarts instead of being wiped when the pod is deleted.
+
+## **Stage 3: Create, build and store 2 versions of an API**
+
+I used my **ECR-API-Templates** repository for a basic Go HTTP server. Clone the repository:
+
+```sh
+git clone https://github.com/petrusjohannesmaas/ECR-API-Templates
+cd ECR-API-Templates/go
+```
+
+In the **/api** folder update the `server.go` file:
+
+```go
+package main
+
+import (
+    "encoding/json"
+    "net/http"
+)
+
+type Response struct {
+    Response string `json:"response"`
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    res := Response{Response: "🎉 Version 1 is running"}
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(res)
+}
+
+func main() {
+    http.HandleFunc("/", handler)
+    http.ListenAndServe(":8080", nil)
+}
+```
+
+Build the image using the `Containerfile` in the `/go` template folder:
+
+```sh
+podman build -t test-go-api -f Containerfile .
+```
+
+If you try to push to the registry, **Podman is expecting HTTPS**, but the **local registry is running over HTTP**. You have two options to resolve this.
+
+#### **Option 1: Allow Insecure Registry in Podman**
+
+I needed the following dependency on top of my Debian installation to make Podman push to an insecure registry:
+
+```sh
+sudo apt install uidmap
+```
+
+Also, if you're running Podman in rootless mode like me, instead of modifying the system-wide `/etc/containers/registries.conf`, create a per-user configuration:
+
+```sh
+mkdir -p $HOME/.config/containers
+vi $HOME/.config/containers/registries.conf
+```
+
+Add this to the file:
+
+```sh
+[[registry]]
+location="<NODE_IP>:30500"
+insecure=true
+```
+
+#### **Option 2: Use HTTPS with Self-Signed Certificates**
+
+If you'd rather **secure the registry**, you can:
+1. Generate a self-signed certificate.
+2. Configure `registry.yaml` to use it.
+3. Push over HTTPS.
+
+Now, we can go back to building the images.
+#### **1️⃣ Tag and push (V1) to the registry**
+
+```sh
+podman tag test-go-api <NODE_IP>:30500/test-go-api:v1
+podman push <NODE_IP>:30500/test-go-api:v1
+```
+
+Verify it exists in the registry:
+
+```sh
+curl -X GET http://<NODE_IP>:30500/v2/_catalog
+```
+
+⛳ **Pro tip:** If you want to keep the `ECR-API-Templates` clean, just roll back the changes in your Git source code management tool after pushing the image.
+
+#### **2️⃣ Modify `server.go` for (V2)**
+
+```go
+func handler(w http.ResponseWriter, r *http.Request) {
+    res := Response{Response: "🚀 Version 2 is running"}
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(res)
+}
+```
+
+Rebuild the image:
+
+```sh
+podman build -t test-go-api -f Containerfile .
+```
+
+Tag + push the updated image:
+
+```sh
+podman tag test-go-api <NODE_IP>:30500/test-go-api:v2
+podman push <NODE_IP>:30500/test-go-api:v2
+```
+
+Verify both versions exist:
+
+```sh
+curl -X GET http://<NODE_IP>:30500/v2/test-go-api/tags/list
+```
+
+Now, you're ready to implement rolling updates in Kubernetes using **V1 → V2**  
+
+## **Stage 4: Deploy API on Kubernetes**
+
+Now we can finally deploy **V1** of our API on our Kubernetes cluster.
 
 ### **Kubernetes Deployment for API**
+
+Create a namespace for the deployment:
+
+```sh
+kubectl create namespace testing
+kubectl get namespace
+```
+
+Create a file called `api-deployment.yaml`:
+
+⚠️ **Notes:** 
+* We specify **"localhost"** instead of the node IP because the registry is running on this cluster.
+* Usually you would use a **LoadBalancer** service object, but we'll just use a simple **NodePort** again for testing purposes.
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api
+  namespace: testing
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: api
@@ -111,87 +346,125 @@ spec:
     spec:
       containers:
         - name: api-container
-          image: localhost:5000/api:v1
+          image: localhost:30500/test-go-api:v1
           ports:
             - containerPort: 8080
-```
-
-### **Service to Expose API**
-```yaml
+---
 apiVersion: v1
 kind: Service
 metadata:
   name: api-service
+  namespace: testing
 spec:
+  type: NodePort
   selector:
     app: api
   ports:
     - protocol: TCP
       port: 8080
       targetPort: 8080
-  type: LoadBalancer
+      nodePort: 30080
 ```
 
-Apply configurations:
+**Apply the Deployment**
+
 ```sh
 kubectl apply -f api-deployment.yml
-kubectl apply -f api-service.yml
 ```
 
----
+Verify that the pods and services are running:
 
-## **Step 4: Automate Rolling Deployments Using GitHub Actions**
-### **Set Up SSH Access in GitHub Secrets**
-Store:
-- `SSH_HOST` → Your K3s Node IP  
-- `SSH_USER` → Username  
-- `SSH_PRIVATE_KEY` → SSH Key  
+```sh
+kubectl get all -n testing
+```
 
-### **GitHub Action Workflow**
+Check the API response using:
+
+```sh
+curl http://<NODE-IP>:30080
+```
+
+This should return:
+```sh
+{"response":"🎉 Version 1 is running"}
+```
+
+If you want to delete everything in the namespace:
+
+```sh
+kubectl delete all --all -n testing
+```
+
+## **Stage 5: **Monitoring  + Applying a Rolling Deployment **
+
+Create a file called `rolling-update.yaml`:
+
 ```yaml
-name: Deploy Rolling Update
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Build and Push Image
-        run: |
-          docker build -t localhost:5000/api:v${{ github.run_number }} .
-          docker push localhost:5000/api:v${{ github.run_number }}
-
-      - name: SSH into K3s node and deploy update
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            kubectl set image deployment/api api-container=localhost:5000/api:v${{ github.run_number }}
-```
-
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: testing
+spec:
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+        - name: api-container
+          image: localhost:30500/test-go-api:v2
+          ports:
+            - containerPort: 8080
 ---
-
-## **Step 5: Monitor Rolling Updates**
-Check status of rolling update:
-```sh
-kubectl rollout status deployment/api
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-service
+  namespace: testing
+spec:
+  type: NodePort
+  selector:
+    app: api
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30080
 ```
 
-Roll back if needed:
+### 
+
+Open a second terminal and run:
+
 ```sh
-kubectl rollout undo deployment/api
+watch -n 0.5 kubectl get all -n testing
 ```
 
-Verify pod versions:
+This will refresh the namespace status every 0.5 seconds.
+
+**Apply the rolling update:**
+
 ```sh
-kubectl get pods -o wide
+kubectl apply -f rolling-update.yaml
 ```
+
+Check the API response using:
+
+```sh
+curl http://<NODE-IP>:30080
+```
+
+This should return:
+
+```sh
+{"response":"🚀 Version 2 is running"}
+```
+
+🥳 **Congrats, your API has been successfully updated with 0 downtime!**
