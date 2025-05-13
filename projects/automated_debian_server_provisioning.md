@@ -3,11 +3,18 @@
 ### Overview
 I came across an article by [Henning](https://nerdyarticles.com/author/henning/) on how he configures and hardens his Debian server. In this project, I'll use his article as **inspiration** and set up Ansible to automate some of these processes, but add some of my own like installing a container runtime and a resource monitoring tool, logging and brute force detection.
 
-**Reference article:** https://nerdyarticles.com/debian-server-essentials-setup-configure-and-hardening-your-system/
+**Reference article**: https://nerdyarticles.com/debian-server-essentials-setup-configure-and-hardening-your-system/
 
 I'll be using my development machine as the "control node" where Ansible runs and configure a virtual machine (VM) with Debian installed as the "managed node".
 
-### 1. Virtual machine provisioning
+**Future improvements**:
+* TODO: Handle privileges better from the installation process
+* TODO: Implement Monit into the playbook
+* TODO: Implement fail2ban into the playbook
+
+---
+
+### Virtual machine setup
 
 * OS: [Debian 12.10.0](https://www.debian.org/distrib/)
 * CPU: 1 core
@@ -29,7 +36,7 @@ This would be a good time to clone your VM for future use. I am using **VirtualB
 VBoxManage clonehd /path/to/your.vdi /path/to/cloned.vdi --format VDI
 ```
 
-### 1. User accounts & privileges
+#### User accounts & privileges
 
  The managed node also needs a user account that can connect through SSH to the node with an interactive POSIX shell.
 
@@ -47,27 +54,28 @@ usermod -aG sudo your_user
 ```
 
 ⚠️ Reboot after making these changes.
-#### 2. Networking
 
-You might want to automate this process with Ansible later, but I am going to configure a **static IP address** on your Debian server by modifying the network settings. 
+#### Networking
 
-Get your interface name by running:
+I might automate this process with Ansible in the future, but I am going to configure a **static IP address** on the Debian server (VM) by modifying the network settings manually for now. 
+
+Get the interface name by running:
 ```bash
 ip a 
 ```
 
-Open the network settings:
+Open network settings:
 ```bash
-sudo nano /etc/network/interfaces
+sudo vi /etc/network/interfaces
 ```
 
-For a **static IP setup**, replace your primary interface body with this:
+For a **static IP setup**, replace the primary interface block with this:
 ```ini
 auto enp0s3
 iface enp0s3 inet static
-    address 192.168.0.104
+    address <YOUR-IP>
     netmask 255.255.255.0
-    gateway 192.168.0.1
+    gateway <YOUR-GATEWAY>
     dns-nameservers 8.8.8.8 8.8.4.4
 ```
 - Replace `enp0s3` with your actual interface name.
@@ -94,19 +102,21 @@ Try pinging a public IP:
 ping 8.8.8.8 -c 4
 ```
 
-If everything works, your server now has a **persistent static IP**.
-### 2. Configure SSH
+If everything works, the server now has a **persistent static IP**.
 
-You will get a missing **sudo password** issue when trying to run playbooks. That happens because Ansible **doesn't know how to escalate privileges** when using `become: true`. You need to explicitly tell it **how to use sudo** in your playbook or command.
+#### Configure SSH
+
+With my initial testing, I got a **sudo password** issue when trying to run playbooks. That happens because Ansible **doesn't know how to escalate privileges** when using `become: true`. You need to explicitly tell it **how to use sudo** in your playbook or command.
 
 ```bash
 ansible-playbook your-playbook.yml --ask-become-pass
 ```
 
-This will prompt you for the sudo password before executing privileged tasks.
-#### **Best Practice: Use SSH Keys + Passwordless Sudo**
+This will prompt you for the sudo password before executing privileged tasks, but there is a better way to do this.
 
-**Grant `your-user` passwordless sudo privileges** by modifying:
+👾 **Best Practice:** Use SSH Keys + Passwordless Sudo
+
+Grant `your-user` passwordless sudo privileges by modifying:
 
 ```bash
 sudo visudo
@@ -117,19 +127,21 @@ Add this line at the bottom:
 your_user ALL=(ALL) NOPASSWD: ALL
 ```
 
-Generate an SSH key on your host system if you haven't yet:
+I'll generate an SSH key on my host system:
 
 ```bash
 ssh-keygen -t ed25519 -C "your_email@example.com"
 ```
 
-Add your SSH key to the server by running this command:
+Add the SSH key to the server by running this command:
 
 ```bash
 ssh-copy-id -i ~/.ssh/id_ed25519.pub your_vm_user@192.168.56.101
 ```
 
-### 3. Installing Ansible
+---
+
+### Installing Ansible
 
 For the control node (the machine that runs Ansible), you can use nearly any UNIX-like machine with Python installed. This includes Red Hat, Debian, Ubuntu, macOS, BSDs, and Windows under a Windows Subsystem for Linux (WSL) distribution.
 
@@ -137,9 +149,9 @@ For the control node (the machine that runs Ansible), you can use nearly any UNI
 
 On some systems, it may not be possible to install Ansible with pip, due to decisions made by the operating system developers. In such cases, pipx is a widely available alternative.
 
-`pip` is a general-purpose package installer for both libraries and apps with no environment isolation. `pipx` is made specifically for application installation, as it adds isolation yet still makes the apps available in your shell: `pipx` creates an isolated environment for each application and its associated packages.
+`pip` is a general-purpose package installer for both libraries and apps with no environment isolation. `pipx` is made specifically for application installation, as it adds isolation yet still makes the apps available in your shell. `pipx` creates an isolated environment for each application and its associated packages.
 
-Before installing Ansible, make sure you have `pipx` and other required dependencies:
+Before installing Ansible, I'm going to have to install `pipx` and other required dependencies:
 
 ```bash
 sudo apt update && sudo apt upgrade -y
@@ -160,7 +172,7 @@ To install additional `python` dependencies that may be needed, with the example
 pipx inject ansible argcomplete
 ```
 
-Include the --include-apps option to make apps in the additional python dependency available on your PATH. This allows you to execute commands for those apps from the shell.
+Include the `--include-apps` option to make apps in the additional python dependency available on your **PATH**. This allows you to execute commands for those apps from the shell.
 
 ```bash
 pipx inject --include-apps ansible argcomplete
@@ -187,9 +199,7 @@ ansible 2.x.x
   ansible python module location = /home/your_user/.local/lib/python3.x/site-packages/ansible
 ```
 
----
-
-### 4. Set up Ansible Configuration
+#### Configure Ansible
 
 Ansible requires a few configurations, particularly an **inventory file** that tells Ansible where the hosts (your virtual machines) are located.
 
@@ -213,7 +223,7 @@ Replace `your_vm_user` with the username you’ll be using to connect to the ser
 192.168.56.101 ansible_user=your_vm_user ansible_ssh_private_key_file=/path/to/your/private_key
 ```
 
-It’s a good practice to create a default Ansible configuration file (`ansible.cfg`) to define settings that control how Ansible behaves. This is optional but helpful for your setup:
+It’s a good practice to create a default Ansible configuration file (`ansible.cfg`) to define settings that control how Ansible behaves. This is optional but helpful for my setup:
 
 ```bash
 touch ansible.cfg
@@ -226,11 +236,7 @@ Edit `ansible.cfg`:
 inventory = ./hosts.ini
 ```
 
----
-
-### 5. Test Connectivity with Your VM
-
-You should now be able to test connectivity to your VM from your control node.
+🤞 **You should now be able to test connectivity to your VM from your control node.**
 
 Run this command to check if Ansible can connect to your VM.:
 
@@ -249,11 +255,9 @@ pong
 
 If not, check the SSH configuration or any firewall settings.
 
----
+#### Create and Run Your First Playbook
 
-### 4. Create and Run Your First Playbook
-
-Now that Ansible is installed and your VM is set up as a managed node, let's create a simple playbook to **update the system**, and **install Podman**.
+Now that Ansible is installed and my VM is set up as a managed node, let's create a simple playbook to **update the system**, and **install Podman**.
 
 Create a new file called `setup.yml`:
 
@@ -264,7 +268,6 @@ touch setup.yml
 Edit it with your text editor:
 
 ```yaml
----
 - name: Update and Install Packages on Debian VM
   hosts: debian_vms
   become: true
@@ -314,6 +317,13 @@ Edit it with your text editor:
 
 This will make sure Podman searches **Docker Hub** when pulling unqualified images.
 
+**Note:** If you are running the Podman in rootless mode, you might have to add the registry in a different location:
+
+```sh
+mkdir -p $HOME/.config/containers
+vi $HOME/.config/containers/registries.conf
+```
+
 #### ⛳ Run the playbook
 
 Now, run the playbook with the following command:
@@ -330,11 +340,7 @@ After the playbook finishes, you can verify that `podman` is installed:
 podman --version
 ```
 
-### Implementing a more complex automation setup:
-
-TODO: Make your user a super user in the installation steps
-TODO: Implement Monit into the playbook
-TODO: Implement fail2ban
+🥳 **Congrats, you have automated your first tasks with Ansible! Check back here in the future for a more complex configuration.**
 
 ## Troubleshooting
 
