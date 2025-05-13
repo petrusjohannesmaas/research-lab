@@ -395,7 +395,7 @@ If you want to delete everything in the namespace:
 kubectl delete all --all -n testing
 ```
 
-## **Stage 5: **Monitoring  + Applying a Rolling Deployment **
+## **Stage 5: Monitoring  + Applying a Rolling Deployment**
 
 Create a file called `rolling-update.yaml`:
 
@@ -468,3 +468,26 @@ This should return:
 ```
 
 🥳 **Congrats, your API has been successfully updated with 0 downtime!**
+
+---
+
+### ☣️ Housekeeping
+
+**Be careful if you are using Podman or `minikube` for other projects!**
+
+To get rid of the cluster:
+
+```sh
+minikube delete
+```
+
+If you no longer need this registry configuration, simply delete the file:
+```sh
+rm -f $HOME/.config/containers/registries.conf
+```
+
+I like to completely purge my Podman after testing:
+```
+podman system reset
+```
+
