@@ -1,0 +1,73 @@
+name: Blue-Green Deployment
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Podman
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install podman
+
+      - name: Build and push image
+        run: |
+          export IMAGE_TAG=app:$(date +%s)
+          podman build -t $IMAGE_TAG .
+          podman save $IMAGE_TAG -o image.tar
+
+      - name: Copy image to remote server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: "image.tar"
+          target: "~/"
+
+      - name: Deploy on remote server
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            set -e
+            podman load -i image.tar
+            IMAGE=$(podman load -i image.tar | awk '{print $NF}')
+            
+            # Determine which container is running
+            ACTIVE=$(podman ps --format "{{.Names}}" | grep app-blue || true)
+            if [ -n "$ACTIVE" ]; then
+              TARGET=green
+            else
+              TARGET=blue
+            fi
+
+            # Stop old target
+            podman rm -f app-$TARGET || true
+
+            # Run new version
+            podman run -d --name app-$TARGET -p 8081:8080 $IMAGE
+
+            # Simple health check
+            sleep 5
+            curl -f http://localhost:8081 || (echo "Health check failed" && podman rm -f app-$TARGET && exit 1)
+
+            # Swap traffic (assuming nginx or Caddy switches proxy to 8081)
+            ln -sf /etc/nginx/sites-available/app-$TARGET.conf /etc/nginx/sites-enabled/default
+            systemctl reload nginx
+
+            # Remove old container
+            if [ "$TARGET" = "green" ]; then
+              podman rm -f app-blue
+            else
+              podman rm -f app-green
+            fi

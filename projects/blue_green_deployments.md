@@ -53,10 +53,10 @@ func main() {
 
 ---
 
-## 🐳 Step 2: Dockerfile for Podman
+## 🐳 Step 2: Container for Podman
 
 ```Dockerfile
-FROM golang:1.21 as builder
+FROM golang:1.24.3 as builder
 
 WORKDIR /app
 COPY app/ .
@@ -175,6 +175,17 @@ Set the following in your repo under **Settings > Secrets**:
 ---
 
 ## 📡 Step 6: Reverse Proxy Configuration (Nginx)
+
+Install and enable `nginx`:
+```sh
+sudo apt update && sudo apt install -y nginx
+```
+
+Start and enable `nginx`:
+```sh
+sudo systemctl start nginx
+sudo systemctl enable nginx
+```
 
 On your server, set up two configs:
 
