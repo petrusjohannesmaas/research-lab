@@ -57,10 +57,25 @@ Start your cluster. By default, it's going to run with the VirtualBox driver:
 minikube start
 ```
 
-The `minikube` package automatically install the `kubernetes-cli` (kubectl) package. Confirm the cluster is running:
+Minikube includes its own kubectl CLI, but using it requires longer commands since kubectl becomes a **subcommand** of minikube. While setting up an alias is an option, the recommended approach is to install kubectl separately for easier use. 
+
+```sh
+brew install kubernetes-cli
+```
+
+Confirm the cluster is running:
 
 ```sh
 kubectl get nodes
+```
+
+A typical helpful post-installation configuration is to enable shell autocompletion for kubectl. For bash shell it can be achieved by running the following sequence of commands: 
+
+```sh
+sudo apt update && sudo apt install -y bash-completion
+source /usr/share/bash-completion/bash_completion
+source <(kubectl completion bash)
+echo 'source <(kubectl completion bash)' >> ~/.bashrc
 ```
 
 ## **Stage 2: Hosting a Local Container Registry**
