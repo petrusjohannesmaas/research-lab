@@ -1,4 +1,4 @@
-Sounds like a fantastic project, Petrus! Let’s structure it step by step so you have a **single repository** that includes both services:
+# JWT Authentication Service
 
 ### **Project Overview**
 Your project will have:
