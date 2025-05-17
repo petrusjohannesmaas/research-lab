@@ -1,3 +1,7 @@
+# Automated Certificate Renewal
+
+This project extends my [Air-Gapped Container Image Registry](https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/airgapped_container_image_registry.md) project, where I had to create certificates manually.
+
 To automatically renew **self-signed certificates**, you'd need to handle it yourself since there's no external CA like Let's Encrypt to do it for you. Here's how you can integrate **automatic renewal and restart** of services with a simple, practical approach:
 
 ---
