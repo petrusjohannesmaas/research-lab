@@ -1,100 +1,122 @@
-# **VBoxManage CLI Provisioning**
+### **VirtualBox CLI Provisioning (Debian 12.10, Unattended Install)**
 
-Using VirtualBox’s CLI (`VBoxManage`) gives you fine-grained control over VM deployment. Here’s a structured approach to provision an Ubuntu Server with a bridged network adapter and preconfigured SSH access.
+Using VirtualBox’s CLI (`VBoxManage`) enables automated provisioning of **Debian 12.10** with a **bridged network adapter**, **preconfigured SSH access**, and **unattended installation**.
+
+---
 
 ## **1. Create the Virtual Machine**
 Run this command to define a new VM:
 
 ```bash
-VBoxManage createvm --name "UbuntuServer" --ostype Ubuntu_64 --register
+VBoxManage createvm --name "DebianServer" --ostype Debian_64 --register
 ```
+
+---
 
 ## **2. Configure VM Settings**
-Set up the memory and CPU:
+Set up the memory, CPU, and network:
 
 ```bash
-VBoxManage modifyvm "UbuntuServer" --memory 2048 --cpus 2
-```
-
-Enable the bridged adapter:
-
-```bash
-VBoxManage modifyvm "UbuntuServer" --nic1 bridged --bridgeadapter1 enp3s0
+VBoxManage modifyvm "DebianServer" --memory 2048 --cpus 2
+VBoxManage modifyvm "DebianServer" --nic1 bridged --bridgeadapter1 enp3s0
 ```
 *(Replace `enp3s0` with your actual network interface name.)*
+
+---
 
 ## **3. Define Storage**
 Create and attach a virtual disk:
 
 ```bash
-VBoxManage createmedium disk --filename UbuntuServer.vdi --size 20000 --format VDI
-VBoxManage storagectl "UbuntuServer" --name "SATA Controller" --add sata
-VBoxManage storageattach "UbuntuServer" --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium UbuntuServer.vdi
+VBoxManage createmedium disk --filename DebianServer.vdi --size 20000 --format VDI
+VBoxManage storagectl "DebianServer" --name "SATA Controller" --add sata
+VBoxManage storageattach "DebianServer" --storagectl "SATA Controller" --port 0 --device 0 --type hdd --medium DebianServer.vdi
 ```
+
+---
 
 ## **4. Attach Installation ISO**
-Download Ubuntu Server ISO and link it:
+Download **Debian 12.10** and link it:
 
 ```bash
-VBoxManage storageattach "UbuntuServer" --storagectl "SATA Controller" --port 1 --device 0 --type dvddrive --medium /path/to/ubuntu.iso
+VBoxManage storageattach "DebianServer" --storagectl "SATA Controller" --port 1 --device 0 --type dvddrive --medium ~/Downloads/debian-12.10.0-amd64-DVD-1.iso
 ```
 
-## **5. Preconfigure User Credentials & SSH**
-To ensure SSH access without opening a GUI, use **Cloud-Init**.
+---
 
-You can generate a Cloud-Init ISO using the `cloud-localds` command, which is part of the `cloud-init` package. Here’s how you can do it:
+## **5. Automate OS Installation (Unattended)**
+VirtualBox allows **unattended Debian installations** using its built-in automation. Execute:
 
-**Install `cloud-init` Tools**:
-If you don’t already have Cloud-Init installed, install `cloud-init` and `genisoimage` (for ISO creation):
+```bash
+VBoxManage unattended install "DebianServer" \
+    --iso=Downloads/debian-12.10.0-amd64-DVD-1.iso \
+    --user=pjmaas \
+    --password="secret" \
+    --hostname=debian-server.local \
+    --install-additions \
+    --locale=en_US \
+    --time-zone=UTC
+```
 
+**✅ What This Does:**
+
+* Fully automates the Debian installation
+* Creates user `pjmaas` with preconfigured password
+* Sets locale, timezone, and hostname automatically
+
+---
+
+## **6. Configure SSH Access via Cloud-Init**
+Debian supports cloud-init, so once the OS is installed, follow these steps.
+
+### **Install Cloud-Init Tools**
 ```bash
 sudo apt update
-sudo apt install cloud-init genisoimage -y
+sudo apt install cloud-init cloud-image-utils -y
 ```
 
-### **Create a Cloud-Init User Data File**
-Create a file named `user-data`:
-
+### **Create Cloud-Init User Data File**
 ```yaml
 #cloud-config
-hostname: ubuntu-server
+hostname: debian-server
 users:
   - name: myuser
-    lock_passwd: false
-    passwd: $6$rounds=4096$salt$hashedpassword
     ssh_authorized_keys:
-      - ssh-rsa AAAA...your_public_key_here...
+      - ssh-ed25519 AAAAB3NzaC1yc2EAAAADAQABAAABAQ...your_public_key_here...
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: sudo
 ```
 
 ### **Generate the Cloud-Init ISO**
-Run this command to create an ISO file:
-
 ```bash
 cloud-localds cloud-init.iso user-data
 ```
 
-### Attach the ISO to Your Virtual Machine**
-Use the `VBoxManage` command to attach the ISO:
+---
+
+## **7. Attach Cloud-Init ISO**
+Mount the generated Cloud-Init ISO:
 
 ```bash
-VBoxManage storageattach "UbuntuServer" --storagectl "SATA Controller" --port 1 --device 0 --type dvddrive --medium cloud-init.iso
+VBoxManage storageattach "DebianServer" --storagectl "SATA Controller" --port 2 --device 0 --type dvddrive --medium cloud-init.iso
 ```
 
-### **5. Boot the VM with Cloud-Init Applied**
-Start your VM in headless mode:
-
+Start the VM to apply configurations:
 ```bash
-VBoxManage startvm "UbuntuServer" --type headless
+VBoxManage startvm "DebianServer" --type headless
 ```
 
-## **7. Connect via SSH**
+---
+
+## **8. Boot the VM & Connect via SSH**
 Find the VM’s IP address:
 
 ```bash
-VBoxManage guestproperty get "UbuntuServer" "/VirtualBox/GuestInfo/Net/0/V4/IP"
+VBoxManage guestproperty get "DebianServer" "/VirtualBox/GuestInfo/Net/0/V4/IP"
 ```
 
-Then SSH into the VM from your host machine:
+Then SSH into the VM:
 
 ```bash
 ssh myuser@VM_IP
@@ -102,4 +124,19 @@ ssh myuser@VM_IP
 
 ---
 
-This setup ensures that SSH access is available as soon as the VM boots without needing GUI interaction.
+## **9. (Optional) Harden SSH Security**
+Disable password authentication for added security:
+
+```bash
+sudo sed -i 's/^PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+sudo systemctl restart ssh
+```
+
+---
+
+### **Final Steps**
+✅ **Fully automated Debian install (no manual steps!)**  
+✅ **Cloud-init applies user configurations**  
+✅ **SSH access is enabled**  
+
+This should give you a **completely unattended installation** without needing a GUI or manual intervention. Let me know if you’d like refinements! 🚀
