@@ -11,6 +11,20 @@
             overflow-x: auto;
             max-width: 100%;
         }
+
+        .outlined {
+            border: 1px solid gray;
+            margin-right: 5px;
+            border-style: dashed;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        a.glow {
+            color: green;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.055), 0 0 10px rgba(0, 255, 0, 0.055), 0 0 15px rgba(0, 255, 0, 0.055);
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -18,18 +32,32 @@
 
     <section class="section">
         <div class="container">
-            <div class="level">
+            <div class="row mb-5">
                 <h2 class="title">Projects</h2>
-                <div class="has-text-right mb-3">
-                    <h3>
-                        <span class="mr-3"><i class="fa-solid fa-book"></i> Researching</span>
-                        <span class="mr-3"><i class="fa-solid fa-helmet-safety"></i> Building</span>
-                        <span class="mr-3"><i class="fa-solid fa-hand-sparkles"></i> Cleaning up</span>
-                        <span class="mr-3"><i class="fa-solid fa-check"></i> Completed</span>
-                        <span class="mr-3"><i class="fa-solid fa-bug"></i> Debugging</span>
-
-                    </h3>
-                </div>
+                <p>
+                    <strong class="outlined">TAGS: </strong><i class="fa-solid fa-book"></i> Researching, <i
+                        class="fa-solid fa-helmet-safety"></i> Building, <i class="fa-solid fa-hand-sparkles"></i>
+                    Cleaning up, <i class="fa-solid fa-check"></i>
+                    Completed, and <i class="fa-solid fa-bug"></i> Debugging.
+                </p>
+                <br>
+                <p>
+                    These stages represent different
+                    phases of progress within my source code management, from gathering information and constructing
+                    solutions to refining work,
+                    completing tasks, and troubleshooting issues—ensuring efficient and well-structured
+                    outcomes.
+                </p>
+                <br>
+                <p>Most of my research is around Kubernetes, Linux, and DevOps,
+                    leveraging programming languages with self-developed templates and SOP's. With expertise in
+                    containerization, web development and virtualization, I enjoy sandboxing and deploying all
+                    sorts of
+                    quirky projects. This includes everything from basic
+                    Linux utilities and shell scripts, automated infrastructure provisioning, building OpenSUSE K3s
+                    clusters,
+                    configuring servers, networking and much more.
+                </p>
             </div>
 
 
@@ -45,37 +73,33 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <td>Containerization</td>
-                        <td><a href="https://github.com/petrusjohannesmaas/roadmap.sh/tree/main/basic-dockerfile"><i
-                                    class="fa-solid fa-check"></i> Basic Dockerfile</a></td>
-                        <td><a href="https://github.com/petrusjohannesmaas/dev-database-deployer"><i
-                                    class="fa-solid fa-check"></i> Development Database Deploy-er</a></td>
-                        <td><a href="https://github.com/petrusjohannesmaas/ECR-API-Templates"><i
-                                    class="fa-solid fa-hand-sparkles"></i> API Containerfile Templates for ECR</a></td>
-                        <td><a
-                                href="https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/airgapped_container_image_registry.md"><i
-                                    class="fa-solid fa-helmet-safety"></i> Air-Gapped Container Image Registry
-                                (HTTPS + Self-Signed TLS)</a> </td>
+                        <tr>
+                            <td>Containerization</td>
+                            <td><a href="https://github.com/petrusjohannesmaas/roadmap.sh/tree/main/basic-dockerfile"><i
+                                        class="fa-solid fa-check"></i> Basic Dockerfile</a></td>
+                            <td><a href="https://github.com/petrusjohannesmaas/dev-database-deployer"><i
+                                        class="fa-solid fa-check"></i> Development Database Deploy-er</a></td>
+                            <td><a href="https://github.com/petrusjohannesmaas/ECR-API-Templates"><i
+                                        class="fa-solid fa-hand-sparkles"></i> API Containerfile Templates for ECR</a>
+                            </td>
+                            <td><a
+                                    href="https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/airgapped_container_image_registry.md"><i
+                                        class="fa-solid fa-helmet-safety"></i> Air-Gapped Container Image Registry
+                                    (HTTPS + Self-Signed TLS)</a> </td>
                         </tr>
                         <tr>
                             <td>Shell (Bash)</td>
-                            <td><a href="https://github.com/petrusjohannesmaas/server-stats"><i
-                                        class="fa-solid fa-check"></i> Server Performance Stats</a></td>
+                            <td><a
+                                    href="https://github.com/petrusjohannesmaas/roadmap.sh/tree/main/dummy-systemd-service"><i
+                                        class="fa-solid fa-check"></i> Dummy Systemd Service</a></td>
                             <td><a href="https://github.com/petrusjohannesmaas/server-stats/"><i
                                         class="fa-solid fa-check"></i> Web Server Utilities</a></td>
-                            <td><i class="fa-solid fa-spinner"></i> User Management Tool</td>
+                            <td><a href="https://github.com/petrusjohannesmaas/user-mgmt-tool"><i
+                                        class="fa-solid fa-check"></i> Linux User Management Tool</a></td>
                             <td><a
                                     href="https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/automated_certificate_renewal_strategies.md"><i
                                         class="fa-solid fa-book"></i> Automated Certificate Renewal
                                     Strategies</a></td>
-                        </tr>
-                        <tr>
-                        <tr>
-                            <td>Web Development</td>
-                            <td><i class="fa-solid fa-spinner"></i> Basic HTML Website</td>
-                            <td><i class="fa-solid fa-spinner"></i> Client Side (Front-end)</td>
-                            <td><i class="fa-solid fa-spinner"></i> Server Side (Back-end)</td>
-                            <td><i class="fa-solid fa-spinner"></i> Full Stack Application Deployment</td>
                         </tr>
                         <tr>
                             <td>JavaScript</td>
@@ -119,6 +143,13 @@
                                     href="https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/rate_limiter_service.md"><i
                                         class="fa-solid fa-book"></i> Rate Limiter Service</a></td>
                             <td><i class="fa-solid fa-spinner"></i> Microservices With Protocol Buffers & gRPC</td>
+                        </tr>
+                        <tr>
+                            <td>Web Development</td>
+                            <td><i class="fa-solid fa-spinner"></i> Basic HTML Website</td>
+                            <td><i class="fa-solid fa-spinner"></i> Client Side (Front-end)</td>
+                            <td><i class="fa-solid fa-spinner"></i> Server Side (Back-end)</td>
+                            <td><i class="fa-solid fa-spinner"></i> Full Stack Application Deployment</td>
                         </tr>
                         <tr>
                             <td>Virtualization</td>
@@ -187,13 +218,32 @@
     </section>
     <script src="https://kit.fontawesome.com/d7695b1c46.js" crossorigin="anonymous"></script>
     <script>
+        // Styling and tags for all unstarted projects
         document.querySelectorAll("td").forEach(td => {
             if (td.querySelector(".fa-solid.fa-spinner")) {
                 td.style.opacity = "0.25";
             }
         });
+        document.querySelectorAll("td").forEach(td => {
+            if (td.querySelector(".fa-solid.fa-check")) {
+                td.querySelectorAll("a").forEach(a => {
+                    a.classList.add("glow"); // Adds the 'glow' class to anchors
+                });
+            }
+        });
 
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let links = document.querySelectorAll("a");
+            links.forEach(link => {
+                link.setAttribute("target", "_blank");
+                link.setAttribute("rel", "noopener noreferrer"); // Security best practice
+            });
+        });
     </script>
+    <script>
+    </script>
+
 
 </body>
 
