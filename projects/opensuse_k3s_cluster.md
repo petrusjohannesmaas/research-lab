@@ -1,6 +1,6 @@
-# openSUSE K3S Cluster
+# K3S Cluster on openSUSE MicroOS
 
-K3s is a CNCF sandbox project that delivers a lightweight certified Kubernetes distribution created by Rancher Labs. K3s is highly available and production-ready. It has a very small binary size and very low resource requirements. In simple terms: it is Kubernetes without the bloat.
+K3s is a CNCF sandbox project that delivers a lightweight certified Kubernetes distribution created by Rancher Labs / openSUSE. K3s is highly available and production-ready. It has a very small binary size and very low resource requirements. In simple terms: it is Kubernetes without the bloat.
 
 Source: [openSUSE documentation](https://en.opensuse.org/SDB:K3s_cluster_deployment_on_MicroOS)
 
@@ -170,7 +170,5 @@ This concludes the initial testing phase. All that's left to do is to deploy con
 
 ### Image repository
 
-TODO: Reference https://github.com/openSUSE/container-registry-systemd?tab=readme-ov-file
-
-
+Have a look at my [Air Gapped Container Registry Image Registry](https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/airgapped_container_image_registry.md) project to set up a self hosted image registry for your container builds.
 
