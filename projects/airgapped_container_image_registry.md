@@ -41,13 +41,13 @@ Perfect for home labs, enterprise backends, or any **isolated environment**, thi
 #### Ubuntu/Debian:
 
 ```bash
-sudo apt update && sudo apt install podman -y
+sudo apt update && sudo apt install podman podman-compose -y
 ```
 
 #### Fedora:
 
 ```bash
-sudo dnf install podman -y
+sudo dnf install podman podman-compose -y
 ```
 
 Enable Podman socket (optional for tooling):
@@ -130,6 +130,14 @@ services:
 
 ### **4️⃣ Configure Caddy**
 
+🔐 Generate a password using a temporary Caddy container:
+
+```bash
+podman --log-level=debug run --rm -it caddy:latest caddy hash-password --plaintext 'your-password'
+```
+
+**Note:** By using `--log-driver=none`, you avoid Podman trying to use `journald` logging, which sometimes causes issues in rootless mode.
+
 #### 📄 `caddy/Caddyfile`
 
 ```caddy
@@ -137,31 +145,69 @@ registry.local {
     reverse_proxy registry:5000
 
     basicauth {
-        admin JDJhJDE0JEVNSjNOUzl4eG9LMENFUkZVLmM5ZW1wRGNGZXhuUWRnaDE0Rk5kVWZpcTZDR09hZmht
+        admin <generated-hashed-password>
     }
 
     tls /certs/registry-cert.pem /certs/registry-key.pem
 }
 ```
 
-> 🔐 Replace the password hash with your own via:
->
-> ```bash
-> caddy hash-password --plaintext 'yourpassword'
-> ```
-
 ---
 
 ### **5️⃣ Launch the Registry Stack**
 
-Run:
+We're going to have a journald permission issue when running Podman in rootless mode. Instead of disabling logging entirely, we can redirect logs to a **file location** rather than relying on journald. This will allow you to **capture logs without modifying Podman’s global settings**.
 
+### **🔹 Solution: Redirect Logs to a File in Compose**
+Instead of using `--log-driver=none`, specify **file-based logging** inside your `docker-compose.yml`.
+
+#### **📄 `docker-compose.yml` (With File Logging)**
+```yaml
+services:
+  registry:
+    image: registry:2
+    container_name: registry
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./certs/registry-cert.pem:/certs/domain.crt:Z
+      - ./certs/registry-key.pem:/certs/domain.key:Z
+      - ./logs:/var/log
+    environment:
+      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/domain.crt
+      REGISTRY_HTTP_TLS_KEY: /certs/domain.key
+    command: "/bin/sh -c 'registry serve /etc/docker/registry/config.yml >> /var/log/registry.log 2>&1'"
+
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:Z
+      - ./certs:/certs:Z
+      - ./logs:/var/log
+    command: "/bin/sh -c 'caddy run --config /etc/caddy/Caddyfile >> /var/log/caddy.log 2>&1'"
+```
+
+---
+
+### **🔹 What This Does**
+✅ **Logs are stored in `./logs/` inside your container** instead of going to journald.  
+✅ **Registry logs are saved to `/var/log/registry.log`.**  
+✅ **Caddy logs are saved to `/var/log/caddy.log`.**  
+✅ **Errors & standard output are redirected** with `>> /var/log/*.log 2>&1`.
+✅ **Unprivileged ports** 8080 and 8443 are being used
+
+
+**Run the updated compose stack:**
 ```bash
-cd ~/private-registry
 podman-compose up -d
 ```
 
-> ✅ Works in **rootless** mode for added safety and isolation.
+✅ Now, logs will be available in **your `./logs/` folder** instead of system journald!
+✅ Works in **rootless** mode while testing and developing
 
 ---
 
