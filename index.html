@@ -6,30 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>/research-lab</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-    <style>
-        .table-container {
-            overflow-x: auto;
-            max-width: 100%;
-        }
-
-        .outlined {
-            border: 1px solid gray;
-            margin-right: 5px;
-            border-style: dashed;
-            border-radius: 5px;
-            padding: 5px;
-        }
-
-        a.glow {
-            color: green;
-            text-shadow: 0 0 5px rgba(0, 255, 0, 0.025), 0 0 10px rgba(0, 255, 0, 0.025), 0 0 15px rgba(0, 255, 0, 0.025);
-            text-decoration: underline;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
+    <link rel="stylesheet" href="static/style.css">
 </head>
 
 <body>
@@ -83,12 +60,12 @@
         <div class="hero-body has-background-link">
             <div class="container">
                 <div class="columns">
-                    <div class="column is-one-third">
+                    <div class="column">
                         <!-- Bio Card -->
                         <div class="card bio-card">
                             <div class="card-image">
                                 <figure class="image">
-                                    <img src="static/carbon.svg" alt="Placeholder image" />
+                                    <img src="static/carbon.svg" alt="Greeter image" />
                                 </figure>
                             </div>
                             <div class="card-content">
@@ -105,20 +82,41 @@
                                             South Africa</p>
                                     </div>
                                 </div>
-                                <footer class="">
-                                    <div class="level">
-                                        <blockquote id="commit-message"></blockquote>
-                                    </div>
-                                    <div class="level">
-                                        <i class="fa-solid fa-comment"></i>
-                                        <time id="commit-time" datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-                                    </div>
-                                </footer>
+                                <div class="git-metrics">
+
+                                </div>
+                            </div>
+                            <footer class="card-footer">
+                                <i class="card-footer-item"> Source: GitHub API powered by <i
+                                        class="fa-brands fa-js ml-3"></i></i>
+                                </p>
+                            </footer>
+                        </div>
+                        <div class="box">
+                            <div class="recent-activity">
 
                             </div>
+
                         </div>
                     </div>
                     <div class="column">
+                        <div class="box has-text-centered">
+                            <h1 class="title is-4">Pomodoro Timer</h1>
+                            <hr>
+                            <p id="session-type" class="subtitle">Work Session</p>
+                            <p id="timer" class="has-text-weight-bold is-family-monospace title is-2">25:00</p>
+                            <div class="row">
+                                <button id="start" class="button is-primary is-outlined"><i
+                                        class="fa-solid fa-play"></i></button>
+                                <button id="stop" class="button is-warning is-outlined"><i
+                                        class="fa-solid fa-pause"></i></button>
+                                <button id="reset" class="button is-danger is-danger"><i
+                                        class="fa-solid fa-rotate-right"></i></button>
+                            </div>
+                            <div class="row mt-2">
+                                <span id="session-indicator"></span>
+                            </div>
+                        </div>
                         <div class="card progress-card">
                             <header class="card-header">
                                 <p class="card-header-title">Progress</p>
@@ -137,7 +135,7 @@
 
                                 <div class="block">
                                     <label>System Administration</label>
-                                    <progress class="progress" value="4" max="12">
+                                    <progress class="progress" value="5" max="12">
                                     </progress>
                                 </div>
 
@@ -149,13 +147,13 @@
 
                                 <div class="block">
                                     <label>Software Development</label>
-                                    <progress class="progress" value="2" max="16">
+                                    <progress class="progress" value="3" max="16">
                                     </progress>
                                 </div>
 
                                 <div class="block">
                                     <label>DevOps</label>
-                                    <progress class="progress" value="0" max="8">
+                                    <progress class="progress" value="1" max="8">
                                     </progress>
                                 </div>
 
@@ -178,6 +176,7 @@
             </div>
         </div>
     </section>
+
 
     <!-- Projects -->
     <section id="projects-section" class="section">
@@ -233,16 +232,17 @@
                             <td><a href="https://github.com/petrusjohannesmaas/dev-database-deployer"><i
                                         class="fa-solid fa-check"></i> Development Database Deploy-er</a></td>
                             <td><a href="https://github.com/petrusjohannesmaas/ECR-API-Templates"><i
-                                        class="fa-solid fa-soap"></i> API Containerfile Templates for ECR</a>
+                                        class="fa-solid fa-soap"></i> Dockerfile API Templates</a>
                             </td>
-                            <td><a
-                                    href="https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/multi_stage_container_build_pipeline.md"><i
-                                        class="fa-solid fa-book"></i> Multi-stage Container Builds
+                            <td><a href=""><i class="fa-solid fa-spinner"></i> Multi Container Application
                                 </a></td>
                         </tr>
                         <tr>
                             <td>Kubernetes</td>
-                            <td><i class="fa-solid fa-spinner"></i> Multi-Service Application</td>
+                            <td> <a
+                                    href="href=https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/blue_green_deployments.md"><i
+                                        class="fa-solid fa-helmet-safety"></i> Blue-Green Deployment</a>
+                            </td>
                             <td><a
                                     href="https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/rolling_deployments_with_k3s.md"><i
                                         class="fa-solid fa-check"></i> Rolling Deployments</td>
@@ -256,7 +256,7 @@
                             <td>Virtualization</td>
                             <td><a
                                     href="https://github.com/petrusjohannesmaas/roadmap.sh/tree/main/ssh-remote-server-setup"><i
-                                        class="fa-solid fa-soap"></i> SSH Remote Server Setup (with Fail2Ban)</a></td>
+                                        class="fa-solid fa-check"></i> SSH Remote Server Setup (with Fail2Ban)</a></td>
                             <td><a
                                     href="https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/vagrant_boxes_kubernetes_development.md"><i
                                         class="fa-solid fa-book"></i> Vagrant Boxes Kubernetes
@@ -303,15 +303,16 @@
                         </tr>
                         <tr>
                             <td>Python</td>
-                            <td><i class="fa-solid fa-spinner"></i> URL Shortening Service</td>
+                            <td><a href="https://github.com/petrusjohannesmaas/roadmap.sh/tree/main/url-shortener"><i
+                                        class="fa-solid fa-check"></i> URL Shortener Service</a></td>
+                            <td><a
+                                    href="https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/reverse_proxy_local_development.md">
+                                    <i class="fa-solid fa-book"></i> HTTPs Local Development</a></td>
                             <td><a href="https://github.com/petrusjohannesmaas/employee_mgmt_sys"><i
                                         class="fa-solid fa-soap"></i> Employee Management System</a></td>
                             <td><a href="https://github.com/petrusjohannesmaas/intrusion-detection-system"><i
                                         class="fa-solid fa-book"></i> Intrusion Detection System (IDS)</a>
                             </td>
-                            <td><a
-                                    href="https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/python_server_nginx_proxy.md">
-                                    <i class="fa-solid fa-book"></i> HTTPs Proxy for Python Server</a></td>
                         </tr>
                         <tr>
                             <td>Cybersecurity</td>
@@ -328,11 +329,14 @@
                                     href="https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/automated_api_testing_framework.md"><i
                                         class="fa-solid fa-book"></i> Automated API Testing Framework</a></td>
                             <td><i class="fa-solid fa-spinner"></i> Gitlab CI/CD Pipeline</td>
-                            <td><i class="fa-solid fa-spinner"></i> Service Discovery</td>
+                            <td> <a
+                                    href="https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/multi_stage_container_build_pipeline.md"><i
+                                        class="fa-solid fa-spinner"></i> Multi Stage Container Build Pipeline</a></td>
                         </tr>
                         <tr>
                             <td>Monitoring & Logging</td>
-                            <td><i class="fa-solid fa-spinner"></i> Netdata Dashboard</td>
+                            <td><a href="https://github.com/petrusjohannesmaas/roadmap.sh/tree/main/simple-monitoring"><i
+                                        class="fa-solid fa-check"></i> Netdata Monitoring Dashboard</a></td>
                             <td><i class="fa-solid fa-spinner"></i> Container Metrics Logger (with Archiving)</td>
                             <td><a
                                     href="https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/elk_stack_deployment.md"><i
@@ -349,7 +353,8 @@
                         </tr>
                         <tr>
                             <td>Web Development</td>
-                            <td><i class="fa-solid fa-spinner"></i> Basic HTML Website</td>
+                            <td><a href="https://github.com/petrusjohannesmaas/roadmap.sh/tree/main/basic-html-website"><i
+                                        class="fa-solid fa-spinner"></i> Basic HTML Website</a></td>
                             <td><i class="fa-solid fa-spinner"></i> Client Side (Front-end)</td>
                             <td><i class="fa-solid fa-spinner"></i> Server Side (Back-end)</td>
                             <td><i class="fa-solid fa-spinner"></i> Full Stack Application Deployment</td>
@@ -463,28 +468,80 @@
         </div>
     </div>
 
+    <!-- Loading overlay with spinner -->
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <p>Loading, please wait...</p>
+    </div>
+
+
+
     <script src="https://kit.fontawesome.com/d7695b1c46.js" crossorigin="anonymous"></script>
-    <script>
-        // GIthub Api Fetch
-        fetch("https://api.github.com/repos/petrusjohannesmaas/research-lab/commits")
-            .then(response => response.json())
+    <script src="static/pomodoro.js"></script>
+    <script src="static/script.js">
+        fetch("https://api.github.com/users/petrusjohannesmaas/repos")
+            .then(res => res.json())
+            .then(repos => {
+                const mostUsedLanguage = getMostUsedLanguage(repos);
+                const totalIssues = getTotalIssues(repos);
+
+                const langDiv = document.createElement("div");
+                langDiv.innerHTML = `
+            <p><strong>Most Used Language:</strong> ${mostUsedLanguage}</p>
+            <p><strong>Total Open Issues:</strong> ${totalIssues}</p>
+        `;
+                document.querySelector(".git-metrics").appendChild(langDiv);
+            });
+
+        function getMostUsedLanguage(repos) {
+            const langCount = {};
+            repos.forEach(repo => {
+                const lang = repo.language;
+                if (lang) langCount[lang] = (langCount[lang] || 0) + 1;
+            });
+            return Object.entries(langCount).sort((a, b) => b[1] - a[1])[0]?.[0] || "N/A";
+        }
+
+        function getTotalIssues(repos) {
+            return repos.reduce((total, repo) => total + repo.open_issues_count, 0);
+        }
+        // Fetch general user activity
+        fetch("https://api.github.com/users/petrusjohannesmaas")
+            .then(res => res.json())
             .then(data => {
-                if (data.length > 0) {
-                    const latestCommit = data[0];
-                    const commitMessage = latestCommit.commit.message;
-                    const commitDate = new Date(latestCommit.commit.author.date);
+                const info = document.createElement("div");
+                info.innerHTML = `
+            <p><strong>Total Public Repositories:</strong> ${data.public_repos}</p>
+        `;
+                document.querySelector(".card-content").appendChild(info);
+            });
 
-                    // Update commit message
-                    document.querySelector("#commit-message").textContent = commitMessage;
+        // Fetch recent public events (last pushes, PRs, commits)
+        fetch("https://api.github.com/users/petrusjohannesmaas/events")
+            .then(res => res.json())
+            .then(events => {
+                const recentPushes = events
+                    .filter(event => event.type === "PushEvent")
+                    .slice(0, 3); // Last 3 push events
 
-                    // Update commit date
-                    const timeElement = document.querySelector("#commit-time");
-                    timeElement.textContent = commitDate.toLocaleString();
-                    timeElement.setAttribute("datetime", commitDate.toISOString());
-                }
-            })
-            .catch(error => console.error("Error fetching commit data:", error));
+                const pushDiv = document.createElement("div");
+                pushDiv.innerHTML = `<h4 class="title is-5">Recent Activity</h4><hr>`;
 
+                recentPushes.forEach(push => {
+                    const repoName = push.repo.name;
+                    const commitMessage = push.payload.commits[0]?.message;
+                    const time = new Date(push.created_at).toLocaleString();
+
+                    pushDiv.innerHTML += `
+                <p><strong>${repoName}</strong></p>
+                <p>📝 ${commitMessage}</p>
+                <p>⏱️ ${time}</p>
+                <hr>
+            `;
+                });
+
+                document.querySelector(".recent-activity").appendChild(pushDiv);
+            });
 
         // // Scroll to project section
         document.addEventListener("DOMContentLoaded", () => {
@@ -615,6 +672,12 @@
                 }
             });
         });
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(() => {
+                document.getElementById("loading-overlay").style.display = "none";
+            }, 2000);
+        });
+
     </script>
 </body>
 

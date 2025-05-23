@@ -1,5 +1,108 @@
 # Blue-Green Deployments with GitHub Actions
 
+### 📝 Note: This is a work in progress
+
+**Blue-Green deployment** 
+
+Doing this in Kubernetes without GitHub Actions can be done using **Services and Deployments**. Here’s a straightforward approach:
+
+### **1. Deploy the Blue Version**
+Start by deploying your stable version (`blue`) of the application:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-blue
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+      version: blue
+  template:
+    metadata:
+      labels:
+        app: myapp
+        version: blue
+    spec:
+      containers:
+      - name: myapp
+        image: myapp:1.0.0
+        ports:
+        - containerPort: 8080
+```
+
+### **2. Create a Service for Blue**
+This service routes traffic to the **blue** deployment:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  selector:
+    app: myapp
+    version: blue
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+```
+
+### **3. Deploy the Green Version**
+Now, deploy the **green** version (`new release`) but don’t route traffic to it yet:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-green
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+      version: green
+  template:
+    metadata:
+      labels:
+        app: myapp
+        version: green
+    spec:
+      containers:
+      - name: myapp
+        image: myapp:2.0.0
+        ports:
+        - containerPort: 8080
+```
+
+### **4. Switch Traffic to Green**
+Once the **green** version is tested and ready, update the **Service** to point to `version: green`:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  selector:
+    app: myapp
+    version: green
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+```
+
+### **5. Rollback if Needed**
+If something goes wrong, simply update the **Service** back to `version: blue`.
+
+This method keeps things simple—no need for GitHub Actions or complex automation! You can also use **Ingress** for more advanced traffic routing.
+
+
+
 ## ✅ **Overview**
 
 * **App**: Go app returning JSON with version name (v1 or v2).
