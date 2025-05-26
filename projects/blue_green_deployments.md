@@ -1,100 +1,212 @@
-# Blue-Green Deployments with GitHub Actions
+# Blue-Green Deployments
 
-### 📝 Note: This is a work in progress
+### Overview
 
-**Blue-Green deployment** 
+Blue green deployment is an application release model that gradually transfers user traffic from a previous version of an app or microservice to a nearly identical new release—both of which are running in production. 
 
-Doing this in Kubernetes without GitHub Actions can be done using **Services and Deployments**. Here’s a straightforward approach:
+The old version can be called the blue environment while the new version can be known as the green environment. Once production traffic is fully transferred from blue to green, blue can standby in case of rollback or pulled from production and updated to become the template upon which the next update is made.
 
-### **1. Deploy the Blue Version**
-Start by deploying your stable version (`blue`) of the application:
+You can do this in multiple ways. We'll look at a simple approach using native Kubernetes resources, then we'll look at a more advanced approach using GitHub Actions.
+
+#### ✅ Prerequisites
+
+* A Kubernetes cluster (e.g., Kind, Minikube, or managed)
+* `kubectl` installed
+* Docker installed locally and on your GitHub Actions runner (built-in)
+* Docker Hub account or another container registry
+
+
+## Native Kubernetes Resources
+First, we'll achieve a Blue-Green deployment using native Kubernetes resources namely **Deployments** and **Services**.
+
+### 🏗 Images for deployment
+
+We'll need 2 images to deploy: one for the **blue** version and one for the **green** version.
+
+```Dockerfile
+FROM alpine:latest
+
+RUN apk add --no-cache nmap-ncat && \
+    echo -e '#!/bin/sh\necho -e "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\"version\": 1}" | ncat -l -p 8000 --keep-open' > /server.sh && \
+    chmod +x /server.sh
+
+CMD ["/server.sh"]
+```
+
+Build your image with a version tag (e.g., `v1.0`):
+   ```sh
+   docker build -t myapp:v1.0 .
+   ```
+
+### **Pushing to Docker Hub**
+To simulate production workflows, we'll push to an image registry.
+
+1. **Log in to Docker Hub**:
+   ```sh
+   docker login
+   ```
+2. **Tag your image for Docker Hub**:
+   ```sh
+   docker tag myapp:v1.0 YOUR_DOCKER_USERNAME/myapp:v1.0
+   ```
+3. **Push it**:
+   ```sh
+   docker push YOUR_DOCKER_USERNAME/myapp:v1.0
+   ```
+
+🔁 To make the second image, update the **Dockerfile** to say `{"version": 2}` instead of `{"version": 1}` and repeat the process.
+
+
+
+## **🛫 Implementing the deployment**
+
+Start by creating a folder for your deployment in your project directory:
+```bash
+mkdir blue-green-deploy
+```
+
+### **1. Create the Blue Version**
+Add a deployment for your "stable" version (`blue`) of the application.
+
+`blue-deployment.yaml`:
 
 ```yaml
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp-blue
+  name: blue-myapp
+  namespace: default
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: myapp
-      version: blue
+      replica: blue
   template:
     metadata:
       labels:
         app: myapp
-        version: blue
+        replica: blue
     spec:
       containers:
-      - name: myapp
-        image: myapp:1.0.0
-        ports:
-        - containerPort: 8080
+        - name: myapp
+          image: YOUR_DOCKER_USERNAME/myapp:v1.0
+          ports:
+            - name: http
+              containerPort: 8000
+          startupProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 20
+            periodSeconds: 5
 ```
 
 ### **2. Create a Service for Blue**
-This service routes traffic to the **blue** deployment:
+Add a service to route traffic to the **blue** deployment. *(We're going to update this later)*
+
+`service.yaml`:
 
 ```yaml
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: myapp-service
+  name: myapp
+  namespace: default
 spec:
   selector:
     app: myapp
-    version: blue
+    replica: blue
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 8080
+    - protocol: TCP
+      port: 8000
+      targetPort: http
 ```
 
-### **3. Deploy the Green Version**
-Now, deploy the **green** version (`new release`) but don’t route traffic to it yet:
+### **3. Create the Green Version**
+Add the **green** version (`new release`) to the folder.
+
+`green-deployment.yaml`:
 
 ```yaml
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp-green
+  name: green-myapp
+  namespace: default
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: myapp
-      version: green
+      replica: green
   template:
     metadata:
       labels:
         app: myapp
-        version: green
+        replica: green
     spec:
       containers:
-      - name: myapp
-        image: myapp:2.0.0
-        ports:
-        - containerPort: 8080
+        - name: myapp
+          image: YOUR_DOCKER_USERNAME/myapp:v2.0
+          ports:
+            - name: http
+              containerPort: 8000
+          startupProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 20
+            periodSeconds: 5
 ```
 
+Deploy everything to the cluster:
+```bash
+kubectl apply -f blue-green-deploy/
+```
+
+
+
+You can test this in a second terminal by running a `curl` command:
+
+```bash
+kubectl run curl --image=alpine/curl:8.2.1 -n kube-system -i --tty --rm -- sh
+```
+
+Kubernetes has a built-in CoreDNS service for resolving pod and service names inside the cluster. Run this loop in the pod:
+
+```bash
+for i in `seq 1 1000`; do curl myapp.default:8000/; echo ""; sleep 1; done
+```
+
+You should see only `{"version": "v1"}` in the output.
+
 ### **4. Switch Traffic to Green**
-Once the **green** version is tested and ready, update the **Service** to point to `version: green`:
+Once the **green** version is tested and ready, update the **Service** to point to `replica: green`:
 
 ```yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: myapp-service
+  name: myapp
+  namespace: default
 spec:
   selector:
     app: myapp
-    version: green
+    replica: blue
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 8080
+    - protocol: TCP
+      port: 8000
+      targetPort: http
 ```
+
+Deploy the change:
+```bash
+kubectl apply -f service.yaml
+```
+
+You should see the version change from `v1` to `v2`.
 
 ### **5. Rollback if Needed**
 If something goes wrong, simply update the **Service** back to `version: blue`.
@@ -103,15 +215,15 @@ This method keeps things simple—no need for GitHub Actions or complex automati
 
 
 
-## ✅ **Overview**
+---
 
-* **App**: Go app returning JSON with version name (v1 or v2).
-* **Environment**: Podman (instead of Docker), running on a Debian 12.10 server.
-* **CI/CD**: GitHub Actions deploys new versions using Blue-Green deployment strategy.
+## 🐙 GitHub Actions Blue-Green Workflow
+
+Now let’s automate deployment using GitHub Actions and Docker.
 
 ---
 
-## 🗂️ **Directory Structure**
+### 🗂️ Directory Structure
 
 ```bash
 blue-green-deploy/
@@ -121,12 +233,16 @@ blue-green-deploy/
 ├── app/
 │   └── main.go
 ├── Dockerfile
+├── manifests/
+│   ├── blue-deployment.yaml
+│   ├── green-deployment.yaml
+│   └── service.yaml
 └── README.md
 ```
 
 ---
 
-## 🧱 Step 1: Simple Go App (v1)
+### 🧱 Step 1: Simple Go App
 
 Create `app/main.go`:
 
@@ -143,7 +259,7 @@ type Version struct {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-    v := Version{Version: "v1"}
+    v := Version{Version: "v2"}
     w.Header().Set("Content-Type", "application/json")
     json.NewEncoder(w).Encode(v)
 }
@@ -156,255 +272,128 @@ func main() {
 
 ---
 
-## 🐳 Step 2: Container for Podman
+### 🐳 Step 2: Dockerfile
 
 ```Dockerfile
-FROM golang:1.24.3 as builder
+FROM golang:1.21 as builder
 
 WORKDIR /app
 COPY app/ .
-
 RUN go build -o server main.go
 
-FROM debian:12-slim
-
+FROM alpine:latest
 COPY --from=builder /app/server /usr/local/bin/server
 
 EXPOSE 8080
-
 CMD ["server"]
 ```
 
 ---
 
-## 🔄 Step 3: Blue-Green Strategy
-
-We'll deploy to two containers: `app-blue` and `app-green`. Only one is "live" via a reverse proxy (e.g., Caddy or Nginx). On deployment, the new version is deployed to the inactive container, tested, and traffic is switched.
-
-> We'll script this with `podman` commands via GitHub Actions.
-
----
-
-## 🐙 Step 4: GitHub Actions Workflow
-
-Create `.github/workflows/deploy.yml`:
+## 🐙 Step 3: GitHub Actions Workflow (`.github/workflows/deploy.yml`)
 
 ```yaml
 name: Blue-Green Deployment
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
+    env:
+      IMAGE_NAME: yourdockerhubusername/myapp
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Set up Podman
-        run: |
-          sudo apt-get update
-          sudo apt-get -y install podman
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
 
-      - name: Build and push image
-        run: |
-          export IMAGE_TAG=app:$(date +%s)
-          podman build -t $IMAGE_TAG .
-          podman save $IMAGE_TAG -o image.tar
-
-      - name: Copy image to remote server
-        uses: appleboy/scp-action@v0.1.4
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
         with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          source: "image.tar"
-          target: "~/"
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Deploy on remote server
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          script: |
-            set -e
-            podman load -i image.tar
-            IMAGE=$(podman load -i image.tar | awk '{print $NF}')
-            
-            # Determine which container is running
-            ACTIVE=$(podman ps --format "{{.Names}}" | grep app-blue || true)
-            if [ -n "$ACTIVE" ]; then
-              TARGET=green
-            else
-              TARGET=blue
-            fi
+      - name: Build and push Docker image
+        run: |
+          VERSION=$(date +%s)
+          docker build -t $IMAGE_NAME:$VERSION .
+          docker push $IMAGE_NAME:$VERSION
+          echo "IMAGE_TAG=$IMAGE_NAME:$VERSION" >> $GITHUB_ENV
 
-            # Stop old target
-            podman rm -f app-$TARGET || true
+      - name: Set up Kubeconfig
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
 
-            # Run new version
-            podman run -d --name app-$TARGET -p 8081:8080 $IMAGE
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl set image deployment/green-myapp myapp=${{ env.IMAGE_TAG }} || \
+          kubectl apply -f manifests/green-deployment.yaml
 
-            # Simple health check
-            sleep 5
-            curl -f http://localhost:8081 || (echo "Health check failed" && podman rm -f app-$TARGET && exit 1)
+      - name: Run Health Check
+        run: |
+          sleep 10
+          STATUS=$(kubectl get pods -l replica=green -o jsonpath="{.items[*].status.containerStatuses[*].ready}")
+          if [[ "$STATUS" != "true" ]]; then
+            echo "Green deployment failed health check"
+            exit 1
+          fi
 
-            # Swap traffic (assuming nginx or Caddy switches proxy to 8081)
-            ln -sf /etc/nginx/sites-available/app-$TARGET.conf /etc/nginx/sites-enabled/default
-            systemctl reload nginx
-
-            # Remove old container
-            if [ "$TARGET" = "green" ]; then
-              podman rm -f app-blue
-            else
-              podman rm -f app-green
-            fi
+      - name: Switch Service to Green
+        run: |
+          sed -i 's/replica: blue/replica: green/' manifests/service.yaml
+          kubectl apply -f manifests/service.yaml
 ```
 
 ---
 
-## 🔐 Step 5: GitHub Secrets
+### 🔐 GitHub Secrets to Add
 
-Set the following in your repo under **Settings > Secrets**:
+Add these under **Settings → Secrets and variables → Actions**:
 
-* `SERVER_IP`
-* `SERVER_USER`
-* `SERVER_SSH_KEY` (private key with access to the server)
+| Name                 | Description                                                |
+| -------------------- | ---------------------------------------------------------- |
+| `DOCKERHUB_USERNAME` | Your Docker Hub username                                   |
+| `DOCKERHUB_TOKEN`    | Docker Hub access token                                    |
+| `KUBECONFIG`         | Base64-encoded kubeconfig file (or raw config as a secret) |
 
 ---
 
-## 📡 Step 6: Reverse Proxy Configuration (Nginx)
+## 🔁 Optional Rollback
 
-Install and enable `nginx`:
-```sh
-sudo apt update && sudo apt install -y nginx
-```
-
-Start and enable `nginx`:
-```sh
-sudo systemctl start nginx
-sudo systemctl enable nginx
-```
-
-On your server, set up two configs:
-
-### `/etc/nginx/sites-available/app-blue.conf`
-
-```nginx
-server {
-    listen 80;
-    location / {
-        proxy_pass http://localhost:8080;
-    }
-}
-```
-
-### `/etc/nginx/sites-available/app-green.conf`
-
-```nginx
-server {
-    listen 80;
-    location / {
-        proxy_pass http://localhost:8081;
-    }
-}
-```
-
-Link the active one to `/etc/nginx/sites-enabled/default`.
+To roll back traffic to Blue:
 
 ```bash
-sudo ln -sf /etc/nginx/sites-available/app-blue.conf /etc/nginx/sites-enabled/default
-sudo systemctl reload nginx
+sed -i 's/replica: green/replica: blue/' manifests/service.yaml
+kubectl apply -f manifests/service.yaml
 ```
 
 ---
 
-## 🚀 Deployment Flow
+## 📦 What This Workflow Does
 
-1. You push code to GitHub.
-2. GitHub Actions builds the Podman image.
-3. Image is SCP’d to your Debian server.
-4. Remote script:
-
-   * Deploys new version to inactive container.
-   * Health-checks the new version.
-   * Switches Nginx config.
-   * Removes the old version.
+1. Builds a Docker image of your Go app.
+2. Tags it with the current timestamp.
+3. Pushes it to Docker Hub.
+4. Updates the Kubernetes **green deployment** to the new image.
+5. Runs a basic health check on the pod.
+6. If successful, it switches the service to point to `replica: green`.
 
 ---
 
-## ✅ Verify
+## ✅ Summary
 
-After pushing, visit your server IP. You should see JSON like:
-
-```json
-{ "version": "v1" }
-```
-
-Change to v2 later and repeat the flow.
-
----
-
-## 🧰 Where Does GitHub Actions Build Your Project?
-
-When a GitHub Actions workflow runs, **all steps happen inside a temporary virtual machine (VM)** **provisioned by GitHub**.
-
-### ⚙️ By Default:
-
-GitHub provides a **hosted runner** (usually Ubuntu) where your code is:
-
-* Checked out
-* Built
-* Tested
-* Packaged (e.g. into a Docker/Podman image)
-
-These **hosted runners** are clean environments that exist *only during your workflow run*. After the job finishes, **everything is deleted**.
-
----
-
-### 👇 For our Case
-
-In your workflow:
-
-```yaml
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-```
-
-That means GitHub spins up a **fresh Ubuntu VM** in the cloud, then:
-
-* Clones your repo
-* Installs Podman
-* Builds your Go app
-* Creates a Podman image
-* Saves the image to a file
-* Copies it to **your remote Debian server**
-
-The actual building (compiling Go, building the container image) happens **on GitHub’s infrastructure**. Your server only **receives the image** and runs it.
-
----
-
-### 🤔 Why This Model?
-
-* ✅ Keeps your server clean
-* ✅ Offloads CPU-heavy build steps to GitHub
-* ❌ Slower if you have large artifacts or images to transfer
-
----
-
-### 🛠️ Can You Build on Your Own Server?
-
-Yes — using **self-hosted runners**. Instead of using `runs-on: ubuntu-latest`, you could register your **Debian 12.10 server as a GitHub runner**, and builds would happen **on your own machine**.
-
-This is ideal if:
-
-* You want to use your own environment (e.g., already has Podman, Go, etc.)
-* You’re pushing large artifacts and want to skip uploading/downloading
-
----
+| Area      | Tech Used                          |
+| --------- | ---------------------------------- |
+| Language  | Go (HTTP server returning version) |
+| Container | Docker                             |
+| Infra     | Kubernetes (Deployments + Service) |
+| CI/CD     | GitHub Actions                     |
+| Registry  | Docker Hub                         |
 
