@@ -129,13 +129,13 @@
                             <div class="card-content">
                                 <div class="block">
                                     <label>Containers & Orchestration</label>
-                                    <progress class="progress" value="5" max="8"></progress>
+                                    <progress class="progress" value="6" max="8"></progress>
                                 </div>
 
 
                                 <div class="block">
                                     <label>System Administration</label>
-                                    <progress class="progress" value="5" max="12">
+                                    <progress class="progress" value="6" max="12">
                                     </progress>
                                 </div>
 
@@ -147,7 +147,7 @@
 
                                 <div class="block">
                                     <label>Software Development</label>
-                                    <progress class="progress" value="3" max="16">
+                                    <progress class="progress" value="4" max="16">
                                     </progress>
                                 </div>
 
@@ -231,10 +231,10 @@
                                         class="fa-solid fa-check"></i> Basic Dockerfile</a></td>
                             <td><a href="https://github.com/petrusjohannesmaas/dev-database-deployer"><i
                                         class="fa-solid fa-check"></i> Development Database Deploy-er</a></td>
-                            <td><a href="https://github.com/petrusjohannesmaas/ECR-API-Templates"><i
-                                        class="fa-solid fa-soap"></i> Dockerfile API Templates</a>
+                            <td><a href="https://github.com/petrusjohannesmaas/api-containerfile-templates"><i
+                                        class="fa-solid fa-check"></i> API Containerfile Templates</a>
                             </td>
-                            <td><a href=""><i class="fa-solid fa-spinner"></i> Multi Container Application
+                            <td><a href="./projects/docker_swarm_deployment.md"><i class="fa-solid fa-helmet-safety"></i> Docker Swarm Deployment
                                 </a></td>
                         </tr>
                         <tr>
@@ -273,6 +273,17 @@
                             <td><i class="fa-solid fa-spinner"></i> Prometheus + Grafana</td>
                         </tr>
                         <tr>
+                            <td>JavaScript</td>
+                            <td><a href="https://github.com/petrusjohannesmaas/roadmap.sh/tree/main/broadcast-server"><i
+                                        class="fa-solid fa-check"></i> Broadcast Server</a></td>
+                            <td><a href="https://github.com/petrusjohannesmaas/cli-nodejs-bootstrapper"><i
+                                        class="fa-solid fa-check"></i> CLI Node.js Bootstrapper</a></td>
+                            <td><i class="fa-solid fa-spinner"></i> E-Commerce API Template</td>
+                            <td><a
+                                    href="https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/jwt_authentication_service.md"><i
+                                        class="fa-solid fa-book"></i> JWT Authentication Service</a></td>
+                        </tr>
+                        <tr>
                             <td>Go</td>
                             <td><a href="https://github.com/petrusjohannesmaas/roadmap.sh/tree/main/caching-proxy"><i
                                         class="fa-solid fa-check"></i> Caching Proxy</a></td>
@@ -297,21 +308,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>JavaScript</td>
-                            <td><a
-                                    href="https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/broadcast_server.md"><i
-                                        class="fa-solid fa-helmet-safety"></i> Broadcast Server</a></td>
-                            <td><a href="https://github.com/petrusjohannesmaas/cli-nodejs-bootstrapper"><i
-                                        class="fa-solid fa-check"></i> CLI Node.js Bootstrapper</a></td>
-                            <td><i class="fa-solid fa-spinner"></i> E-Commerce API Template</td>
-                            <td><a
-                                    href="https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/jwt_authentication_service.md"><i
-                                        class="fa-solid fa-book"></i> JWT Authentication Service</a></td>
-                        </tr>
-                        <tr>
                             <td>System Administration</td>
                             <td> <a href="https://github.com/petrusjohannesmaas/roadmap.sh/tree/main/log-archive-tool"><i
-                                        class="fa-solid fa-helmet-safety"></i> Log Archive Tool</a></td>
+                                        class="fa-solid fa-check"></i> Log Archive Tool</a></td>
                             <td><i class="fa-solid fa-spinner"></i> RAID Storage & Backup</td>
                             <td> <a href="projects/security_audit.md"> <i class="fa-solid fa-book"></i> Security
                                     Audit</a></td>
@@ -473,211 +472,9 @@
         <p>Loading, please wait...</p>
     </div>
 
-
-
     <script src="https://kit.fontawesome.com/d7695b1c46.js" crossorigin="anonymous"></script>
     <script src="static/pomodoro.js"></script>
-    <script src="static/script.js">
-        fetch("https://api.github.com/users/petrusjohannesmaas/repos")
-            .then(res => res.json())
-            .then(repos => {
-                const mostUsedLanguage = getMostUsedLanguage(repos);
-                const totalIssues = getTotalIssues(repos);
-
-                const langDiv = document.createElement("div");
-                langDiv.innerHTML = `
-            <p><strong>Most Used Language:</strong> ${mostUsedLanguage}</p>
-            <p><strong>Total Open Issues:</strong> ${totalIssues}</p>
-        `;
-                document.querySelector(".git-metrics").appendChild(langDiv);
-            });
-
-        function getMostUsedLanguage(repos) {
-            const langCount = {};
-            repos.forEach(repo => {
-                const lang = repo.language;
-                if (lang) langCount[lang] = (langCount[lang] || 0) + 1;
-            });
-            return Object.entries(langCount).sort((a, b) => b[1] - a[1])[0]?.[0] || "N/A";
-        }
-
-        function getTotalIssues(repos) {
-            return repos.reduce((total, repo) => total + repo.open_issues_count, 0);
-        }
-        // Fetch general user activity
-        fetch("https://api.github.com/users/petrusjohannesmaas")
-            .then(res => res.json())
-            .then(data => {
-                const info = document.createElement("div");
-                info.innerHTML = `
-            <p><strong>Total Public Repositories:</strong> ${data.public_repos}</p>
-        `;
-                document.querySelector(".card-content").appendChild(info);
-            });
-
-        // Fetch recent public events (last pushes, PRs, commits)
-        fetch("https://api.github.com/users/petrusjohannesmaas/events")
-            .then(res => res.json())
-            .then(events => {
-                const recentPushes = events
-                    .filter(event => event.type === "PushEvent")
-                    .slice(0, 3); // Last 3 push events
-
-                const pushDiv = document.createElement("div");
-                pushDiv.innerHTML = `<h4 class="title is-5">Recent Activity</h4><hr>`;
-
-                recentPushes.forEach(push => {
-                    const repoName = push.repo.name;
-                    const commitMessage = push.payload.commits[0]?.message;
-                    const time = new Date(push.created_at).toLocaleString();
-
-                    pushDiv.innerHTML += `
-                <p><strong>${repoName}</strong></p>
-                <p>📝 ${commitMessage}</p>
-                <p>⏱️ ${time}</p>
-                <hr>
-            `;
-                });
-
-                document.querySelector(".recent-activity").appendChild(pushDiv);
-            });
-
-        // // Scroll to project section
-        document.addEventListener("DOMContentLoaded", () => {
-            const button = document.querySelector("#portfolio-button");
-            const targetSection = document.querySelector("#projects-section");
-
-            button.addEventListener("click", (event) => {
-                event.preventDefault(); // Prevent default navigation
-                targetSection.scrollIntoView({ behavior: "smooth" });
-            });
-        });
-
-
-        // Styling and tags for all unstarted projects
-        document.querySelectorAll("td").forEach(td => {
-            if (td.querySelector(".fa-solid.fa-spinner")) {
-                td.style.opacity = "0.25";
-            }
-        });
-        // Styling for completed projects
-        document.querySelectorAll("td").forEach(td => {
-            if (td.querySelector(".fa-solid.fa-check")) {
-                td.querySelectorAll("a").forEach(a => {
-                    a.classList.add("glow"); // Adds the 'glow' class to anchors
-                });
-            }
-        });
-        // Redirect to tabs instead of reloading
-        document.addEventListener("DOMContentLoaded", function () {
-            let links = document.querySelectorAll("a");
-            links.forEach(link => {
-                link.setAttribute("target", "_blank");
-                link.setAttribute("rel", "noopener noreferrer"); // Security best practice
-            });
-        });
-        // Tags auto classes
-        document.addEventListener("DOMContentLoaded", () => {
-            const parent = document.querySelector(".tags");
-            const spans = parent.querySelectorAll("span");
-
-            spans.forEach((span) => {
-                span.classList.add("tag"); // Add 'tag' class to each <span>
-
-                const icon = span.querySelector("i");
-                if (icon) {
-                    icon.classList.add("mr-1"); // Add 'mr-1' class to each <i>
-                }
-            });
-        });
-        // Progress total calculation
-        document.addEventListener("DOMContentLoaded", () => {
-            const progressBars = document.querySelectorAll(".progress");
-            const totalSpan = document.querySelector("#total");
-
-            let totalProgress = 0;
-            let totalMax = 0;
-
-            progressBars.forEach(progress => {
-                totalProgress += parseInt(progress.getAttribute("value"), 10);
-                totalMax += parseInt(progress.getAttribute("max"), 10);
-            });
-
-            const percentage = ((totalProgress / totalMax) * 100).toFixed(2);
-
-            totalSpan.textContent = `${percentage} %`;
-        });
-
-
-        // Navbar menu
-        document.addEventListener('DOMContentLoaded', () => {
-            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-
-            // Check if there are any navbar burgers
-            if ($navbarBurgers.length > 0) {
-                // Add a click event on each of them
-                $navbarBurgers.forEach(el => {
-                    el.addEventListener('click', () => {
-                        // Get the target from the "data-target" attribute
-                        const target = el.dataset.target;
-                        const $target = document.getElementById(target);
-
-                        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-                        el.classList.toggle('is-active');
-                        $target.classList.toggle('is-active');
-                    });
-                });
-            }
-        });
-        document.addEventListener('DOMContentLoaded', () => {
-            // Functions to open and close a modal
-            function openModal($el) {
-                $el.classList.add('is-active');
-            }
-
-            function closeModal($el) {
-                $el.classList.remove('is-active');
-            }
-
-            function closeAllModals() {
-                (document.querySelectorAll('.modal') || []).forEach(($modal) => {
-                    closeModal($modal);
-                });
-            }
-
-            // Modal behaviour
-            (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
-                const modal = $trigger.dataset.target;
-                const $target = document.getElementById(modal);
-
-                $trigger.addEventListener('click', () => {
-                    openModal($target);
-                });
-            });
-
-            // Add a click event on various child elements to close the parent modal
-            (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
-                const $target = $close.closest('.modal');
-
-                $close.addEventListener('click', () => {
-                    closeModal($target);
-                });
-            });
-
-            // Add a keyboard event to close all modals
-            document.addEventListener('keydown', (event) => {
-                if (event.key === "Escape") {
-                    closeAllModals();
-                }
-            });
-        });
-        document.addEventListener("DOMContentLoaded", function () {
-            setTimeout(() => {
-                document.getElementById("loading-overlay").style.display = "none";
-            }, 2000);
-        });
-
-    </script>
+    <script src="static/script.js"></script>
 </body>
 
 </html>
