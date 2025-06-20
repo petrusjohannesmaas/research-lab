@@ -362,49 +362,62 @@ az acr manifest list-metadata --name test-python-app --registry <YOUR-REGISTRY-N
 
 ### ⚙️ **Step 5: Jenkinsfile for Full CI/CD Using ACR + Azure VM**
 
-Here’s how that might look:
+Let’s build a Jenkins pipeline that pulls the image and runs it, tests it with `curl`, and only proceeds to deploy if the response is a success (HTTP 200).
+
+**Note:** Make sure the SSH Agent plugin is installed on your Jenkins instance
+
+Here’s the `Jenkinsfile` to match the workflow:
 
 ```groovy
 pipeline {
     agent any
 
     environment {
-        IMAGE = '<YOUR-REGISTRY-NAME>.azurecr.io/my-python-app:latest'
-        DEPLOY_HOST = 'your.azure.vm.ip'
+        IMAGE = 'pjmaasacr.azurecr.io/test-python-app:latest'
+        DEPLOY_HOST = '<YOUR-VM-IP>'
         DEPLOY_USER = 'azureuser'
-        SSH_KEY_ID = 'your-ssh-cred-id'
+        SSH_KEY_ID  = 'azure-test-key'
+        CONTAINER_NAME = 'test-app'
     }
 
     stages {
-        stage('Clone') {
+        stage('Pull') {
             steps {
-                git '<https://github.com/><your-user>/<your-flask-repo>.git'
+                echo 'Pulling prebuilt image from ACR...'
+                withCredentials([usernamePassword(credentialsId: 'acr-creds', usernameVariable: 'ACR_USER', passwordVariable: 'ACR_PASS')]) {
+                    sh 'echo $ACR_PASS | docker login <YOUR-REGISTRY>.azurecr.io -u $ACR_USER --password-stdin'
+                }
+                sh 'docker pull $IMAGE || true'
             }
         }
 
-        stage('Build & Test') {
+        stage('Test') {
             steps {
-                sh 'docker build -t $IMAGE .'
-                sh 'docker run --rm $IMAGE python -c "import flask"' // sanity check
-            }
-        }
-
-        stage('Push to ACR') {
-            steps {
-                sh 'az acr login --name mycontainerreg'
-                sh 'docker push $IMAGE'
+                echo 'Testing API locally...'
+                sh '''
+                docker run -d -p 5000:5000 --name temp_test $IMAGE
+                sleep 5
+                STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:5000)
+                docker stop temp_test && docker rm temp_test
+                if [ "$STATUS" != "200" ]; then
+                    echo "Flask app test failed with status $STATUS"
+                    exit 1
+                fi
+                '''
             }
         }
 
         stage('Deploy') {
             steps {
+                echo 'Deploying to Azure VM...'
                 sshagent([SSH_KEY_ID]) {
                     sh '''
                     ssh $DEPLOY_USER@$DEPLOY_HOST '
+                        az acr login --name <YOUR-REGISTRY> &&
                         docker pull $IMAGE &&
-                        docker stop myapp || true &&
-                        docker rm myapp || true &&
-                        docker run -d -p 80:5000 --name myapp $IMAGE
+                        docker stop $CONTAINER_NAME || true &&
+                        docker rm $CONTAINER_NAME || true &&
+                        docker run -d -p 80:5000 --name $CONTAINER_NAME $IMAGE
                     '
                     '''
                 }
@@ -414,6 +427,47 @@ pipeline {
 }
 
 ```
+
+---
+
+### ✅ What This Does:
+
+- Always attempts to pull the base image from ACR (in case you’re doing layered builds).
+- Builds your Docker image locally.
+- Spins up a temp container, tests the `/` route with `curl`, and deploys **only if it returns 200**.
+- Authenticates with the container registry dynamically
+- Uses Jenkins credentials for secure SSH access.
+
+### Credentials:
+
+You’ll run into errors if you don’t configure this, because Jenkins is running in a **non-interactive environment**, and `az acr login` is trying to authenticate using either:
+
+1. **Azure Active Directory (AAD)** credentials (which require `az login`), or
+2. **Admin user credentials** (which haven’t been configured or passed in).
+
+Since Jenkins can’t run `az login` interactively, you’ll want to switch to a non-interactive authentication method. 
+
+**Get the admin username and password**:
+
+```bash
+az acr credential show --name <YOUR-REGISTRY>
+```
+
+**Store them in Jenkins Credentials**:
+
+- Go to **Manage Jenkins → Credentials**
+- Add a **Username with password** credential:
+    - ID: `acr-creds`
+    - Username: (from `username` field)
+    - Password: (from `passwords[0].value`)
+
+`SSH_KEY_ID`
+
+- This is the **credential ID** in Jenkins for your private SSH key.
+- You set it up by going to:
+    - *Jenkins Dashboard → Manage Jenkins → Credentials*
+    - Add your private key under **Global credentials (unrestricted)**
+    - Give it a recognizable ID (e.g., `azure-ssh-key`)—that’s what you'll plug into your pipeline.
 
 Once that’s deployed, from your local machine:
 
