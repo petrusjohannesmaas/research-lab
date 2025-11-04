@@ -1,4 +1,4 @@
-Awesome! Let's put everything together into a complete **DevOps project** that combines the ELK Stack deployment with your API and request-logging script.
+# ELK Stack Deployment
 
 ---
 
