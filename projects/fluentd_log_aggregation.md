@@ -1,40 +1,29 @@
 ## Fluentd Log Aggregation
 
-Here’s a basic tutorial to get you started with Fluentd on Ubuntu, including installation and log parsing setup 🛠️📄
+Here’s a basic tutorial to get up and running with Fluentd on Ubuntu, including installation and log parsing setup 🛠️📄
 
-## 🧰 Step 1: Install Fluentd (td-agent)
+## 🧰 Step 1: Install Fluentd
 
-Fluentd’s stable distribution is called `td-agent`. Here’s how to install it:
+Fluentd’s documentation recommends to use the `fluent-d` package instead of the deprecated `td-agent`. Here’s how to install it:
 
-### 1. Add the APT repository
+### 1. Run the installation script
 
 ```bash
-curl -fsSL https://packages.treasuredata.com/GPG-KEY-td-agent | sudo apt-key add -
-echo "deb https://packages.treasuredata.com/4/ubuntu/$(lsb_release -cs)/ $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/td-agent.list
-
+curl -fsSL https://fluentd.cdn.cncf.io/sh/install-ubuntu-jammy-fluent-package6-lts.sh | sh
 ```
 
-### 2. Install td-agent
+### 2. Start and enable the service
 
 ```bash
-sudo apt-get update
-sudo apt-get install td-agent
-
-```
-
-### 3. Start and enable the service
-
-```bash
-sudo systemctl start td-agent
-sudo systemctl enable td-agent
-
+sudo systemctl start fluentd
+sudo systemctl enable fluentd
 ```
 
 ---
 
 ## 🔍 Step 2: Basic Log Parsing Setup
 
-Fluentd uses a config file at `/etc/td-agent/td-agent.conf`. Let’s set up a simple pipeline to parse logs from `/var/log/syslog`.
+Fluentd uses a config file at `/etc/fluent/fluentd.conf`. Let’s set up a simple pipeline to parse logs from `/var/log/syslog`.
 
 ### Example Configuration:
 
@@ -42,7 +31,7 @@ Fluentd uses a config file at `/etc/td-agent/td-agent.conf`. Let’s set up a si
 <source>
   @type tail
   path /var/log/syslog
-  pos_file /var/log/td-agent/syslog.pos
+  pos_file /var/log/fluent/syslog.pos
   tag syslog
   format syslog
 </source>
@@ -65,7 +54,7 @@ Fluentd uses a config file at `/etc/td-agent/td-agent.conf`. Let’s set up a si
 
 - **Source**: Tails the syslog file.
 - **Filter**: Adds hostname and parsed timestamp.
-- **Match**: Outputs parsed logs to stdout (you’ll see them in `/var/log/td-agent/td-agent.log`).
+- **Match**: Outputs parsed logs to stdout (you’ll see them in `/var/log/fluent/syslog.pos`).
 
 ---
 
@@ -74,14 +63,14 @@ Fluentd uses a config file at `/etc/td-agent/td-agent.conf`. Let’s set up a si
 - Check Fluentd status:
     
     ```bash
-    sudo systemctl status td-agent
+    sudo systemctl status fluentd
     
     ```
     
 - View parsed logs:
     
     ```bash
-    tail -f /var/log/td-agent/td-agent.log
+    tail -f /var/log/fluentd/syslog.log
     
     ```
     

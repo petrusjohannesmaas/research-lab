@@ -1,4 +1,4 @@
-## JSON API Server in Go
+## Basic GO JSON API Server
 
 ### 🧩 Overview
 
@@ -161,7 +161,7 @@ curl -X POST http://localhost:8080/items \
 
 ## 📌 Optional Enhancements
 
-- Add persistent storage with SQLite or PostgreSQL
+- Add persistent storage with Redis or MongoDB
 - Add input validation and error handling
 - Implement pagination and filtering
 - Add Swagger/OpenAPI documentation

@@ -1,3 +1,5 @@
+# Docker Swarm
+
 Docker Swarm is Docker’s native clustering and orchestration tool, designed to manage multi-container applications across multiple nodes efficiently. It simplifies the deployment, scaling, and management of services in a distributed environment.
 
 ### **Key Features of Docker Swarm**
@@ -17,12 +19,11 @@ Docker Swarm is Docker’s native clustering and orchestration tool, designed to
 
 ## Basic Docker Swarm Deployment
 
-A simple Docker Swarm deployment can help you get familiar with swarm mode without getting overwhelmed. How about we start with a basic web application running as a service across multiple swarm nodes.
+A simple Docker Swarm deployment can help you get familiar with swarm mode without getting overwhelmed.
 
-### **Simple Docker Swarm Deployment Idea**
 
-A **basic Nginx web server** deployed in swarm mode:
-1. **Initialize a Swarm**
+We'll set up a **basic Nginx web server** deployed in swarm mode:
+1. **Initialize your first Swarm**
 2. **Deploy a Single Service (Nginx)**
 3. **Scale the Service**
 4. **Access the Running Containers**
@@ -61,7 +62,8 @@ docker service ps web-server
 Now, open a browser and visit **http://<Swarm-Manager-IP>:8080** to see the Nginx welcome page!
 
 ### Future enhancements
-- Add more services (e.g., PostgreSQL, Redis)
+- Add a database example (e.g., PostgreSQL, Redis)
+- Add example for Docker compose
 - Add more advanced features (e.g., load balancing, rolling updates)
 - Explore Docker Swarm's **advanced features** (e.g., secrets management, overlay networks)
 - Add persistent storage (e.g., volumes, mounts)
