@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
           </a>
         </div>
         <button className="px-6 py-2 rounded-lg font-label-md text-label-md active:scale-95 transition-all duration-150 bg-white text-primary">
-          Get Started
+          My portfolio
         </button>
       </div>
     </nav>

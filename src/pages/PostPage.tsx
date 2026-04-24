@@ -19,9 +19,20 @@ const PostPage: React.FC = () => {
   const readingTime = Math.ceil(post.content.split(' ').length / 200);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen relative">
+      {/* Go Home Button */}
+      <div className="absolute top-6 left-6 z-50">
+        <Link 
+          to="/" 
+          className="flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg backdrop-blur-md border border-white/20 transition-all active:scale-95 group font-semibold shadow-lg"
+        >
+          <span className="material-symbols-outlined text-[20px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
+          Home
+        </Link>
+      </div>
+
       {/* Post Hero Section */}
-      <header className="relative w-full h-[614px] min-h-[500px] flex items-center justify-center pt-16 overflow-hidden">
+      <header className="relative w-full h-[614px] min-h-[500px] flex items-center justify-center overflow-hidden">
         <img 
           className="absolute inset-0 w-full h-full object-cover" 
           src={headerImage} 
@@ -33,16 +44,16 @@ const PostPage: React.FC = () => {
             {post.tags.map((tag) => (
               <span 
                 key={tag}
-                className="bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full font-bold text-[13px] tracking-wider uppercase"
+                className="bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full font-bold text-[13px] tracking-wider uppercase shadow-sm"
               >
                 {tag}
               </span>
             ))}
           </div>
-          <h1 className="font-display-lg text-4xl md:text-5xl lg:text-6xl font-bold text-on-surface max-w-5xl mx-auto mb-8 tracking-tight leading-[1.1]">
+          <h1 className="font-display-lg text-4xl md:text-5xl lg:text-6xl font-bold text-white max-w-5xl mx-auto mb-8 tracking-tight leading-[1.1] [text-shadow:_0_2px_10px_rgb(0_0_0_/_40%)]">
             {post.title}
           </h1>
-          <div className="flex items-center justify-center gap-8 text-on-surface-variant font-medium text-base">
+          <div className="flex items-center justify-center gap-8 text-blue-50 font-medium text-base [text-shadow:_0_1px_4px_rgb(0_0_0_/_40%)]">
             <div className="flex items-center gap-2.5">
               <span className="material-symbols-outlined text-[20px]">calendar_today</span>
               <span>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
@@ -60,13 +71,50 @@ const PostPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
           {/* Left Column: Main Content */}
           <article className="lg:col-span-8">
-            <div className="font-body-lg text-body-lg text-on-surface mb-stack-lg leading-relaxed">
-              {post.description}
-            </div>
-            <div className="w-full h-px bg-outline-variant/30 my-stack-lg"></div>
-            
             <div className="markdown-content">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
+              <ReactMarkdown 
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  code({ node, inline, className, children, ...props }: any) {
+                    const match = /language-(\w+)/.exec(className || '');
+                    const content = String(children).replace(/\n$/, '');
+                    
+                    if (!inline && match) {
+                      return (
+                        <div className="relative group">
+                          <div className="absolute right-4 top-4 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                            <button 
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                navigator.clipboard.writeText(content);
+                                const btn = e.currentTarget;
+                                const originalHtml = btn.innerHTML;
+                                btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span>';
+                                btn.classList.add('bg-green-500/20', 'text-green-600');
+                                setTimeout(() => {
+                                  btn.innerHTML = originalHtml;
+                                  btn.classList.remove('bg-green-500/20', 'text-green-600');
+                                }, 2000);
+                              }}
+                              className="bg-slate-900/10 hover:bg-slate-900/20 text-slate-900 p-2 rounded-lg backdrop-blur-md border border-slate-900/10 transition-all active:scale-95 flex items-center justify-center"
+                              title="Copy to clipboard"
+                            >
+                              <span className="material-symbols-outlined text-[18px]">content_copy</span>
+                            </button>
+                          </div>
+                          <code className={className} {...props}>
+                            {children}
+                          </code>
+                        </div>
+                      );
+                    }
+                    return <code className={className} {...props}>{children}</code>;
+                  }
+                }}
+              >
+                {post.content}
+              </ReactMarkdown>
             </div>
           </article>
 
