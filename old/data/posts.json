@@ -1,0 +1,314 @@
+[
+  {
+    "title": "API Containerfile Templates",
+    "description": "A collection of optimized Containerfile templates specifically designed for containerizing various API frameworks.",
+    "slug": "api-containerfile-templates",
+    "date": "2024-01-15",
+    "tags": ["Docker", "API", "DevOps"],
+    "filename": "API_Containerfile_Templates.md"
+  },
+  {
+    "title": "Azure CI/CD Pipeline with Jenkins",
+    "description": "A guide on setting up continuous integration and deployment pipelines using Jenkins within the Azure cloud environment.",
+    "slug": "azure-cicd-pipeline-with-jenkins",
+    "date": "2024-02-10",
+    "tags": ["Azure", "Jenkins", "CI-CD"],
+    "filename": "Azure_CICD_Pipeline_with_Jenkins.md"
+  },
+  {
+    "title": "Basic Dockerfile",
+    "description": "An introductory look at creating essential Dockerfiles for standard application environments.",
+    "slug": "basic-dockerfile",
+    "date": "2024-03-22",
+    "tags": ["Docker", "Containers", "Beginner"],
+    "filename": "Basic_Dockerfile.md"
+  },
+  {
+    "title": "Blue-Green Deployment",
+    "description": "Exploring the strategies and benefits of blue-green deployment patterns to ensure zero-downtime releases.",
+    "slug": "blue-green-deployment",
+    "date": "2024-04-05",
+    "tags": ["Deployment", "DevOps", "Reliability"],
+    "filename": "Blue-Green_Deployment.md"
+  },
+  {
+    "title": "Caching Proxy",
+    "description": "Implementation details for setting up a caching proxy to improve web performance and reduce origin load.",
+    "slug": "caching-proxy",
+    "date": "2024-05-18",
+    "tags": ["Networking", "Performance", "Proxy"],
+    "filename": "Caching_Proxy.md"
+  },
+  {
+    "title": "Client Side Front-end",
+    "description": "A deep dive into modern client-side frontend development architectures and best practices.",
+    "slug": "client-side-front-end",
+    "date": "2024-06-12",
+    "tags": ["Frontend", "Web-Dev", "JavaScript"],
+    "filename": "Client_Side_Front-end.md"
+  },
+  {
+    "title": "CLI Node.js Bootstrapper",
+    "description": "A utility for quickly scaffolding new Node.js command-line interface projects.",
+    "slug": "cli-node-js-bootstrapper",
+    "date": "2024-07-29",
+    "tags": ["NodeJS", "CLI", "Automation"],
+    "filename": "CLI_Node.js_Bootstrapper.md"
+  },
+  {
+    "title": "Development Database Deployer",
+    "description": "Automated scripts for deploying and seeding databases in local and staging development environments.",
+    "slug": "development-database-deployer",
+    "date": "2024-08-14",
+    "tags": ["Database", "SQL", "Automation"],
+    "filename": "Development_Database_Deploy-er.md"
+  },
+  {
+    "title": "Docker Swarm Deployment",
+    "description": "Step-by-step instructions for orchestrating containers across a cluster using Docker Swarm.",
+    "slug": "docker-swarm-deployment",
+    "date": "2024-09-03",
+    "tags": ["Docker", "Orchestration", "Clustering"],
+    "filename": "Docker_Swarm_Deployment.md"
+  },
+  {
+    "title": "Dummy Systemd Service",
+    "description": "A template for creating and managing background processes using systemd on Linux systems.",
+    "slug": "dummy-systemd-service",
+    "date": "2024-10-21",
+    "tags": ["Linux", "Systemd", "Sysadmin"],
+    "filename": "Dummy_Systemd_Service.md"
+  },
+  {
+    "title": "Elastic Stack Deployment",
+    "description": "Configuring Elasticsearch, Logstash, and Kibana for centralized logging and data visualization.",
+    "slug": "elastic-stack-deployment",
+    "date": "2024-11-11",
+    "tags": ["ELK", "Logging", "Monitoring"],
+    "filename": "Elastic_Stack_Deployment.md"
+  },
+  {
+    "title": "Employee Management System",
+    "description": "Overview of a standard CRUD application designed for managing organizational employee records.",
+    "slug": "employee-management-system",
+    "date": "2024-12-05",
+    "tags": ["Fullstack", "CRUD", "Project"],
+    "filename": "Employee_Management_System.md"
+  },
+  {
+    "title": "Encrypted Database Backup Scripts",
+    "description": "Security-focused scripts for performing automated, encrypted backups of production databases.",
+    "slug": "encrypted-database-backup-scripts",
+    "date": "2025-01-19",
+    "tags": ["Security", "Database", "Backup"],
+    "filename": "Encrypted_Database_Backup_Scripts.md"
+  },
+  {
+    "title": "Full Stack Deployment",
+    "description": "A comprehensive guide to deploying both frontend and backend services as a unified stack.",
+    "slug": "full-stack-deployment",
+    "date": "2025-02-27",
+    "tags": ["Fullstack", "Deployment", "Web"],
+    "filename": "Full_Stack_Deployment.md"
+  },
+  {
+    "title": "Intrusion Detection System (IDS)",
+    "description": "Implementing tools and monitoring strategies to detect unauthorized access in a network.",
+    "slug": "intrusion-detection-system-ids",
+    "date": "2025-03-14",
+    "tags": ["Security", "Networking", "IDS"],
+    "filename": "Intrusion_Detection_System_IDS.md"
+  },
+  {
+    "title": "Jenkins Pipeline",
+    "description": "Best practices for writing Jenkinsfiles to define robust automation pipelines.",
+    "slug": "jenkins-pipeline",
+    "date": "2025-04-02",
+    "tags": ["Jenkins", "Automation", "CI-CD"],
+    "filename": "Jenkins_Pipeline.md"
+  },
+  {
+    "title": "JWT Authentication Service",
+    "description": "Architecture and implementation of a microservice for handling JSON Web Token authentication.",
+    "slug": "jwt-authentication-service",
+    "date": "2025-05-10",
+    "tags": ["Auth", "JWT", "Security"],
+    "filename": "JWT_Authentication_Service.md"
+  },
+  {
+    "title": "K3S Cluster on openSUSE MicroOS",
+    "description": "Setting up a lightweight Kubernetes cluster using K3S on the immutable openSUSE MicroOS.",
+    "slug": "k3s-cluster-on-opensuse-microos",
+    "date": "2025-06-25",
+    "tags": ["Kubernetes", "K3S", "openSUSE"],
+    "filename": "K3S_Cluster_on_openSUSE_MicroOS.md"
+  },
+  {
+    "title": "Kubernetes Overlay Network Benchmarking",
+    "description": "Comparing the performance of different Kubernetes networking plugins through structured benchmarks.",
+    "slug": "kubernetes-overlay-network-benchmarking",
+    "date": "2025-07-08",
+    "tags": ["Kubernetes", "Networking", "Performance"],
+    "filename": "Kubernetes_Overlay_Network_Benchmarking.md"
+  },
+  {
+    "title": "Kubernetes Vagrant Box",
+    "description": "Using Vagrant to spin up local Kubernetes environments for testing and development.",
+    "slug": "kubernetes-vagrant-box",
+    "date": "2025-08-16",
+    "tags": ["Vagrant", "Kubernetes", "Development"],
+    "filename": "Kubernetes_Vagrant_Box.md"
+  },
+  {
+    "title": "Linux User Management Tool",
+    "description": "A shell or Python utility for managing user accounts and permissions across Linux servers.",
+    "slug": "linux-user-management-tool",
+    "date": "2025-09-30",
+    "tags": ["Linux", "Sysadmin", "Security"],
+    "filename": "Linux_User_Management_Tool.md"
+  },
+  {
+    "title": "Log Archive Tool",
+    "description": "A script for rotating, compressing, and archiving old log files to save disk space.",
+    "slug": "log-archive-tool",
+    "date": "2025-10-14",
+    "tags": ["Linux", "Logging", "Utilities"],
+    "filename": "Log_Archive_Tool.md"
+  },
+  {
+    "title": "Log File Monitor",
+    "description": "A real-time monitoring tool that watches log files for specific patterns or errors.",
+    "slug": "log-file-monitor",
+    "date": "2025-11-05",
+    "tags": ["Monitoring", "Logging", "Python"],
+    "filename": "Log_File_Monitor.md"
+  },
+  {
+    "title": "Mikrotik Router Configuration Utility",
+    "description": "Automation scripts for configuring Mikrotik networking equipment via API or CLI.",
+    "slug": "mikrotik-router-configuration-utility",
+    "date": "2025-12-12",
+    "tags": ["Networking", "Mikrotik", "Automation"],
+    "filename": "Mikrotik_Router_Configuration_Utility.md"
+  },
+  {
+    "title": "Multi Stage Container Build Pipeline",
+    "description": "Optimizing Docker images using multi-stage builds to reduce production image sizes.",
+    "slug": "multi-stage-container-build-pipeline",
+    "date": "2026-01-07",
+    "tags": ["Docker", "DevOps", "Optimization"],
+    "filename": "Multi_Stage_Container_Build_Pipeline.md"
+  },
+  {
+    "title": "Netdata Monitoring Dashboard",
+    "description": "Setting up real-time performance monitoring and visualization using Netdata.",
+    "slug": "netdata-monitoring-dashboard",
+    "date": "2026-01-20",
+    "tags": ["Monitoring", "Sysadmin", "Dashboards"],
+    "filename": "Netdata_Monitoring_Dashboard.md"
+  },
+  {
+    "title": "PostgreSQL Authentication Template",
+    "description": "Templates and configurations for securing PostgreSQL database access and user roles.",
+    "slug": "postgresql-authentication-template",
+    "date": "2026-01-28",
+    "tags": ["PostgreSQL", "Database", "Security"],
+    "filename": "PostgreSQL_Authentication_Template.md"
+  },
+  {
+    "title": "PPPoE Client Configuration",
+    "description": "Technical steps for configuring PPPoE clients on Linux and networking hardware.",
+    "slug": "pppoe-client-configuration",
+    "date": "2026-02-04",
+    "tags": ["Networking", "ISP", "Linux"],
+    "filename": "PPPoE_Client_Configuration.md"
+  },
+  {
+    "title": "Prometheus & Grafana",
+    "description": "A guide to collecting metrics with Prometheus and visualizing them through Grafana dashboards.",
+    "slug": "prometheus-grafana",
+    "date": "2026-02-12",
+    "tags": ["Monitoring", "Metrics", "Grafana"],
+    "filename": "Prometheus__Grafana.md"
+  },
+  {
+    "title": "Proxmox Automation",
+    "description": "Leveraging APIs and tools to automate virtual machine and container management on Proxmox.",
+    "slug": "proxmox-automation",
+    "date": "2026-02-18",
+    "tags": ["Virtualization", "Proxmox", "Homelab"],
+    "filename": "Proxmox_Automation.md"
+  },
+  {
+    "title": "Rate Limiter Service",
+    "description": "Implementing a standalone service or middleware to protect APIs from abuse via rate limiting.",
+    "slug": "rate-limiter-service",
+    "date": "2026-02-25",
+    "tags": ["API", "Backend", "Security"],
+    "filename": "Rate_Limiter_Service.md"
+  },
+  {
+    "title": "Rolling Deployments",
+    "description": "Understanding and implementing rolling update strategies for high-availability services.",
+    "slug": "rolling-deployments",
+    "date": "2026-03-02",
+    "tags": ["Deployment", "Kubernetes", "DevOps"],
+    "filename": "Rolling_Deployments.md"
+  },
+  {
+    "title": "Server Side Back-end",
+    "description": "Focusing on backend architecture, database integration, and server-side logic patterns.",
+    "slug": "server-side-back-end",
+    "date": "2026-03-10",
+    "tags": ["Backend", "Architecture", "Web"],
+    "filename": "Server_Side_Back-end.md"
+  },
+  {
+    "title": "SSH Remote Server Setup with Fail2Ban",
+    "description": "Hardening remote server access by combining SSH configurations with Fail2Ban protection.",
+    "slug": "ssh-remote-server-setup-with-fail2ban",
+    "date": "2026-03-18",
+    "tags": ["Security", "Linux", "SSH"],
+    "filename": "SSH_Remote_Server_Setup_with_Fail2Ban.md"
+  },
+  {
+    "title": "URL Shortener Service",
+    "description": "Design and implementation of a scalable URL shortening application and redirection logic.",
+    "slug": "url-shortener-service",
+    "date": "2026-03-24",
+    "tags": ["Backend", "Project", "Fullstack"],
+    "filename": "URL_Shortener_Service.md"
+  },
+  {
+    "title": "Vagrantfile Configurations",
+    "description": "A collection of Vagrantfile examples for reproducible development environments.",
+    "slug": "vagrantfile-configurations",
+    "date": "2026-04-02",
+    "tags": ["Vagrant", "DevOps", "Infrastructure"],
+    "filename": "Vagrantfile_Configurations.md"
+  },
+  {
+    "title": "Web Server Utilities",
+    "description": "Helpful scripts and configurations for managing Nginx or Apache web server instances.",
+    "slug": "web-server-utilities",
+    "date": "2026-04-10",
+    "tags": ["Web-Server", "Linux", "Sysadmin"],
+    "filename": "Web_Server_Utilities.md"
+  },
+  {
+    "title": "WebSocket Broadcast Server",
+    "description": "Building a server capable of broadcasting real-time messages to multiple connected clients.",
+    "slug": "websocket-broadcast-server",
+    "date": "2026-04-18",
+    "tags": ["WebSockets", "Real-time", "NodeJS"],
+    "filename": "WebSocket_Broadcast_Server.md"
+  },
+  {
+    "title": "YAML DNS Server",
+    "description": "Configuring DNS records and server settings using structured YAML definitions.",
+    "slug": "yaml-dns-server",
+    "date": "2026-04-22",
+    "tags": ["Networking", "DNS", "YAML"],
+    "filename": "YAML_DNS_Server.md"
+  }
+]
