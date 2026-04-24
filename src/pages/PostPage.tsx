@@ -75,13 +75,13 @@ const PostPage: React.FC = () => {
               <ReactMarkdown 
                 remarkPlugins={[remarkGfm]}
                 components={{
-                  code({ node, inline, className, children, ...props }: any) {
-                    const match = /language-(\w+)/.exec(className || '');
-                    const content = String(children).replace(/\n$/, '');
-                    
-                    if (!inline && match) {
+                  pre({ children }: any) {
+                    try {
+                      const codeElement = React.Children.only(children) as React.ReactElement;
+                      const content = String(codeElement.props.children).replace(/\n$/, '');
+                      
                       return (
-                        <div className="relative group">
+                        <div className="relative group my-8">
                           <div className="absolute right-4 top-4 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                             <button 
                               onClick={(e) => {
@@ -91,10 +91,10 @@ const PostPage: React.FC = () => {
                                 const btn = e.currentTarget;
                                 const originalHtml = btn.innerHTML;
                                 btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span>';
-                                btn.classList.add('bg-green-500/20', 'text-green-600');
+                                btn.classList.add('bg-green-500/20', 'text-green-600', 'border-green-500/30');
                                 setTimeout(() => {
                                   btn.innerHTML = originalHtml;
-                                  btn.classList.remove('bg-green-500/20', 'text-green-600');
+                                  btn.classList.remove('bg-green-500/20', 'text-green-600', 'border-green-500/30');
                                 }, 2000);
                               }}
                               className="bg-slate-900/10 hover:bg-slate-900/20 text-slate-900 p-2 rounded-lg backdrop-blur-md border border-slate-900/10 transition-all active:scale-95 flex items-center justify-center"
@@ -103,11 +103,18 @@ const PostPage: React.FC = () => {
                               <span className="material-symbols-outlined text-[18px]">content_copy</span>
                             </button>
                           </div>
-                          <code className={className} {...props}>
+                          <pre className="bg-surface-container-low border border-outline-variant rounded-xl p-6 overflow-x-auto overflow-y-hidden text-sm md:text-base leading-relaxed">
                             {children}
-                          </code>
+                          </pre>
                         </div>
                       );
+                    } catch (e) {
+                      return <pre className="bg-surface-container-low border border-outline-variant rounded-xl p-6 overflow-x-auto overflow-y-hidden">{children}</pre>;
+                    }
+                  },
+                  code({ node, inline, className, children, ...props }: any) {
+                    if (inline) {
+                      return <code className="font-code text-primary bg-surface-container px-1.5 py-0.5 rounded text-[0.9em]" {...props}>{children}</code>;
                     }
                     return <code className={className} {...props}>{children}</code>;
                   }

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
@@ -8,7 +8,7 @@ function App() {
   return (
     <Router>
       <div className="flex flex-col min-h-screen bg-background">
-        <Navbar />
+        <NavbarWrapper />
         <div className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -19,6 +19,12 @@ function App() {
       </div>
     </Router>
   );
+}
+
+function NavbarWrapper() {
+  const location = useLocation();
+  if (location.pathname.startsWith('/post/')) return null;
+  return <Navbar />;
 }
 
 export default App;
