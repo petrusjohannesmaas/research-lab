@@ -9,51 +9,54 @@ author: "Petrus Johannes Maas"
 
 # YAML DNS Server
 
-## 🌐 Overview
+**🖱️ Link to GitHub project:** [Click here](github.com/petrusjohannesmaas/yaml-dns-server)
+
+## Overview
 
 A local DNS server using Go and YAML configuration. It’s containerized with Docker Compose for streamlined setup.
 
-✔ **Custom hostname-to-IP mappings via YAML**  
-✔ **Lightweight Go-based DNS resolution**  
-✔ **Fully containerized for easy deployment**  
-✔ **Configurable via Docker Compose**
+✅ **Custom hostname-to-IP mappings via YAML**  
+✅ **Lightweight Go-based DNS resolution**  
+✅ **Fully containerized for easy deployment**  
+✅ **Configurable via Docker Compose**
 
 This offers a simple way to update manage user friendly **IP -> Hostname** mappings for accessing and interacting with services on your network. 
 
-> ⚠️ **Warning:** You should not use this project for production purposes. It is intended for learning and development purposes only.
+> ️ **Warning:** You should not use this project for production purposes. It is intended for learning and development purposes only.
 
-## 📂 Clone the Repository
+## Clone the Repository
 
 ```bash
 git clone https://github.com/petrusjohannesmaas/yaml-dns-server.git
 cd yaml-dns-server
 ```
 
-## 🏗️ Building the image (Docker)
+## ️ Building the image (Docker)
 
 ```bash
 docker build -t yaml-dns-server .
 ```
 
-### Run with Docker Compose
+## Run with Docker Compose
 
 ```bash
 docker compose up -d
 ```
 
-## 🔍 Test DNS Resolution
+## Test DNS Resolution
 
 Use `dig` or `nslookup` to verify DNS functionality:
 
 ```bash
 dig @localhost dev-machine.local
 ```
+
 ```bash
 nslookup dev-machine.local localhost
 ```
 
 
-## 🔧 Configuration
+## Configuration
 
 Modify `dns_records.yml` to update hostname mappings:
 
@@ -65,9 +68,9 @@ records:
     ip: "192.168.0.xxx"
 ```
 
-> 📝 Run `docker compose down` and `docker compose up` when making changes.
+> Run `docker compose down` and `docker compose up` when making changes.
 
-## 🧰 Managing Containers
+## Managing Containers
 
 ```bash
 docker ps                # List active containers
@@ -75,7 +78,7 @@ docker stop <container>  # Stop container
 docker rm <container>    # Remove container
 ```
 
-## 📈 Future Enhancements
+## Future Enhancements
 
 * **Troubleshooting**: Include troubleshooting steps in the README.
 * **Front end configuration**: Add a web interface for easy hostname management.

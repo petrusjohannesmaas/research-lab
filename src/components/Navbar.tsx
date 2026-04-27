@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
             href="#"
             className="font-body-md text-body-md text-blue-100 hover:text-white transition-colors"
           >
-            Projects
+            Study Guides
           </a>
           <a
             href="#"
