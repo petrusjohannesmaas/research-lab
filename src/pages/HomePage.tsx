@@ -34,14 +34,20 @@ const HomePage: React.FC = () => {
               Coding Documentation & Projects
             </h1>
             <p className="font-body-lg text-body-lg text-blue-100 max-w-2xl">
-              Insights, tutorials, and project logs from a developer perspective. Deep dives into architecture, performance, and clean code.
+              Insights, tutorials, and project logs from a developer perspective. Explore our curated study guides covering frontend, backend, DevOps, and blockchain technologies.
             </p>
-            <div className="pt-stack-md">
+            <div className="pt-stack-md flex items-center gap-4">
               <button 
                 onClick={handleReadLatest}
                 className="bg-white text-primary-container px-8 py-4 rounded-xl font-label-md text-label-md hover:bg-surface-container-lowest transition-colors shadow-lg active:scale-95 duration-150"
               >
                 Read latest post
+              </button>
+              <button
+                onClick={() => navigate('/study-guides')}
+                className="bg-primary/20 text-white border border-white/20 px-8 py-4 rounded-xl font-label-md text-label-md hover:bg-primary/30 transition-colors shadow-lg active:scale-95 duration-150 backdrop-blur-md"
+              >
+                View Study Guides
               </button>
             </div>
           </div>

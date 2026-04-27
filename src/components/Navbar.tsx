@@ -28,12 +28,12 @@ const Navbar: React.FC = () => {
           >
             Home
           </Link>
-          <a
-            href="#"
+          <Link
+            to="/study-guides"
             className="font-body-md text-body-md text-blue-100 hover:text-white transition-colors"
           >
             Study Guides
-          </a>
+          </Link>
           <a
             href="#"
             className="font-body-md text-body-md text-blue-100 hover:text-white transition-colors"
