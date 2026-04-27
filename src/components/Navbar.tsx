@@ -10,9 +10,16 @@ const Navbar: React.FC = () => {
       <div className="max-w-[1200px] mx-auto flex justify-between items-center px-6 h-16">
         <Link
           to="/"
-          className="text-xl font-black tracking-tight text-white"
+          className="flex items-center gap-3 group"
         >
-          Research Lab
+          <img 
+            src="/avatar.png" 
+            alt="PJ Maas" 
+            className="w-10 h-10 rounded-full border-2 border-white/20 group-hover:border-white/40 transition-colors object-cover"
+          />
+          <span className="text-xl font-black tracking-tight text-white uppercase">
+            Research Lab
+          </span>
         </Link>
         <div className="hidden md:flex items-center space-x-8">
           <Link

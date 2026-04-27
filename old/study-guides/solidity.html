@@ -1,266 +1,285 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>/solidity</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solidity Study Guide - Research Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0053c9',
+                        'primary-container': '#1d6bf3',
+                        'on-primary-container': '#fcfaff',
+                        surface: '#faf8ff',
+                        'on-surface': '#191b23',
+                        'on-surface-variant': '#424655',
+                        'outline-variant': '#c2c6d7',
+                        'surface-container': '#ecedf9',
+                        'surface-container-low': '#f2f3fe',
+                        'surface-container-high': '#e7e7f3',
+                    },
+                    fontFamily: {
+                        headline: ['Montserrat', 'sans-serif'],
+                        body: ['DM Sans', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        pre::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        pre::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.1);
+        }
+        pre::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+    </style>
 </head>
-
-<body>
-  <section class="hero is-fullheight">
-    <!-- Hero head: will stick at the top -->
-    <div class="hero-head">
-      <header class="navbar">
-        <div class="container">
-          <div class="navbar-brand">
-            <a class="navbar-item" href="index.html">
-              <img src="profile_picture.jpeg" alt="">
-              <h1 class="title is-family-code">/research-lab</h1>
+<body class="bg-surface text-on-surface font-body antialiased">
+    <!-- Navbar -->
+    <nav class="bg-primary-container text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="../../index.html" class="flex items-center gap-3 group">
+                <img src="/avatar.png" alt="PJ Maas" class="w-10 h-10 rounded-full border-2 border-white/20 group-hover:border-white/40 transition-colors object-cover" />
+                <span class="text-xl font-black tracking-tight uppercase font-display">Research Lab</span>
             </a>
-            <span class="navbar-burger" data-target="navbarMenuHeroC">
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
-          </div>
-          <div id="navbarMenuHeroC" class="navbar-menu">
-            <div class="navbar-end">
-              <span class="navbar-item">
-                <a class="px-3" href="https://www.linkedin.com/in/pj-maas/" target="_blank" rel="noopener noreferrer">
-                  <span class="icon">
-                    <i class="fab fa-linkedin"></i>
-                  </span>
-                  <span>Linkedin</span>
-                </a>
-                <a class="px-3" href="https://x.com/petrus_j_maas" target="_blank" rel="noopener noreferrer">
-                  <span class="icon">
-                    <i class="fab fa-twitter"></i>
-                  </span>
-                  <span>Twitter</span>
-                </a>
-                <a class="px-3" href="https://github.com/petrusjohannesmaas" target="_blank" rel="noopener noreferrer">
-                  <span class="icon">
-                    <i class="fab fa-github"></i>
-                  </span>
-                  <span>Github</span>
-                </a>
-              </span>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="../../index.html" class="font-semibold text-white border-b-2 border-white pb-1 transition-colors">Home</a>
+                <a href="#" class="text-blue-100 hover:text-white transition-colors">Study Guides</a>
+                <a href="#" class="text-blue-100 hover:text-white transition-colors">About</a>
             </div>
-          </div>
+            <button class="bg-white text-primary px-6 py-2 rounded-lg font-bold text-sm hover:bg-white/90 transition-all active:scale-95">
+                My portfolio
+            </button>
         </div>
-      </header>
-    </div>
+    </nav>
 
-    <!-- Hero content: will be in the middle -->
-    <div class="hero-body">
-      <div class="container">
-        <!-- First Row -->
-        <div class="row mb-4">
-          <div class="columns">
-            <div class="column">
-                <div class="card">
-                  <div class="card-content">
-                    <div class="media">
-                      <div class="level">
-                        <span class="icon">
-                          <i class="fab fa-ethereum fa-2x"></i>
-                        </span>
-                        <p class="title">Solidity</p>
-                      </div>
-                    </div>
-                    <div class="content is-size-5">
-                      <p>
-                        Solidity is a programming language for implementing smart contracts on various blockchain platforms, most notably, Ethereum.
-                      </p>
-                      <p>
-                        Solidity is licensed under GNU General Public License v3.0. It was designed by Gavin Wood and developed by Christian Reitwiessner, Alex Beregszaszi, and several former Ethereum core contributors. Programs in Solidity run on Ethereum Virtual Machine or on compatible virtual machines.
-                      </p>
-                      <p>
-                        Solidity was proposed in August 2014 by Gavin Wood. The language was later developed by the Ethereum project's Solidity team, led by Christian Reitwiessner. It is the primary language used to develop smart contracts for Ethereum as well as other private blockchains, such as the enterprise-oriented Hyperledger Fabric blockchain.
-                      </p>
-                      <p>
-                        <strong>Source:</strong>
-                        <a href="https://en.wikipedia.org/wiki/Solidity" target="_blank" rel="noopener noreferrer">Wikipedia</a>
-                      </p>
-                      <ul>
-                        <li><strong>Type:</strong> Statically typed, smart contract</li>
-                        <li><strong>Year of Origin:</strong> 2014</li>
-                        <li><strong>Creator:</strong> Gavin Wood</li>
-                        <li><strong>Current Version:</strong> Solidity 0.8.x</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <footer class="card-footer">
-                    <p class="card-footer-item">
-                      <span>
-                        <a href="https://soliditylang.org/" target="_blank" rel="noopener noreferrer">📚 Official documentation</a>
-                      </span>
-                    </p>
-                    <p class="card-footer-item">
-                      <span>
-                        <a href="https://github.com/ethereum/solidity" target="_blank" rel="noopener noreferrer">🖥️ Check Solidity on GitHub</a>
-                      </span>
-                    </p>
-                  </footer>
-                </div>
-              </div>
-              
-          </div>
-        </div>
-
-        <!-- Second Row -->
-        <div class="row">
-          <div class="columns">
-            <div class="column">
-              <div class="card" id="code-card">
-                <div class="card-content">
-                  <div class="media">
-                    <div class="level">
-                      <span class="icon">
-                        <i class="fa fa-book fa-2x"></i>
-                      </span>
-                      <p class="title">Study Guide</p>
-                    </div>
-                  </div>
-                  <div class="content">
-                    <!-- JSON GOES HERE -->
-                  </div>
-                </div>
-                <footer class="card-footer">
-                </footer>
-              </div>
+    <!-- Hero -->
+    <header class="bg-primary-container text-white py-20 relative overflow-hidden">
+        <div class="max-w-[1200px] mx-auto px-6 relative z-10">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="bg-white/20 backdrop-blur-md px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase">Blockchain</span>
             </div>
-          </div>
+            <h1 class="font-display text-5xl md:text-6xl font-bold mb-6 tracking-tight">Solidity</h1>
+            <p class="text-blue-100 text-lg max-w-2xl leading-relaxed">
+                The primary language for smart contract development on Ethereum. Build decentralized applications and trustless systems.
+            </p>
         </div>
-      </div>
-    </div>
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 32px 32px"></div>
+    </header>
 
-    <!-- Hero footer: will stick at the bottom -->
-    <!-- Hero footer: will stick at the bottom -->
-    <div class="hero-foot">
-      <nav class="tabs is-boxed is-fullwidth">
-        <div class="container">
-          <ul>
-            <li><a href="python.html" class="is-active">Python</a></li>
-            <li><a href="solidity.html">Solidity</a></li>
-            <li><a href="javascript.html">Javascript</a></li>
-            <li><a href="linux.html">Linux</a></li>
-            <li><a href="databases.html">Databases</a></li>
-            <li><a href="containerization.html">Containerization</a></li>
-          </ul>
+    <main class="max-w-[1200px] mx-auto px-6 py-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <!-- Left Column: Content -->
+            <div class="lg:col-span-8 space-y-12">
+                <section class="bg-white p-8 rounded-2xl border border-outline-variant shadow-sm">
+                    <h2 class="text-2xl font-bold font-headline mb-6 flex items-center gap-3 text-on-surface">
+                        <span class="material-symbols-outlined text-primary text-3xl">info</span>
+                        Overview
+                    </h2>
+                    <div class="space-y-4 text-on-surface-variant leading-relaxed text-lg">
+                        <p>
+                            Solidity is a programming language for implementing smart contracts on various blockchain platforms, most notably, Ethereum.
+                        </p>
+                        <p>
+                            It was designed by Gavin Wood and developed by Christian Reitwiessner, Alex Beregszaszi, and several former Ethereum core contributors. Programs in Solidity run on Ethereum Virtual Machine or on compatible virtual machines.
+                        </p>
+                        <p>
+                            Solidity was proposed in August 2014 by Gavin Wood. It is the primary language used to develop smart contracts for Ethereum as well as other private blockchains, such as the enterprise-oriented Hyperledger Fabric blockchain.
+                        </p>
+                        <div class="grid grid-cols-2 gap-4 mt-8 pt-8 border-t border-outline-variant/50">
+                            <div>
+                                <span class="block text-xs uppercase tracking-widest text-outline font-bold mb-1">Type</span>
+                                <span class="font-semibold text-on-surface">Statically typed, Smart Contract</span>
+                            </div>
+                            <div>
+                                <span class="block text-xs uppercase tracking-widest text-outline font-bold mb-1">Origin</span>
+                                <span class="font-semibold text-on-surface">2014</span>
+                            </div>
+                            <div>
+                                <span class="block text-xs uppercase tracking-widest text-outline font-bold mb-1">Creator</span>
+                                <span class="font-semibold text-on-surface">Gavin Wood</span>
+                            </div>
+                            <div>
+                                <span class="block text-xs uppercase tracking-widest text-outline font-bold mb-1">Current</span>
+                                <span class="font-semibold text-on-surface">Solidity 0.8.x</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-white p-8 rounded-2xl border border-outline-variant shadow-sm">
+                    <div class="flex items-center justify-between mb-8">
+                        <h2 class="text-2xl font-bold font-headline flex items-center gap-3 text-on-surface">
+                            <span class="material-symbols-outlined text-primary text-3xl">school</span>
+                            Study Guide
+                        </h2>
+                        <span class="bg-surface-container px-3 py-1 rounded text-xs font-mono text-primary font-bold">JSON FORMAT</span>
+                    </div>
+                    <div id="study-plan-container" class="relative group">
+                        <!-- JSON will be inserted here -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Sidebar -->
+            <aside class="lg:col-span-4 space-y-6">
+                <div class="bg-white p-8 rounded-2xl border border-outline-variant shadow-sm sticky top-24">
+                    <h3 class="font-bold font-headline mb-6 text-xl">Quick Links</h3>
+                    <ul class="space-y-4">
+                        <li>
+                            <a href="https://soliditylang.org/" target="_blank" class="flex items-center gap-3 p-4 rounded-xl bg-surface hover:bg-primary/5 border border-transparent hover:border-primary/20 transition-all group">
+                                <span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">library_books</span>
+                                <span class="font-semibold text-on-surface">Official Documentation</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/ethereum/solidity" target="_blank" class="flex items-center gap-3 p-4 rounded-xl bg-surface hover:bg-primary/5 border border-transparent hover:border-primary/20 transition-all group">
+                                <span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">code</span>
+                                <span class="font-semibold text-on-surface">Solidity on GitHub</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="mt-12 pt-8 border-t border-outline-variant/50">
+                        <h4 class="font-bold font-headline mb-4 text-sm uppercase tracking-widest text-outline">Author</h4>
+                        <div class="flex items-center gap-4">
+                            <img src="/avatar.png" alt="PJ Maas" class="w-12 h-12 rounded-full object-cover border border-outline-variant" />
+                            <div>
+                                <p class="font-bold text-on-surface">PJ Maas</p>
+                                <p class="text-xs text-on-surface-variant">Technical Lead</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
         </div>
-      </nav>
-    </div>
-  </section>
+    </main>
 
-  <!-- Function for Navbar -->
-  <script>
+    <!-- Footer Nav -->
+    <footer class="border-t border-outline-variant bg-white py-20">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <h3 class="font-bold font-display text-3xl mb-12 text-center text-on-surface">Explore Other Guides</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <a href="python.html" class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-surface border border-outline-variant hover:border-primary hover:shadow-lg transition-all group">
+                    <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">terminal</span>
+                    <span class="font-bold text-sm">Python</span>
+                </a>
+                <a href="solidity.html" class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-primary border border-primary shadow-lg transition-all scale-105">
+                    <span class="material-symbols-outlined text-white text-3xl">token</span>
+                    <span class="font-bold text-sm text-white">Solidity</span>
+                </a>
+                <a href="javascript.html" class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-surface border border-outline-variant hover:border-primary hover:shadow-lg transition-all group">
+                    <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">javascript</span>
+                    <span class="font-bold text-sm">Javascript</span>
+                </a>
+                <a href="linux.html" class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-surface border border-outline-variant hover:border-primary hover:shadow-lg transition-all group">
+                    <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">computer</span>
+                    <span class="font-bold text-sm">Linux</span>
+                </a>
+                <a href="databases.html" class="flex flex-col items-center gap-3 p-6 rounded-2xl bg-surface border border-outline-variant hover:border-primary hover:shadow-lg transition-all group">
+                    <span class="material-symbols-outlined text-primary text-3xl group-hover:scale-110 transition-transform">database</span>
+                    <span class="font-bold text-sm">Databases</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Get all "navbar-burger" elements
-      const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        const data = {
+            "study_plan": [
+                {
+                    "level": "Beginner",
+                    "topics": [
+                        "Introduction to Blockchain and Ethereum",
+                        "Setting up the Development Environment",
+                        "Basic Syntax and Hello World in Solidity",
+                        "Data Types and Variables",
+                        "Basic Operators",
+                        "Control Structures (if, else, for, while)",
+                        "Functions",
+                        "Arrays and Structs",
+                        "Mappings",
+                        "Events",
+                        "Modifiers",
+                        "Error Handling"
+                    ]
+                },
+                {
+                    "level": "Intermediate",
+                    "topics": [
+                        "Smart Contract Architecture",
+                        "Inheritance",
+                        "Interfaces and Abstract Contracts",
+                        "Libraries",
+                        "Visibility and Access Control",
+                        "Function Overloading",
+                        "Constructor Functions",
+                        "Fallback Functions",
+                        "Storage vs Memory",
+                        "Gas Optimization",
+                        "Unit Testing with Truffle",
+                        "Deploying Smart Contracts"
+                    ]
+                },
+                {
+                    "level": "Advanced",
+                    "topics": [
+                        "Advanced Data Structures",
+                        "Advanced Functionality with Assembly",
+                        "Security Best Practices",
+                        "Reentrancy Attacks",
+                        "Oracle and Chainlink Integration",
+                        "ERC-20 and ERC-721 Token Standards",
+                        "Building Decentralized Applications (DApps)",
+                        "Interacting with Smart Contracts",
+                        "Upgradable Smart Contracts",
+                        "Gas Optimization Techniques",
+                        "Advanced Testing and Debugging"
+                    ]
+                },
+                {
+                    "level": "Expert",
+                    "topics": [
+                        "Advanced Design Patterns",
+                        "Smart Contract Auditing",
+                        "Formal Verification",
+                        "Optimizing for Gas Costs",
+                        "Advanced Security Considerations",
+                        "Zero-Knowledge Proofs",
+                        "Layer 2 Scaling Solutions",
+                        "Cross-Chain Interactions",
+                        "Governance Models",
+                        "Building Complex DApps",
+                        "DeFi Protocols",
+                        "DAOs (Decentralized Autonomous Organizations)"
+                    ]
+                }
+            ]
+        };
 
-      // Check if there are any navbar burgers
-      if ($navbarBurgers.length > 0) {
-        // Add a click event on each of them
-        $navbarBurgers.forEach(el => {
-          el.addEventListener('click', () => {
-            // Get the target from the "data-target" attribute
-            const target = el.dataset.target;
-            const $target = document.getElementById(target);
-
-            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-            el.classList.toggle('is-active');
-            $target.classList.toggle('is-active');
-          });
-        });
-      }
+        const container = document.getElementById('study-plan-container');
+        const formattedJSON = JSON.stringify(data, null, 2);
+        container.innerHTML = `<pre class="bg-[#0f172a] text-blue-400 p-8 rounded-2xl overflow-x-auto text-sm leading-relaxed shadow-inner border border-white/5"><code>${formattedJSON}</code></pre>`;
     });
-  </script>
-  <!-- Function for study guide -->
-  <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const data = {
-      "study_plan": [
-      {
-        "level": "Beginner",
-        "topics": [
-          "Introduction to Blockchain and Ethereum",
-          "Setting up the Development Environment",
-          "Basic Syntax and Hello World in Solidity",
-          "Data Types and Variables",
-          "Basic Operators",
-          "Control Structures (if, else, for, while)",
-          "Functions",
-          "Arrays and Structs",
-          "Mappings",
-          "Events",
-          "Modifiers",
-          "Error Handling"
-        ]
-      },
-      {
-        "level": "Intermediate",
-        "topics": [
-          "Smart Contract Architecture",
-          "Inheritance",
-          "Interfaces and Abstract Contracts",
-          "Libraries",
-          "Visibility and Access Control",
-          "Function Overloading",
-          "Constructor Functions",
-          "Fallback Functions",
-          "Storage vs Memory",
-          "Gas Optimization",
-          "Unit Testing with Truffle",
-          "Deploying Smart Contracts"
-        ]
-      },
-      {
-        "level": "Advanced",
-        "topics": [
-          "Advanced Data Structures",
-          "Advanced Functionality with Assembly",
-          "Security Best Practices",
-          "Reentrancy Attacks",
-          "Oracle and Chainlink Integration",
-          "ERC-20 and ERC-721 Token Standards",
-          "Building Decentralized Applications (DApps)",
-          "Interacting with Smart Contracts",
-          "Upgradable Smart Contracts",
-          "Gas Optimization Techniques",
-          "Advanced Testing and Debugging"
-        ]
-      },
-      {
-        "level": "Expert",
-        "topics": [
-          "Advanced Design Patterns",
-          "Smart Contract Auditing",
-          "Formal Verification",
-          "Optimizing for Gas Costs",
-          "Advanced Security Considerations",
-          "Zero-Knowledge Proofs",
-          "Layer 2 Scaling Solutions",
-          "Cross-Chain Interactions",
-          "Governance Models",
-          "Building Complex DApps",
-          "DeFi Protocols",
-          "DAOs (Decentralized Autonomous Organizations)"
-        ]
-      }
-    ]
-    };
-
-    const contentDiv = document.querySelector('#code-card .content');
-    const formattedJSON = JSON.stringify(data, null, 2);
-    contentDiv.innerHTML = `<pre style="background: #000; padding: 1rem; border-radius: 5px; overflow-y: auto; max-height: 400px;"><code style="color: #00ff00;">${formattedJSON}</code></pre>`;
-  });
-
-  </script>
-  
+    </script>
 </body>
-
 </html>

@@ -8,7 +8,7 @@ import { getRandomImage } from '../utils/images';
 const PostPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = useMemo(() => (slug ? getPostBySlug(slug) : undefined), [slug]);
-  
+
   // Random image cycled when a post is opened
   const headerImage = useMemo(() => getRandomImage(), [slug]);
 
@@ -22,8 +22,8 @@ const PostPage: React.FC = () => {
     <div className="flex flex-col min-h-screen relative">
       {/* Go Home Button */}
       <div className="absolute top-6 left-6 z-50">
-        <Link 
-          to="/" 
+        <Link
+          to="/"
           className="flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg backdrop-blur-md border border-white/20 transition-all active:scale-95 group font-semibold shadow-lg"
         >
           <span className="material-symbols-outlined text-[20px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
@@ -33,16 +33,16 @@ const PostPage: React.FC = () => {
 
       {/* Post Hero Section */}
       <header className="relative w-full h-[614px] min-h-[500px] flex items-center justify-center overflow-hidden">
-        <img 
-          className="absolute inset-0 w-full h-full object-cover" 
-          src={headerImage} 
-          alt={post.title} 
+        <img
+          className="absolute inset-0 w-full h-full object-cover"
+          src={headerImage}
+          alt={post.title}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-background"></div>
         <div className="relative z-10 max-w-[1200px] w-full px-6 text-center">
           <div className="flex items-center justify-center gap-3 mb-8">
             {post.tags.map((tag) => (
-              <span 
+              <span
                 key={tag}
                 className="bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full font-bold text-[13px] tracking-wider uppercase shadow-sm"
               >
@@ -72,18 +72,18 @@ const PostPage: React.FC = () => {
           {/* Left Column: Main Content */}
           <article className="lg:col-span-8">
             <div className="markdown-content">
-              <ReactMarkdown 
+              <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
                   pre({ children }: any) {
                     try {
                       const codeElement = React.Children.only(children) as React.ReactElement;
                       const content = String(codeElement.props.children).replace(/\n$/, '');
-                      
+
                       return (
                         <div className="relative group my-8">
                           <div className="absolute right-4 top-4 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                            <button 
+                            <button
                               onClick={(e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
@@ -131,8 +131,12 @@ const PostPage: React.FC = () => {
               {/* Author Box */}
               <div className="bg-white border border-outline-variant rounded-xl p-6">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-full overflow-hidden border border-outline-variant shrink-0 bg-surface-container flex items-center justify-center">
-                    <span className="material-symbols-outlined text-3xl text-outline">person</span>
+                  <div className="w-14 h-14 rounded-full overflow-hidden border border-outline-variant shrink-0 bg-surface-container">
+                    <img
+                      src="/avatar.png"
+                      alt={post.author}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div className="overflow-hidden">
                     <p className="font-bold text-lg text-on-surface truncate">{post.author}</p>
@@ -156,18 +160,18 @@ const PostPage: React.FC = () => {
               <div className="bg-primary/5 border border-primary/20 rounded-xl p-6">
                 <h3 className="font-headline-sm text-headline-sm text-on-surface mb-stack-sm">Newsletter</h3>
                 <p className="font-body-sm text-body-sm text-on-surface-variant mb-stack-md">Get the latest technical insights delivered bi-weekly.</p>
-                <input 
-                  className="w-full bg-surface border border-outline-variant rounded-lg px-4 py-2 text-body-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary mb-3" 
-                  placeholder="email@example.com" 
-                  type="email" 
+                <input
+                  className="w-full bg-surface border border-outline-variant rounded-lg px-4 py-2 text-body-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary mb-3"
+                  placeholder="email@example.com"
+                  type="email"
                 />
                 <button className="w-full bg-primary text-on-primary font-bold text-label-md py-3 rounded-lg hover:bg-primary/90 transition-colors">
                   Subscribe Now
                 </button>
               </div>
-              
-              <Link 
-                to="/" 
+
+              <Link
+                to="/"
                 className="flex items-center justify-center gap-2 text-primary font-semibold hover:underline"
               >
                 <span className="material-symbols-outlined">arrow_back</span>
