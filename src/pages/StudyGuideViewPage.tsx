@@ -42,7 +42,7 @@ const StudyGuideViewPage: React.FC = () => {
                 {guide.overview.map((paragraph, index) => (
                   <p key={index}>{paragraph}</p>
                 ))}
-                
+
                 <div className="grid grid-cols-2 gap-4 mt-8 pt-8 border-t border-outline-variant/50">
                   {guide.specs.map((spec, index) => (
                     <div key={index}>
@@ -63,9 +63,9 @@ const StudyGuideViewPage: React.FC = () => {
                 <span className="bg-surface-container px-3 py-1 rounded text-xs font-mono text-primary font-bold">JSON FORMAT</span>
               </div>
               <div className="relative group">
-                 <pre className="bg-[#0f172a] text-blue-400 p-8 rounded-2xl overflow-x-auto text-sm leading-relaxed shadow-inner border border-white/5">
-                   <code>{formattedJSON}</code>
-                 </pre>
+                <pre className="bg-[#0f172a] text-blue-400 p-8 rounded-2xl overflow-x-auto text-sm leading-relaxed shadow-inner border border-white/5">
+                  <code>{formattedJSON}</code>
+                </pre>
               </div>
             </section>
           </div>
@@ -73,14 +73,22 @@ const StudyGuideViewPage: React.FC = () => {
           {/* Right Column: Sidebar */}
           <aside className="lg:col-span-4 space-y-6">
             <div className="bg-white p-8 rounded-2xl border border-outline-variant shadow-sm sticky top-24">
-              <h3 className="font-bold font-headline mb-6 text-xl">Quick Links</h3>
+              <h3 className="font-bold font-headline mb-6 text-xl">Other Guides</h3>
               <ul className="space-y-4">
                 <li>
                   <Link to="/study-guides" className="flex items-center gap-3 p-4 rounded-xl bg-surface hover:bg-primary/5 border border-transparent hover:border-primary/20 transition-all group">
-                    <span className="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">arrow_back</span>
-                    <span className="font-semibold text-on-surface">All Study Guides</span>
+                    <span className="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">grid_view</span>
+                    <span className="font-semibold text-on-surface">View All Guides</span>
                   </Link>
                 </li>
+                {studyGuides.filter(g => g.id !== guide.id).map(otherGuide => (
+                  <li key={otherGuide.id}>
+                    <Link to={`/study-guides/${otherGuide.id}`} className="flex items-center gap-3 p-4 rounded-xl bg-surface hover:bg-primary/5 border border-transparent hover:border-primary/20 transition-all group">
+                      <span className="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">{otherGuide.icon}</span>
+                      <span className="font-semibold text-on-surface">{otherGuide.title}</span>
+                    </Link>
+                  </li>
+                ))}
               </ul>
 
               <div className="mt-12 pt-8 border-t border-outline-variant/50">
@@ -89,7 +97,7 @@ const StudyGuideViewPage: React.FC = () => {
                   <img src="/avatar.png" alt="PJ Maas" className="w-12 h-12 rounded-full object-cover border border-outline-variant" />
                   <div>
                     <p className="font-bold text-on-surface">PJ Maas</p>
-                    <p className="text-xs text-on-surface-variant">Technical Lead</p>
+                    <p className="text-xs text-on-surface-variant">Technical Author</p>
                   </div>
                 </div>
               </div>
@@ -97,9 +105,9 @@ const StudyGuideViewPage: React.FC = () => {
           </aside>
         </div>
       </main>
-      
+
       {/* Footer Nav */}
-      <footer className="border-t border-outline-variant bg-white py-20 mt-auto">
+      {/* <footer className="border-t border-outline-variant bg-white py-20 mt-auto">
         <div className="max-w-[1200px] mx-auto px-6">
           <h3 className="font-bold font-display text-3xl mb-12 text-center text-on-surface">Explore Other Guides</h3>
           <div className="flex flex-wrap justify-center gap-4">
@@ -115,7 +123,7 @@ const StudyGuideViewPage: React.FC = () => {
             ))}
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 };
