@@ -12,34 +12,47 @@ def clean_headings(text):
     cleaned_lines = []
 
     for line in lines:
-        # Check if the line starts with a Markdown heading (one or more #)
+        # Match lines starting with Markdown headings
         if line.lstrip().startswith('#'):
-            # Apply the emoji and trailing space removal only to this line
+            # Remove emoji and optional trailing space
             line = regex.sub(r'\p{So}\s?', '', line)
         
         cleaned_lines.append(line)
 
     return "\n".join(cleaned_lines)
 
-def test_single_file(file_path):
-    if not os.path.exists(file_path):
-        print(f"Error: {file_path} not found.")
+def process_all_posts(directory):
+    if not os.path.isdir(directory):
+        print(f"Error: Directory '{directory}' not found.")
         return
 
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            content = f.read()
+    # Counter for feedback
+    files_processed = 0
 
-        cleaned_content = clean_headings(content)
+    for filename in os.listdir(directory):
+        if filename.endswith(".md"):
+            file_path = os.path.join(directory, filename)
+            
+            try:
+                # Read the original file
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
 
-        test_output = f"CLEANED_{os.path.basename(file_path)}"
-        with open(test_output, 'w', encoding='utf-8') as f:
-            f.write(cleaned_content)
-        
-        print(f"Test complete. Headings cleaned in: {test_output}")
-    
-    except Exception as e:
-        print(f"An error occurred: {e}")
+                # Process content
+                cleaned_content = clean_headings(content)
+
+                # Write back to the same file (in-place update)
+                with open(file_path, 'w', encoding='utf-8') as f:
+                    f.write(cleaned_content)
+                
+                print(f"Updated: {filename}")
+                files_processed += 1
+            
+            except Exception as e:
+                print(f"Failed to process {filename}: {e}")
+
+    print(f"\nTask complete. {files_processed} files updated in '{directory}'.")
 
 if __name__ == "__main__":
-    test_single_file('posts/YAML_DNS_Server.md')
+    # Point this to your 'posts' folder
+    process_all_posts('posts')

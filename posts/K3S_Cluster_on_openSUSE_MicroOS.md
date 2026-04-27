@@ -181,3 +181,17 @@ This concludes the initial testing phase. All that's left to do is to deploy con
 
 Have a look at my [Air Gapped Container Registry Image Registry](https://github.com/petrusjohannesmaas/research-lab/blob/main/projects/airgapped_container_image_registry.md) project to set up a self hosted image registry for your container builds.
 
+## Disclaimer & Intent 
+
+This project was developed for **research and portfolio purposes**. The
+primary goal is to explore architectural patterns and software systems.
+It is provided for educational and demonstration purposes.
+
+## License
+Copyright © 2026 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+
+Licensed under the **Apache License, Version 2.0**. You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+### Third-Party Attribution
+All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.

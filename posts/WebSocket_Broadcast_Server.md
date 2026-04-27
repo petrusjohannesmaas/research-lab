@@ -8,8 +8,9 @@ author: "Petrus Johannes Maas"
 ---
 
 # WebSocket Broadcast Server
+**🖱️ Link to GitHub project:** [Click here](https://github.com/petrusjohannesmaas/websocket-broadcast-server)
 
-## 📡 Overview
+## Overview
 
 A simple CLI-based WebSocket broadcast server built with Node.js. This tool lets you:
 
@@ -20,7 +21,7 @@ A simple CLI-based WebSocket broadcast server built with Node.js. This tool lets
 
 > 💡 **Prerequisites:** Make sure you have Node.js installed on your machine.
 
-## 🧠 How It Works
+## How It Works
 
 | Command                    | Description                      |
 | -------------------------- | -------------------------------- |
@@ -50,7 +51,7 @@ vim ~/.bashrc
 
 This will let you run `broadcast-server` globally from anywhere.
 
-## 📦 Usage
+## Usage
 
 **Start the WebSocket Server:**
 
@@ -73,12 +74,12 @@ broadcast-server connect
 * Lets you send messages interactively
 * Messages are broadcast to all other connected clients
 
-## 🛑 Graceful Shutdown
+## Graceful Shutdown
 
 * Press `Ctrl+C` in any terminal to disconnect
 * Server will notify all clients and close connections
 
-## 🧪 Example Session
+## Example Session
 
 **Terminal A:**
 
@@ -104,7 +105,7 @@ Bob> Hey Alice!
 # Terminal B sees: Received: Bob: Hey Alice!
 ```
 
-## 📈 Future Enhancements
+## Future Enhancements
 
 * Add command line options (`--port`, `--nickname`)
 * Add secure WebSocket (`wss://`) support
@@ -114,6 +115,17 @@ Bob> Hey Alice!
 * Migrate to Deno from Node
 * gRPC or GraphQL API
 
-## 📄 License
+## Disclaimer & Intent 
 
-MIT License © [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+This project was developed for **research and portfolio purposes**. The
+primary goal is to explore architectural patterns and software systems.
+It is provided for educational and demonstration purposes.
+
+## License
+Copyright © 2026 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+
+Licensed under the **Apache License, Version 2.0**. You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+### Third-Party Attribution
+All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.

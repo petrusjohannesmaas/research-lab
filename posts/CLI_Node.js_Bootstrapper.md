@@ -61,7 +61,7 @@ I was going to spend an extended period of time in an area that had **no interne
 
 ---
 
-## ⌨️ Setup Instructions
+## ️ Setup Instructions
 
 #### 1. **Script Configuration**
 Update the script with the hardcoded path to your Templates folder:
@@ -90,7 +90,7 @@ Navigate to the desired folder and execute:
 new-project
 ```
 
-### 🦺 How It Works:
+### How It Works:
 1. **User Input**:
    The script uses `inquirer` to prompt:
    - **Project Name**: The name of your project.
@@ -123,7 +123,7 @@ new-project
 
 ---
 
-## 🤠 Breakdown of my starter packages
+## Breakdown of my starter packages
 ##### **FullStackStarter**
 - **Purpose**: Full-stack project with MongoDB, Express, and EJS.
 - **Includes**:
@@ -146,7 +146,7 @@ new-project
 
 ---
 
-## ✏️ Creating your own starter packages (Templates) with preinstalled NPM packages
+## ️ Creating your own starter packages (Templates) with preinstalled NPM packages
 
 #### Set Up a Clean Project Directory
 1. Create a new folder for your starter template:
@@ -198,3 +198,18 @@ Move the zip file to your predefined `Templates` directory:
    ```
 
 Now, your starter template is ready to be used. Just update the `starter.js` file with your template names and get coding.
+
+## Disclaimer & Intent 
+
+This project was developed for **research and portfolio purposes**. The
+primary goal is to explore architectural patterns and software systems.
+It is provided for educational and demonstration purposes.
+
+## License
+Copyright © 2026 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+
+Licensed under the **Apache License, Version 2.0**. You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+### Third-Party Attribution
+All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.

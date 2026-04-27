@@ -9,19 +9,19 @@ author: "Petrus Johannes Maas"
 
 ## Log File Monitor in Python
 
-### 🧩 Overview
+### Overview
 This project creates a Python script that continuously monitors a log file (e.g., system logs, application logs) for specific keywords or patterns. When a match is found, it can trigger an alert, write to a separate file, or send a notification.
 
 ---
 
-## 🛠️ Requirements
+## ️ Requirements
 - Python 3.7+
 - Basic understanding of regular expressions
 - Access to log files (e.g., `/var/log/syslog`, `app.log`)
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 ```
 log-monitor/
 ├── monitor.py
@@ -31,7 +31,7 @@ log-monitor/
 
 ---
 
-## ⚙️ Configuration File (config.json)
+## ️ Configuration File (config.json)
 ```json
 {
   "log_file": "/var/log/syslog",
@@ -43,7 +43,7 @@ log-monitor/
 
 ---
 
-## 🧠 Script Logic (monitor.py)
+## Script Logic (monitor.py)
 ```python
 import time
 import json
@@ -79,7 +79,7 @@ if __name__ == "__main__":
 
 ---
 
-## 🧪 How to Run
+## How to Run
 ```bash
 python3 monitor.py
 ```
@@ -88,7 +88,7 @@ Make sure the script has permission to read the target log file.
 
 ---
 
-## 🔍 Features
+## Features
 - Monitors log file in real-time
 - Supports multiple search patterns
 - Writes matched lines to a separate alert file
@@ -96,10 +96,25 @@ Make sure the script has permission to read the target log file.
 
 ---
 
-## ✅ Optional Enhancements
+## Optional Enhancements
 - Add email or SMS alerts
 - Use `watchdog` for event-driven monitoring
 - Add a web dashboard with Flask
 - Support multiple log files
 
 ---
+
+## Disclaimer & Intent 
+
+This project was developed for **research and portfolio purposes**. The
+primary goal is to explore architectural patterns and software systems.
+It is provided for educational and demonstration purposes.
+
+## License
+Copyright © 2026 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+
+Licensed under the **Apache License, Version 2.0**. You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+### Third-Party Attribution
+All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.

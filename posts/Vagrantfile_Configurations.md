@@ -9,19 +9,19 @@ author: "Petrus Johannes Maas"
 
 # Vagrant VM Setup Guide
 
-## 🧩 Overview
+## Overview
 Vagrant is a tool for building and managing virtual machine environments in a single workflow. It allows developers to create portable, reproducible development environments using simple configuration files.
 
 ---
 
-## 🛠️ Prerequisites
+## ️ Prerequisites
 - [VirtualBox](https://www.virtualbox.org/) or another supported provider
 - [Vagrant](https://www.vagrantup.com/) installed
 - Terminal or command prompt access
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 ```
 vagrant-vm/
 ├── Vagrantfile
@@ -31,9 +31,9 @@ vagrant-vm/
 
 ---
 
-## ⚙️ Vagrantfile Configuration
+## ️ Vagrantfile Configuration
 
-### ✅ Basic Vagrantfile Example
+### Basic Vagrantfile Example
 ```ruby
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/bionic64"
@@ -54,7 +54,7 @@ end
 
 ---
 
-## 🌐 Networking Options
+## Networking Options
 
 | Type             | Description |
 |------------------|-------------|
@@ -69,7 +69,7 @@ config.vm.network "forwarded_port", guest: 80, host: 8080
 
 ---
 
-## 🧠 Resource Allocation
+## Resource Allocation
 
 | Setting | Description |
 |---------|-------------|
@@ -80,7 +80,7 @@ config.vm.network "forwarded_port", guest: 80, host: 8080
 
 ---
 
-## 🔧 Provisioning Script (provision.sh)
+## Provisioning Script (provision.sh)
 ```bash
 #!/bin/bash
 
@@ -103,7 +103,7 @@ chmod +x provision.sh
 
 ---
 
-## 🚀 Usage Commands
+## Usage Commands
 
 | Command | Description |
 |---------|-------------|
@@ -115,7 +115,7 @@ chmod +x provision.sh
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 - Use version-controlled `Vagrantfile` and `provision.sh`
 - Keep provisioning idempotent (safe to run multiple times)
 - Use environment variables for secrets
@@ -123,9 +123,24 @@ chmod +x provision.sh
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 - [Vagrant Documentation](https://developer.hashicorp.com/vagrant/docs)
 - [Networking in Vagrant](https://developer.hashicorp.com/vagrant/docs/networking)
 - [Provisioning with Shell](https://developer.hashicorp.com/vagrant/docs/provisioning/shell)
 
 ---
+
+## Disclaimer & Intent 
+
+This project was developed for **research and portfolio purposes**. The
+primary goal is to explore architectural patterns and software systems.
+It is provided for educational and demonstration purposes.
+
+## License
+Copyright © 2026 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+
+Licensed under the **Apache License, Version 2.0**. You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+### Third-Party Attribution
+All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.

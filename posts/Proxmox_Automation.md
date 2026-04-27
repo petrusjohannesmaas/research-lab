@@ -11,14 +11,14 @@ author: "Petrus Johannes Maas"
 
 Automate your Proxmox VE infrastructure provisioning with Terraform. This project helps you define and deploy virtual machines and resources using reusable Terraform modules.
 
-## 🚀 Features
+## Features
 
 - Create and manage Proxmox VMs via Terraform
 - Supports cloud-init for VM customization
 - Reusable module structure
 - Integrates SSH key and network setup
 
-## 📁 Folder Structure
+## Folder Structure
 
 ```
 terraform-proxmox-automation/
@@ -34,14 +34,14 @@ terraform-proxmox-automation/
 └── README.md
 ```
 
-## 🛠 Requirements
+## Requirements
 
 - Terraform ≥ 1.3.0
 - Proxmox VE ≥ 7.x
 - [Terraform Proxmox Provider](https://github.com/Telmate/terraform-provider-proxmox)
 - Proxmox user with API access
 
-## 🔐 Authentication
+## Authentication
 
 Update your `providers.tf` with Proxmox connection details or use environment variables:
 
@@ -54,7 +54,7 @@ provider "proxmox" {
 }
 ```
 
-## ✅ Usage
+## Usage
 
 ```bash
 terraform init
@@ -62,7 +62,7 @@ terraform plan
 terraform apply
 ```
 
-## 🧩 Module Example
+## Module Example
 
 ```hcl
 module "vm1" {
@@ -72,7 +72,7 @@ module "vm1" {
 }
 ```
 
-## 🧳 Roadmap
+## Roadmap
 
 - ISO-based VM deployment
 - Full template automation
@@ -80,11 +80,17 @@ module "vm1" {
 - Linked clone support
 - Integration with Jenkins pipelines (future)
 
-## 📝 License
+## Disclaimer & Intent 
 
-MIT
+This project was developed for **research and portfolio purposes**. The
+primary goal is to explore architectural patterns and software systems.
+It is provided for educational and demonstration purposes.
 
-### 💡 Tips
-- You might want to hook in cloud-init templates for SSH and user configuration.
-- Wrap secrets like API credentials in a `.env` and add them to `.gitignore`.
-- Consider expanding with `provisioners` for first-boot actions or VM labeling.
+## License
+Copyright © 2026 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+
+Licensed under the **Apache License, Version 2.0**. You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+### Third-Party Attribution
+All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.

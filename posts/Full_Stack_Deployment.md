@@ -9,12 +9,12 @@ author: "Petrus Johannes Maas"
 
 # Full Stack Deployment 
 
-## 🧩 Overview
+## Overview
 Full stack deployment involves deploying both the **front-end** (client-side) and **back-end** (server-side) components of a web application so they work together seamlessly in a production environment. This includes hosting, environment configuration, database setup, and security considerations.
 
 ---
 
-## 🛠️ Technologies Typically Involved
+## ️ Technologies Typically Involved
 
 | Layer        | Common Tools & Frameworks |
 |--------------|---------------------------|
@@ -26,7 +26,7 @@ Full stack deployment involves deploying both the **front-end** (client-side) an
 
 ---
 
-## 📁 Project Structure Example
+## Project Structure Example
 ```
 my-app/
 ├── client/         # Front-end code (React, Vue, etc.)
@@ -39,7 +39,7 @@ my-app/
 
 ---
 
-## 🔧 Deployment Steps
+## Deployment Steps
 
 ### 1. **Prepare the Front-End**
 - Build the production-ready assets:
@@ -107,7 +107,7 @@ my-app/
 
 ---
 
-## 🔐 Security Checklist
+## Security Checklist
 - Use HTTPS
 - Sanitize user input
 - Store secrets securely (never commit `.env`)
@@ -116,7 +116,7 @@ my-app/
 
 ---
 
-## 🧪 Post-Deployment Testing
+## Post-Deployment Testing
 - Test all routes and endpoints
 - Check responsiveness on mobile and desktop
 - Monitor logs and performance metrics
@@ -124,9 +124,24 @@ my-app/
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 - [DigitalOcean – Full Stack Deployment Guide](https://www.digitalocean.com/community/tutorials)
 - [Docker Documentation](https://docs.docker.com/)
 - [GitHub Actions](https://docs.github.com/en/actions)
 
 ---
+
+## Disclaimer & Intent 
+
+This project was developed for **research and portfolio purposes**. The
+primary goal is to explore architectural patterns and software systems.
+It is provided for educational and demonstration purposes.
+
+## License
+Copyright © 2026 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+
+Licensed under the **Apache License, Version 2.0**. You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+### Third-Party Attribution
+All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.

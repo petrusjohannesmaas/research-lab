@@ -9,12 +9,12 @@ author: "Petrus Johannes Maas"
 
 # Jenkins Pipeline: Basic Setup Guide
 
-## 🧩 Overview
+## Overview
 A Jenkins pipeline automates the process of building, testing, and deploying software. It defines a series of steps in code, allowing for consistent and repeatable CI/CD workflows. This guide walks through creating a simple declarative pipeline using a `Jenkinsfile`.
 
 ---
 
-## 🎯 Objectives
+## Objectives
 - Understand the structure of a Jenkins pipeline
 - Create a `Jenkinsfile` for a basic build-test-deploy flow
 - Configure a Jenkins job to use the pipeline
@@ -22,7 +22,7 @@ A Jenkins pipeline automates the process of building, testing, and deploying sof
 
 ---
 
-## 🛠️ Prerequisites
+## ️ Prerequisites
 - Jenkins installed and running (local or server)
 - Git repository with source code
 - Jenkins user with access to create jobs
@@ -30,7 +30,7 @@ A Jenkins pipeline automates the process of building, testing, and deploying sof
 
 ---
 
-## 📁 Project Structure Example
+## Project Structure Example
 ```
 my-app/
 ├── Jenkinsfile
@@ -41,7 +41,7 @@ my-app/
 
 ---
 
-## 📄 Sample Jenkinsfile (Declarative Pipeline)
+## Sample Jenkinsfile (Declarative Pipeline)
 ```groovy
 pipeline {
     agent any
@@ -92,7 +92,7 @@ pipeline {
 
 ---
 
-## ⚙️ Setting Up the Pipeline in Jenkins
+## ️ Setting Up the Pipeline in Jenkins
 
 ### 1. **Create a New Pipeline Job**
 - Go to Jenkins dashboard → **New Item**
@@ -110,7 +110,7 @@ pipeline {
 
 ---
 
-## 🔍 Pipeline Stages Explained
+## Pipeline Stages Explained
 
 | Stage     | Purpose                          |
 |-----------|----------------------------------|
@@ -121,7 +121,7 @@ pipeline {
 
 ---
 
-## ✅ Best Practices
+## Best Practices
 - Use environment variables for secrets and config
 - Keep pipelines modular and readable
 - Add notifications (Slack, email) in `post` block
@@ -129,9 +129,24 @@ pipeline {
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 - [Jenkins Pipeline Syntax](https://www.jenkins.io/doc/book/pipeline/syntax/)
 - [Jenkins Declarative vs Scripted Pipelines](https://www.jenkins.io/doc/book/pipeline/pipeline-model/)
 - [Jenkinsfile Best Practices](https://www.jenkins.io/blog/2020/05/06/pipeline-best-practices/)
 
 ---
+
+## Disclaimer & Intent 
+
+This project was developed for **research and portfolio purposes**. The
+primary goal is to explore architectural patterns and software systems.
+It is provided for educational and demonstration purposes.
+
+## License
+Copyright © 2026 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+
+Licensed under the **Apache License, Version 2.0**. You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+### Third-Party Attribution
+All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.

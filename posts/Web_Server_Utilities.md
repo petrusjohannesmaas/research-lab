@@ -9,21 +9,19 @@ author: "Petrus Johannes Maas"
 
 # Server Utilities
 
-### 🧠 Overview
-* `server-stats.sh` is a bash script to get basic stats for any Linux system *(CPU, RAM, Disk usage, etc.)
+## Overview
+* `server-stats.sh` is a bash script to get basic stats for any Linux system *(CPU, RAM, Disk usage, etc.)*
 * `benchmark.sh`: Run a basic benchmark test on your hardware. 
 * `web-server-status.sh`: Check if a specific set of web servers are currently up *(or down)* and create a log file. 
 
-**Dependencies**:
+**💾 Dependencies**:
 
 `benchmark.sh` requires the "**sysbench**" and "**lshw**" packages to run.
 ```sh
 sudo apt install sysbench lshw
 ```
 
----
-
-### ⚡️ How to use the scripts
+## How to use the scripts
 
 **Clone the repository**:
 ```shell
@@ -41,4 +39,17 @@ chmod +x the-script.sh
 ./the-script.sh
 ```
 
----
+## Disclaimer & Intent 
+
+This project was developed for **research and portfolio purposes**. The
+primary goal is to explore architectural patterns and software systems.
+It is provided for educational and demonstration purposes.
+
+## License
+Copyright © 2026 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+
+Licensed under the **Apache License, Version 2.0**. You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+### Third-Party Attribution
+All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.

@@ -7,13 +7,13 @@ tags: ['Docker', 'DevOps', 'Optimization']
 author: "Petrus Johannes Maas"
 ---
 
-# 🚀 **Project: Multi-Stage Container Build Pipeline**  
+# **Project: Multi-Stage Container Build Pipeline**  
 ### **Overview**
 This project focuses on **optimizing Docker/Podman container builds** using **multi-stage builds** to reduce image size and improve efficiency. The pipeline automates the **build, test, and deployment** process, making it ideal for production-ready applications.
 
 ---
 
-## ✅ **Objectives**
+## **Objectives**
 ✔️ **Implement multi-stage builds** to reduce final image size  
 ✔️ **Optimize layer caching** for faster rebuilds  
 ✔️ **Automate container builds & deployments** using **GitHub Actions / CI/CD**  
@@ -22,7 +22,7 @@ This project focuses on **optimizing Docker/Podman container builds** using **mu
 
 ---
 
-## 🔧 **Technology Stack**
+## **Technology Stack**
 ✅ **Podman or Docker** (Container runtime)  
 ✅ **GitHub Actions / GitLab CI/CD** (Build Automation)  
 ✅ **Dockerfile multi-stage builds** (Optimized layering)  
@@ -31,7 +31,7 @@ This project focuses on **optimizing Docker/Podman container builds** using **mu
 
 ---
 
-## 📜 **Project Steps**
+## **Project Steps**
 ### **1️⃣ Set Up Multi-Stage Dockerfile**
 Instead of **including everything in one image**, use **multi-stage builds** to create a **small, optimized production image**.
 
@@ -132,9 +132,24 @@ services:
 
 ---
 
-## 🎯 **Final Outcome**
+## **Final Outcome**
 By the end of this project, you'll have:
 ✔️ **A fully optimized container build pipeline**  
 ✔️ **Automated CI/CD deployments with GitHub Actions**  
 ✔️ **Security scanning & rollback mechanisms**  
-✔️ **Minimal-sized images using multi-stage builds**  
+✔️ **Minimal-sized images using multi-stage builds**
+
+## Disclaimer & Intent 
+
+This project was developed for **research and portfolio purposes**. The
+primary goal is to explore architectural patterns and software systems.
+It is provided for educational and demonstration purposes.
+
+## License
+Copyright © 2026 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+
+Licensed under the **Apache License, Version 2.0**. You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+### Third-Party Attribution
+All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.

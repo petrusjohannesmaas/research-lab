@@ -9,12 +9,12 @@ author: "Petrus Johannes Maas"
 
 # Back-End (Server-Side) Development
 
-## 🧩 Overview
+## Overview
 Back-end development refers to the server-side logic that powers web applications behind the scenes. It handles data processing, business logic, authentication, and communication with databases and APIs. While the front-end interacts with users, the back-end ensures everything works smoothly under the hood.
 
 ---
 
-## 🎯 Objectives of Back-End Development
+## Objectives of Back-End Development
 - Manage data storage and retrieval
 - Authenticate and authorize users
 - Handle business logic and workflows
@@ -23,7 +23,7 @@ Back-end development refers to the server-side logic that powers web application
 
 ---
 
-## 🛠️ Core Technologies
+## ️ Core Technologies
 
 | Technology | Description |
 |------------|-------------|
@@ -35,7 +35,7 @@ Back-end development refers to the server-side logic that powers web application
 
 ---
 
-## 🔄 Server-Side vs Client-Side
+## Server-Side vs Client-Side
 
 | Feature              | Server-Side                          | Client-Side                         |
 |----------------------|--------------------------------------|-------------------------------------|
@@ -47,31 +47,31 @@ Back-end development refers to the server-side logic that powers web application
 
 ---
 
-## 📡 Server-Side Responsibilities
+## Server-Side Responsibilities
 
-### ✅ API Development
+### API Development
 - Create RESTful or GraphQL endpoints
 - Handle HTTP methods (GET, POST, PUT, DELETE)
 
-### ✅ Database Interaction
+### Database Interaction
 - Query, insert, update, and delete records
 - Use ORMs (e.g., SQLAlchemy, Prisma) or raw SQL
 
-### ✅ Authentication & Authorization
+### Authentication & Authorization
 - Secure login systems
 - Role-based access control
 
-### ✅ Business Logic
+### Business Logic
 - Implement workflows, calculations, and rules
 - Validate and sanitize input data
 
-### ✅ Error Handling & Logging
+### Error Handling & Logging
 - Gracefully handle exceptions
 - Log events for debugging and monitoring
 
 ---
 
-## 🧠 Best Practices
+## Best Practices
 
 - **Modular Code:** Separate concerns using MVC or layered architecture
 - **Security:** Sanitize inputs, hash passwords, use HTTPS
@@ -81,7 +81,7 @@ Back-end development refers to the server-side logic that powers web application
 
 ---
 
-## 🧪 Example: Simple REST API with Flask
+## Example: Simple REST API with Flask
 ```python
 from flask import Flask, jsonify, request
 
@@ -104,9 +104,24 @@ if __name__ == '__main__':
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 - [MDN Web Docs – Server-side programming](https://developer.mozilla.org/en-US/docs/Learn/Server-side)
 - [OWASP – Web Security Guidelines](https://owasp.org/)
 - [Postman – API Testing and Documentation](https://www.postman.com/)
 
 ---
+
+## Disclaimer & Intent 
+
+This project was developed for **research and portfolio purposes**. The
+primary goal is to explore architectural patterns and software systems.
+It is provided for educational and demonstration purposes.
+
+## License
+Copyright © 2026 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+
+Licensed under the **Apache License, Version 2.0**. You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+### Third-Party Attribution
+All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.

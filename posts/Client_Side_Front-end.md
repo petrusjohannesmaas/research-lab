@@ -9,12 +9,12 @@ author: "Petrus Johannes Maas"
 
 # Client Side (Front-end) Development
 
-## 🧩 Overview
+## Overview
 Client-side (or front-end) development refers to the part of web development that focuses on what users see and interact with in their browsers. It involves building the visual layout, user interface (UI), and user experience (UX) of a website or web application.
 
 ---
 
-## 🎯 Objectives of Client-Side Development
+## Objectives of Client-Side Development
 - Deliver responsive and interactive user interfaces
 - Ensure accessibility and usability across devices and browsers
 - Handle user input and provide real-time feedback
@@ -22,7 +22,7 @@ Client-side (or front-end) development refers to the part of web development tha
 
 ---
 
-## 🛠️ Core Technologies
+## ️ Core Technologies
 
 | Technology | Description |
 |------------|-------------|
@@ -33,26 +33,26 @@ Client-side (or front-end) development refers to the part of web development tha
 
 ---
 
-## 🧪 Common Front-End Tools & Frameworks
+## Common Front-End Tools & Frameworks
 
-### 🧰 Libraries & Frameworks
+### Libraries & Frameworks
 - **React** – Component-based UI library by Meta
 - **Vue.js** – Progressive framework for building UIs
 - **Angular** – Full-featured framework by Google
 - **Svelte** – Compiler-based framework with minimal runtime
 
-### 🎨 Styling Tools
+### Styling Tools
 - **Sass / SCSS** – CSS preprocessor with variables and nesting
 - **Tailwind CSS** – Utility-first CSS framework
 - **Bootstrap** – Prebuilt responsive UI components
 
-### ⚙️ Build Tools & Package Managers
+### ️ Build Tools & Package Managers
 - **Webpack / Vite** – Module bundlers for optimizing assets
 - **npm / Yarn / pnpm** – Package managers for JavaScript dependencies
 
 ---
 
-## 🔄 Client-Side vs Server-Side
+## Client-Side vs Server-Side
 
 | Feature              | Client-Side                         | Server-Side                          |
 |----------------------|-------------------------------------|--------------------------------------|
@@ -64,27 +64,27 @@ Client-side (or front-end) development refers to the part of web development tha
 
 ---
 
-## 📡 Client-Side Responsibilities
+## Client-Side Responsibilities
 
-### ✅ Rendering UI
+### Rendering UI
 - Displaying content dynamically using JavaScript
 - Managing layout with CSS Grid/Flexbox
 
-### ✅ Handling Events
+### Handling Events
 - Responding to user actions (clicks, input, scroll)
 - Validating forms before submission
 
-### ✅ API Communication
+### API Communication
 - Fetching data from REST or GraphQL APIs
 - Updating the UI based on server responses
 
-### ✅ State Management
+### State Management
 - Tracking UI state (e.g., modals, tabs, inputs)
 - Using tools like Redux, Zustand, or Context API
 
 ---
 
-## 🧠 Best Practices
+## Best Practices
 
 - **Responsive Design:** Use media queries and flexible layouts
 - **Accessibility (a11y):** Ensure keyboard navigation and screen reader support
@@ -94,7 +94,7 @@ Client-side (or front-end) development refers to the part of web development tha
 
 ---
 
-## 🧪 Example: Fetching Data with JavaScript
+## Example: Fetching Data with JavaScript
 ```javascript
 fetch('https://api.example.com/data')
   .then(response => response.json())
@@ -106,9 +106,24 @@ fetch('https://api.example.com/data')
 
 ---
 
-## 📚 Further Reading
+## Further Reading
 - [MDN Web Docs – Client-side web development](https://developer.mozilla.org/en-US/docs/Learn/Front-end_web_developer)
 - [W3C Web Accessibility Initiative](https://www.w3.org/WAI/)
 - [Can I use – Browser compatibility](https://caniuse.com/)
 
 ---
+
+## Disclaimer & Intent 
+
+This project was developed for **research and portfolio purposes**. The
+primary goal is to explore architectural patterns and software systems.
+It is provided for educational and demonstration purposes.
+
+## License
+Copyright © 2026 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+
+Licensed under the **Apache License, Version 2.0**. You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+### Third-Party Attribution
+All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.

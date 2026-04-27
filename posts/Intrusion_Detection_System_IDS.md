@@ -13,7 +13,7 @@ author: "Petrus Johannes Maas"
 
 ---
 
-## **🛠 Step 1: Set Up Your Environment**
+## **Step 1: Set Up Your Environment**
 You'll need:
 - A machine that can run **virtual machines** or a Linux-based system.
 - A network monitoring tool like **Wireshark** or **tcpdump**.
@@ -21,7 +21,7 @@ You'll need:
 
 ---
 
-## **🌐 Step 2: Capture Network Traffic**
+## **Step 2: Capture Network Traffic**
 Use **tcpdump** or **PyShark** to monitor real-time network packets.
 
 1. **Install tcpdump**:
@@ -39,7 +39,7 @@ Use **tcpdump** or **PyShark** to monitor real-time network packets.
 
 ---
 
-## **🔍 Step 3: Analyze Traffic for Suspicious Patterns**
+## **Step 3: Analyze Traffic for Suspicious Patterns**
 Use Python and Scapy to inspect packets and detect anomalies.
 
 1. Install Scapy:
@@ -64,7 +64,7 @@ Use Python and Scapy to inspect packets and detect anomalies.
 
 ---
 
-## **🛡 Step 4: Log & Alert Suspicious Activity**
+## **Step 4: Log & Alert Suspicious Activity**
 - **Store logs** in a database or file for analysis.
 - **Send alerts** via email or a dashboard when an attack is detected.
 - Example: Save logs to a CSV file:
@@ -78,7 +78,7 @@ Use Python and Scapy to inspect packets and detect anomalies.
 
 ---
 
-## **📊 Step 5: Visualize Data for Better Insights**
+## **Step 5: Visualize Data for Better Insights**
 Integrate a **dashboard** using Flask or Django to display logs, detected threats, and traffic statistics.
 
 - Use **Matplotlib** or **Dash** to create graphs showing traffic anomalies.
@@ -86,7 +86,22 @@ Integrate a **dashboard** using Flask or Django to display logs, detected threat
 
 ---
 
-## **🚀 Next Steps**
+## **Next Steps**
 - **Refine detection rules** using machine learning for better accuracy.
 - Test against real attack scenarios (within ethical boundaries).
 - Create a **report or case study** for your portfolio showcasing the IDS's effectiveness.
+
+## Disclaimer & Intent 
+
+This project was developed for **research and portfolio purposes**. The
+primary goal is to explore architectural patterns and software systems.
+It is provided for educational and demonstration purposes.
+
+## License
+Copyright © 2026 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+
+Licensed under the **Apache License, Version 2.0**. You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+### Third-Party Attribution
+All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.

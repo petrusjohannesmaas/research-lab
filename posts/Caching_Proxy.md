@@ -9,7 +9,7 @@ author: "Petrus Johannes Maas"
 
 # Caching Proxy
 
-## 📡 Overview
+## Overview
 
 A caching server built with Go. It forwards requests to an origin server, caches responses, and improves performance on repeated requests.
 
@@ -20,7 +20,7 @@ A caching server built with Go. It forwards requests to an origin server, caches
 
 > 💡 **Prerequisites:** Make sure you have Go installed on your machine if you want to recompile the binary.
 
-## 🧠 How It Works
+## How It Works
 
 | Command                    | Description                      |
 | -------------------------- | -------------------------------- |
@@ -58,7 +58,7 @@ go build -o caching-proxy proxy.go
 
 This will compile a binary named `caching-proxy` in the project folder.
 
-## 📦 Recommended Libraries
+## Recommended Libraries
 
 Consider these packages to enhance or optimize your proxy:
 
@@ -68,7 +68,7 @@ Consider these packages to enhance or optimize your proxy:
 | [`golang-lru`](https://github.com/hashicorp/golang-lru) | Simple and efficient LRU cache implementation |
 | [`fiber`](https://github.com/gofiber/fiber)             | Express.js-style web framework for Go         |
 
-## 📈 Future Enhancements
+## Future Enhancements
 
 * Add TTL-based cache expiration
 * Improve logging & error handling
@@ -76,6 +76,17 @@ Consider these packages to enhance or optimize your proxy:
 * Persist cache to disk between restarts
 * Secure endpoint for manual cache invalidation
 
-## 📄 License
+## Disclaimer & Intent 
 
-MIT License © [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+This project was developed for **research and portfolio purposes**. The
+primary goal is to explore architectural patterns and software systems.
+It is provided for educational and demonstration purposes.
+
+## License
+Copyright © 2026 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+
+Licensed under the **Apache License, Version 2.0**. You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+### Third-Party Attribution
+All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.

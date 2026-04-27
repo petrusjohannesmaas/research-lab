@@ -21,7 +21,7 @@ In this article, I document my end-to-end journey of deploying a Python web appl
 
 Whether you're refining your CI/CD skills or exploring Azure for the first time, this walkthrough will offer a grounded, reproducible path to deploying your first containerized app using Jenkins and the Azure CLI, but before we get started we need to install Azure CLI.
 
-### 🛠️ **Install Azure CLI on Debian**
+### ️ **Install Azure CLI on Debian**
 
 1. **Update your package index:**
     
@@ -62,7 +62,7 @@ Whether you're refining your CI/CD skills or exploring Azure for the first time,
     ```
     
 
-### ✅ **Step 1: Provision the Cheapest Azure VM with CLI (Manual SSH Test)**
+### **Step 1: Provision the Cheapest Azure VM with CLI (Manual SSH Test)**
 
 ```bash
 # Log in first
@@ -130,7 +130,7 @@ az vm user update \
   --ssh-key-value ~/.ssh/id_rsa.pub
 ```
 
-## 🖥 Pro tip: Hardening the server
+## Pro tip: Hardening the server
 
 Let’s lock it down smartly while keeping just enough open for your Jenkins pipeline, SSH access, and local testing via `curl`. Since there are no current firewall rules, we’ll define a clean set using a **Network Security Group (NSG)**. Once you’ve done this you can be confident that you won’t have any bad actors messing with your VM while you’re testing.
 
@@ -229,7 +229,7 @@ This setup ensures:
 
 **Important: Your public IP might be dynamic and change unless you’ve configured it to be static through your ISP, so you might have to revise these rules if your connection isn’t working anymore.**
 
-### 🔁 **Step 2: Learn Jenkins Pipelines with a Minimal Jenkinsfile**
+### **Step 2: Learn Jenkins Pipelines with a Minimal Jenkinsfile**
 
 Here’s a simple example for local experimentation:
 
@@ -265,7 +265,7 @@ You can check out this in depth tutorial on how to install and troubleshoot Jenk
 
 Once that feels comfortable, you’ll extend this later in step 5.
 
-### 🐍 **Step 3: Create a Hello World Python App with JSON Response**
+### **Step 3: Create a Hello World Python App with JSON Response**
 
 Minimal Flask app:
 
@@ -319,7 +319,7 @@ Build the image:
 docker build -t test-python-app .
 ```
 
-### 📦 **Step 4: Push to Azure Container Registry (ACR)**
+### **Step 4: Push to Azure Container Registry (ACR)**
 
 If your Azure subscription hasn’t been registered to use the **Microsoft.ContainerRegistry** resource provider yet—which is required to create an Azure Container Registry (ACR). 
 
@@ -369,7 +369,7 @@ Get detailed information about the image:
 az acr manifest list-metadata --name test-python-app --registry <YOUR-REGISTRY-NAME> --output table
 ```
 
-### ⚙️ **Step 5: Jenkinsfile for Full CI/CD Using ACR + Azure VM**
+### ️ **Step 5: Jenkinsfile for Full CI/CD Using ACR + Azure VM**
 
 Let’s build a Jenkins pipeline that pulls the image and runs it, tests it with `curl`, and only proceeds to deploy if the response is a success (HTTP 200).
 
@@ -439,7 +439,7 @@ pipeline {
 
 ---
 
-### ✅ What This Does:
+### What This Does:
 
 - Always attempts to pull the base image from ACR (in case you’re doing layered builds).
 - Builds your Docker image locally.
@@ -485,9 +485,24 @@ curl http://<your-vm-ip>/
 # Should return: {"message": "Hello, Azure!"}
 ```
 
-### 🔧☁️🐳 Future improvements:
+### ️Future improvements:
 
 - Securely injecting the ACR credentials into Jenkins
 - Pipeline notifications,
 - Health checks,
 - VM teardown automation.
+
+## Disclaimer & Intent 
+
+This project was developed for **research and portfolio purposes**. The
+primary goal is to explore architectural patterns and software systems.
+It is provided for educational and demonstration purposes.
+
+## License
+Copyright © 2026 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+
+Licensed under the **Apache License, Version 2.0**. You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+### Third-Party Attribution
+All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.

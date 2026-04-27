@@ -7,13 +7,13 @@ tags: ['Vagrant', 'Kubernetes', 'Development']
 author: "Petrus Johannes Maas"
 ---
 
-# 🧱 Kubernetes Vagrant Box for Local Cluster Development
+# Kubernetes Vagrant Box for Local Cluster Development
 
 This project helps you spin up a fully functional Kubernetes cluster using [Vagrant](https://www.vagrantup.com/) and [Kind](https://kind.sigs.k8s.io/) inside a [Debian 12](https://www.debian.org/) virtual machine — perfect for local development and learning Kubernetes.
 
 ---
 
-## 📦 Project Structure
+## Project Structure
 
 ```text
 kubernetes-vagrant-box/
@@ -25,7 +25,7 @@ kubernetes-vagrant-box/
 
 ---
 
-## ⚙️ Prerequisites
+## ️ Prerequisites
 
 Make sure the following are installed on your host machine:
 
@@ -34,7 +34,7 @@ Make sure the following are installed on your host machine:
 
 ---
 
-## 🚀 Quickstart
+## Quickstart
 
 ### 1. Clone the Repository
 
@@ -70,7 +70,7 @@ You’ll see messages like:
 
 ---
 
-## 🛠️ Usage
+## ️ Usage
 
 ### SSH into the Vagrant Box
 
@@ -88,7 +88,7 @@ You should see a single `kind-control-plane` node in `Ready` state.
 
 ---
 
-## 🧰 Tool Versions
+## Tool Versions
 
 | Tool    | Version       |
 | ------- | ------------- |
@@ -100,15 +100,15 @@ You should see a single `kind-control-plane` node in `Ready` state.
 
 ---
 
-## 🧠 What’s Inside
+## What’s Inside
 
-### 🐳 `dependencies.sh`
+### `dependencies.sh`
 
 * Installs Docker and required packages
 * Installs Go manually and sets system-wide PATH
 * Installs the latest `kubectl` from the official release channel
 
-### ⚙️ `kind-setup.sh`
+### ️ `kind-setup.sh`
 
 * Installs Kind with `go install`
 * Persists the Kind binary in PATH
@@ -116,7 +116,7 @@ You should see a single `kind-control-plane` node in `Ready` state.
 
 ---
 
-## 🌐 Networking
+## Networking
 
 The VM is configured with a `private_network` using DHCP:
 
@@ -128,7 +128,7 @@ Use `kubectl port-forward` or install [MetalLB](https://metallb.universe.tf/) fo
 
 ---
 
-## 🧭 What's Next?
+## What's Next?
 
 Explore this repo's companion guide:
 
@@ -138,7 +138,7 @@ Learn how to expose your services without using `NodePort` or Ingress.
 
 ---
 
-## 🔮 Future Enhancements
+## Future Enhancements
 
 * [ ] Add Kubernetes Dashboard
 * [ ] Optional Helm-based provisioning
@@ -147,7 +147,7 @@ Learn how to expose your services without using `NodePort` or Ingress.
 
 ---
 
-## 🧼 Cleanup
+## Cleanup
 
 To destroy the VM:
 
@@ -163,8 +163,17 @@ vagrant up --provision
 
 ---
 
-## 📝 License
+## Disclaimer & Intent 
 
-MIT License © 2025 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+This project was developed for **research and portfolio purposes**. The
+primary goal is to explore architectural patterns and software systems.
+It is provided for educational and demonstration purposes.
 
----
+## License
+Copyright © 2026 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
+
+Licensed under the **Apache License, Version 2.0**. You may obtain a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+### Third-Party Attribution
+All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.
