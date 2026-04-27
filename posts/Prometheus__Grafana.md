@@ -12,7 +12,6 @@ author: "Petrus Johannes Maas"
 ## Overview
 Prometheus is an open-source monitoring system that collects metrics from configured targets at regular intervals. Grafana is a visualization tool that connects to Prometheus and displays metrics in customizable dashboards.
 
----
 
 ## ️ Prerequisites
 - Linux server (Ubuntu 20.04+ recommended)
@@ -20,7 +19,6 @@ Prometheus is an open-source monitoring system that collects metrics from config
 - Internet connection
 - Basic knowledge of system administration
 
----
 
 ## Step 1: Install Prometheus
 
@@ -47,7 +45,6 @@ scrape_configs:
       - targets: ['localhost:9100']
 ```
 
----
 
 ## Step 2: Install Node Exporter (for system metrics)
 ```bash
@@ -57,7 +54,6 @@ cd node_exporter-*
 ./node_exporter &
 ```
 
----
 
 ## Step 3: Run Prometheus
 ```bash
@@ -65,7 +61,6 @@ cd node_exporter-*
 ```
 - Access Prometheus UI: `http://localhost:9090`
 
----
 
 ## Step 4: Install Grafana
 
@@ -87,7 +82,6 @@ sudo systemctl enable grafana-server
 - Access Grafana UI: `http://localhost:3000`
 - Default login: `admin / admin`
 
----
 
 ## Step 5: Connect Prometheus to Grafana
 
@@ -97,7 +91,6 @@ sudo systemctl enable grafana-server
 3. Set URL: `http://localhost:9090`
 4. Click **Save & Test**
 
----
 
 ## Step 6: Create Dashboards
 - Use built-in panels or import community dashboards from [Grafana Labs](https://grafana.com/grafana/dashboards/)
@@ -106,7 +99,6 @@ sudo systemctl enable grafana-server
   - Memory: `node_memory_MemAvailable_bytes`
   - Disk I/O: `node_disk_io_time_seconds_total`
 
----
 
 ## Best Practices
 - Use systemd services for Prometheus and Node Exporter
@@ -114,14 +106,12 @@ sudo systemctl enable grafana-server
 - Set up alerting rules in Prometheus
 - Backup Grafana dashboards and Prometheus data
 
----
 
 ## References
 - [Grafana Docs](https://grafana.com/docs/grafana/latest/getting-started/get-started-grafana-prometheus/)
 - [Cherry Servers Setup Guide](https://www.cherryservers.com/blog/set-up-grafana-with-prometheus)
 - [Linode Ubuntu Setup](https://www.linode.com/docs/guides/how-to-install-prometheus-and-grafana-on-ubuntu/)
 
----
 
 ## Disclaimer & Intent 
 

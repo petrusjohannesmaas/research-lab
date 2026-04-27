@@ -12,7 +12,6 @@ author: "Petrus Johannes Maas"
 ## Overview
 Client-side (or front-end) development refers to the part of web development that focuses on what users see and interact with in their browsers. It involves building the visual layout, user interface (UI), and user experience (UX) of a website or web application.
 
----
 
 ## Objectives of Client-Side Development
 - Deliver responsive and interactive user interfaces
@@ -20,7 +19,6 @@ Client-side (or front-end) development refers to the part of web development tha
 - Handle user input and provide real-time feedback
 - Communicate with back-end services via APIs
 
----
 
 ## ️ Core Technologies
 
@@ -31,7 +29,6 @@ Client-side (or front-end) development refers to the part of web development tha
 | **JavaScript** | Adds interactivity and dynamic behavior |
 | **DOM (Document Object Model)** | Interface for manipulating HTML and CSS with JavaScript |
 
----
 
 ## Common Front-End Tools & Frameworks
 
@@ -50,7 +47,6 @@ Client-side (or front-end) development refers to the part of web development tha
 - **Webpack / Vite** – Module bundlers for optimizing assets
 - **npm / Yarn / pnpm** – Package managers for JavaScript dependencies
 
----
 
 ## Client-Side vs Server-Side
 
@@ -62,7 +58,6 @@ Client-side (or front-end) development refers to the part of web development tha
 | Security             | Less secure (code is exposed)       | More secure (logic hidden)           |
 | Use Cases            | UI rendering, form validation       | Database access, authentication      |
 
----
 
 ## Client-Side Responsibilities
 
@@ -82,7 +77,6 @@ Client-side (or front-end) development refers to the part of web development tha
 - Tracking UI state (e.g., modals, tabs, inputs)
 - Using tools like Redux, Zustand, or Context API
 
----
 
 ## Best Practices
 
@@ -92,7 +86,6 @@ Client-side (or front-end) development refers to the part of web development tha
 - **Code Organization:** Use modular components and maintainable folder structures
 - **Cross-Browser Compatibility:** Test on multiple browsers and devices
 
----
 
 ## Example: Fetching Data with JavaScript
 ```javascript
@@ -104,14 +97,12 @@ fetch('https://api.example.com/data')
   .catch(error => console.error('Error:', error));
 ```
 
----
 
 ## Further Reading
 - [MDN Web Docs – Client-side web development](https://developer.mozilla.org/en-US/docs/Learn/Front-end_web_developer)
 - [W3C Web Accessibility Initiative](https://www.w3.org/WAI/)
 - [Can I use – Browser compatibility](https://caniuse.com/)
 
----
 
 ## Disclaimer & Intent 
 

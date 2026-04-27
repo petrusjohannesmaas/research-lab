@@ -11,7 +11,6 @@ author: "Petrus Johannes Maas"
 
 This project helps you spin up a fully functional Kubernetes cluster using [Vagrant](https://www.vagrantup.com/) and [Kind](https://kind.sigs.k8s.io/) inside a [Debian 12](https://www.debian.org/) virtual machine — perfect for local development and learning Kubernetes.
 
----
 
 ## Project Structure
 
@@ -23,7 +22,6 @@ kubernetes-vagrant-box/
 └── README.md           # You're here
 ```
 
----
 
 ## ️ Prerequisites
 
@@ -32,7 +30,6 @@ Make sure the following are installed on your host machine:
 * [Vagrant](https://developer.hashicorp.com/vagrant/downloads)
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
----
 
 ## Quickstart
 
@@ -68,7 +65,6 @@ You’ll see messages like:
 🥳 Kind setup complete!
 ```
 
----
 
 ## ️ Usage
 
@@ -86,7 +82,6 @@ kubectl get nodes
 
 You should see a single `kind-control-plane` node in `Ready` state.
 
----
 
 ## Tool Versions
 
@@ -98,7 +93,6 @@ You should see a single `kind-control-plane` node in `Ready` state.
 | Kind    | 0.29.0        |
 | kubectl | Latest stable |
 
----
 
 ## What’s Inside
 
@@ -114,7 +108,6 @@ You should see a single `kind-control-plane` node in `Ready` state.
 * Persists the Kind binary in PATH
 * Creates a local Kubernetes cluster
 
----
 
 ## Networking
 
@@ -126,7 +119,6 @@ config.vm.network "private_network", type: "dhcp"
 
 Use `kubectl port-forward` or install [MetalLB](https://metallb.universe.tf/) for exposing services.
 
----
 
 ## What's Next?
 
@@ -136,7 +128,6 @@ Explore this repo's companion guide:
 
 Learn how to expose your services without using `NodePort` or Ingress.
 
----
 
 ## Future Enhancements
 
@@ -145,7 +136,6 @@ Learn how to expose your services without using `NodePort` or Ingress.
 * [ ] Automate MetalLB setup
 * [ ] Shared folder setup for syncing host ↔ VM
 
----
 
 ## Cleanup
 
@@ -161,7 +151,6 @@ To rebuild everything from scratch:
 vagrant up --provision
 ```
 
----
 
 ## Disclaimer & Intent 
 

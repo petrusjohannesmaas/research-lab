@@ -15,7 +15,6 @@ Your project will have:
 - **Web Application** (Node.js, Express, communicates with Auth Service)
 - **Kubernetes Deployment** to run both services inside the same cluster
 
----
 
 ### **Step 1: Set Up Project Structure**
 Organize your project like this:
@@ -29,7 +28,6 @@ jwt-auth-webapp/
 │── README.md
 ```
 
----
 
 ### **Step 2: Implement JWT Authentication Service**
 Inside `auth-service/`, create:
@@ -96,7 +94,6 @@ EXPOSE 3000
 CMD ["node", "server.js"]
 ```
 
----
 
 ### **Step 3: Implement Web Application**
 Inside `webapp-service/`, create:
@@ -145,7 +142,6 @@ EXPOSE 8080
 CMD ["node", "server.js"]
 ```
 
----
 
 ### **Step 4: Local Testing With Docker Compose**
 Create a **Docker Compose** file for both services and MongoDB:
@@ -192,7 +188,6 @@ Run everything locally:
 docker-compose up --build -d
 ```
 
----
 
 ### **Step 5: Kubernetes Deployment**
 Inside `k8s/`, create Kubernetes manifests for both services.
@@ -224,7 +219,6 @@ spec:
             - name: JWT_SECRET
               value: "your_secure_key"
 
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -260,7 +254,6 @@ spec:
           ports:
             - containerPort: 8080
 
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -296,7 +289,6 @@ spec:
           ports:
             - containerPort: 27017
 
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -310,7 +302,6 @@ spec:
       targetPort: 27017
 ```
 
----
 
 ### **Step 6: Deploy to Kubernetes**
 Apply all deployments:
@@ -321,7 +312,6 @@ kubectl apply -f k8s/
 
 Now, both services run in Kubernetes, and your **web application communicates securely** with the **auth service** for JWT verification!
 
----
 
 ### **Next Steps**
 - Use **environment variables** inside Kubernetes **Secrets** instead of hardcoding values.

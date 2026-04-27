@@ -15,7 +15,6 @@ The current version is built using the **MERN stack** with **MongoDB** for stora
 
 The next version will extend this functionality by implementing smart contracts in **Solidity**, allowing decentralized management on the Ethereum blockchain.
 
----
 
 ## Features
 
@@ -24,7 +23,6 @@ The next version will extend this functionality by implementing smart contracts 
 - **React Frontend:** Built with Vite and Router v7 for a modern UI.
 - **Role-Based Access:** Basic role assignment (admin, management) for restricted operations.
 
----
 
 ## Code Overview
 
@@ -73,7 +71,6 @@ app.delete('/employees/:id', async (req, res) => {
 });
 ```
 
----
 
 ## Future Development (Web 3 Integration)
 
@@ -86,7 +83,6 @@ The next version of this system will transition from a centralized approach to a
 The Web 3 upgrade will enhance security, transparency, and decentralization in employee management, ensuring that all transactions are **verifiable and immutable** within the Ethereum ecosystem.
 ```
 
----
 
 ## Disclaimer & Intent 
 

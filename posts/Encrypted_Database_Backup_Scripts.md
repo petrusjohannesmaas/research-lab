@@ -21,13 +21,11 @@ This repository provides a simple and secure solution for creating and backing u
 * ☁️ Store backups in cloud storage (e.g., AWS S3, Google Drive)
 * 🚨 Add an alert/notification system
 
----
 
 ##  Getting started
 
 Follow this guide to securely back up your SQLite databases and restore them when needed.
 
----
 
 ## 1️⃣ Install SQLite & OpenSSL
 
@@ -61,7 +59,6 @@ Check OpenSSL:
 openssl version
 ```
 
----
 
 ## 2️⃣ Create a SQLite Database
 
@@ -92,7 +89,6 @@ Verify the database file exists:
 ls -l ~/databases/
 ```
 
----
 
 ## 3️⃣ Create & Test the Encrypted Backup Script
 
@@ -150,7 +146,6 @@ Check that an encrypted backup was created:
 ls -l ~/backups/
 ```
 
----
 
 ## 4️⃣ Restoring the Backup
 
@@ -168,7 +163,6 @@ Verify contents:
 sqlite3 restored.sqlite "SELECT * FROM users;"
 ```
 
----
 
 ## 5️⃣ Automate with Cron
 
@@ -184,7 +178,6 @@ Add the following line:
 0 2 * * * ~/backup.sh
 ```
 
----
 
 ## Disclaimer & Intent 
 

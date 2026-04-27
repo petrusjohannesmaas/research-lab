@@ -119,7 +119,6 @@ spec:
           image: registry:2
           ports:
             - containerPort: 5000
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -373,7 +372,6 @@ spec:
           image: localhost:30500/test-go-api:v1
           ports:
             - containerPort: 8080
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -446,7 +444,6 @@ spec:
           image: localhost:30500/test-go-api:v2
           ports:
             - containerPort: 8080
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -493,7 +490,6 @@ This should return:
 
 🥳 **Congrats, your API has been successfully updated with 0 downtime!**
 
----
 
 ### ️ Housekeeping
 

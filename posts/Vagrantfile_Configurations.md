@@ -12,14 +12,12 @@ author: "Petrus Johannes Maas"
 ## Overview
 Vagrant is a tool for building and managing virtual machine environments in a single workflow. It allows developers to create portable, reproducible development environments using simple configuration files.
 
----
 
 ## ️ Prerequisites
 - [VirtualBox](https://www.virtualbox.org/) or another supported provider
 - [Vagrant](https://www.vagrantup.com/) installed
 - Terminal or command prompt access
 
----
 
 ## Project Structure
 ```
@@ -29,7 +27,6 @@ vagrant-vm/
 └── README.md
 ```
 
----
 
 ## ️ Vagrantfile Configuration
 
@@ -52,7 +49,6 @@ Vagrant.configure("2") do |config|
 end
 ```
 
----
 
 ## Networking Options
 
@@ -67,7 +63,6 @@ end
 config.vm.network "forwarded_port", guest: 80, host: 8080
 ```
 
----
 
 ## Resource Allocation
 
@@ -78,7 +73,6 @@ config.vm.network "forwarded_port", guest: 80, host: 8080
 
 **Tip:** Keep memory under 50% of your host’s total RAM for performance.
 
----
 
 ## Provisioning Script (provision.sh)
 ```bash
@@ -101,7 +95,6 @@ Make sure the script is executable:
 chmod +x provision.sh
 ```
 
----
 
 ## Usage Commands
 
@@ -113,7 +106,6 @@ chmod +x provision.sh
 | `vagrant destroy` | Deletes the VM |
 | `vagrant reload` | Restarts and re-provisions the VM |
 
----
 
 ## Best Practices
 - Use version-controlled `Vagrantfile` and `provision.sh`
@@ -121,14 +113,12 @@ chmod +x provision.sh
 - Use environment variables for secrets
 - Document IPs and ports for team use
 
----
 
 ## Further Reading
 - [Vagrant Documentation](https://developer.hashicorp.com/vagrant/docs)
 - [Networking in Vagrant](https://developer.hashicorp.com/vagrant/docs/networking)
 - [Provisioning with Shell](https://developer.hashicorp.com/vagrant/docs/provisioning/shell)
 
----
 
 ## Disclaimer & Intent 
 

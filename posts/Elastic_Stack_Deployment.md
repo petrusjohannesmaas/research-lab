@@ -9,7 +9,6 @@ author: "Petrus Johannes Maas"
 
 # ELK Stack Deployment
 
----
 
 ## **Project Overview**
 We'll build a system that:
@@ -18,7 +17,6 @@ We'll build a system that:
 3. **Processes and stores logs** using **Logstash & Elasticsearch**.
 4. **Visualizes logs** using **Kibana dashboards**.
 
----
 
 ## **1. Set Up the ELK Stack**
 We'll use **Docker Compose** to simplify deployment.
@@ -54,7 +52,6 @@ services:
     ports:
       - "5601:5601"
 ```
----
 
 ## **2. Build the API**
 Your **FastAPI** application will serve random data.
@@ -77,7 +74,6 @@ def get_data():
 ```bash
 uvicorn api:app --host 0.0.0.0 --port 8000
 ```
----
 
 ## **3. Create the Request-Logging Script**
 This script continuously **sends requests to the API** and logs responses.
@@ -103,7 +99,6 @@ Run it:
 python log_requests.py
 ```
 
----
 
 ## **4. Configure Logstash**
 Logstash will **parse and send logs to Elasticsearch**.
@@ -131,7 +126,6 @@ Start the ELK stack:
 docker-compose up -d
 ```
 
----
 
 ## **5. Visualize Logs in Kibana**
 1. Go to **http://localhost:5601**.
@@ -141,7 +135,6 @@ docker-compose up -d
    - Errors or anomalies
    - Request frequencies
 
----
 
 ## **Next Steps**
 - Improve **API logging** with request metadata.

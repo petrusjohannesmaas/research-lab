@@ -11,7 +11,6 @@ author: "Petrus Johannes Maas"
 ### **Overview**
 This project focuses on **optimizing Docker/Podman container builds** using **multi-stage builds** to reduce image size and improve efficiency. The pipeline automates the **build, test, and deployment** process, making it ideal for production-ready applications.
 
----
 
 ## **Objectives**
 ✔️ **Implement multi-stage builds** to reduce final image size  
@@ -20,7 +19,6 @@ This project focuses on **optimizing Docker/Podman container builds** using **mu
 ✔️ **Secure the image** with minimal attack surface  
 ✔️ **Test containerized apps efficiently**  
 
----
 
 ## **Technology Stack**
 ✅ **Podman or Docker** (Container runtime)  
@@ -29,7 +27,6 @@ This project focuses on **optimizing Docker/Podman container builds** using **mu
 ✅ **Kubernetes / Local Deployment** (Application runtime)  
 ✅ **Trivy / DockerScout** (Security scanning)  
 
----
 
 ## **Project Steps**
 ### **1️⃣ Set Up Multi-Stage Dockerfile**
@@ -52,7 +49,6 @@ CMD ["./myapp"]
 ✅ First stage **builds the app**  
 ✅ Second stage **copies only the final binary**, reducing image size  
 
----
 
 ### **2️⃣ Automate CI/CD with GitHub Actions**
 Create a **CI/CD workflow** to automatically **build, test, and push images**.
@@ -84,7 +80,6 @@ jobs:
 ✅ **Automatically builds & tests** on every push  
 ✅ **Pushes optimized image to container registry**  
 
----
 
 ### **3️⃣ Optimize Layer Caching**
 Use **layer caching** to speed up builds:
@@ -103,7 +98,6 @@ RUN npm run build
 ✅ **Dependency layers remain cached**  
 ✅ **Source changes don’t invalidate package installs**  
 
----
 
 ### **4️⃣ Integrate Security Scanning**
 Run **Trivy** or **DockerScout** to scan images for vulnerabilities:
@@ -114,7 +108,6 @@ Run **Trivy** or **DockerScout** to scan images for vulnerabilities:
 ```
 ✅ Ensures **secure builds** with minimal vulnerabilities  
 
----
 
 ### **5️⃣ Deploy Optimized Image**
 Use **Kubernetes or Podman Compose** to **run the image efficiently**.
@@ -130,7 +123,6 @@ services:
 ```
 ✅ Automatically **runs updated container**  
 
----
 
 ## **Final Outcome**
 By the end of this project, you'll have:

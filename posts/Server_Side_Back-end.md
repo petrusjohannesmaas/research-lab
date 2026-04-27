@@ -12,7 +12,6 @@ author: "Petrus Johannes Maas"
 ## Overview
 Back-end development refers to the server-side logic that powers web applications behind the scenes. It handles data processing, business logic, authentication, and communication with databases and APIs. While the front-end interacts with users, the back-end ensures everything works smoothly under the hood.
 
----
 
 ## Objectives of Back-End Development
 - Manage data storage and retrieval
@@ -21,7 +20,6 @@ Back-end development refers to the server-side logic that powers web application
 - Serve data to front-end via APIs
 - Ensure security, scalability, and performance
 
----
 
 ## ️ Core Technologies
 
@@ -33,7 +31,6 @@ Back-end development refers to the server-side logic that powers web application
 | **Protocols** | HTTP/HTTPS, WebSockets, REST, GraphQL |
 | **Authentication** | JWT, OAuth2, Session-based auth |
 
----
 
 ## Server-Side vs Client-Side
 
@@ -45,7 +42,6 @@ Back-end development refers to the server-side logic that powers web application
 | Use Cases            | Data processing, authentication      | UI rendering, form validation       |
 | Speed                | Depends on server and network        | Fast (local execution)              |
 
----
 
 ## Server-Side Responsibilities
 
@@ -69,7 +65,6 @@ Back-end development refers to the server-side logic that powers web application
 - Gracefully handle exceptions
 - Log events for debugging and monitoring
 
----
 
 ## Best Practices
 
@@ -79,7 +74,6 @@ Back-end development refers to the server-side logic that powers web application
 - **Testing:** Write unit and integration tests
 - **Documentation:** Use tools like Swagger/OpenAPI
 
----
 
 ## Example: Simple REST API with Flask
 ```python
@@ -102,14 +96,12 @@ if __name__ == '__main__':
     app.run(debug=True)
 ```
 
----
 
 ## Further Reading
 - [MDN Web Docs – Server-side programming](https://developer.mozilla.org/en-US/docs/Learn/Server-side)
 - [OWASP – Web Security Guidelines](https://owasp.org/)
 - [Postman – API Testing and Documentation](https://www.postman.com/)
 
----
 
 ## Disclaimer & Intent 
 

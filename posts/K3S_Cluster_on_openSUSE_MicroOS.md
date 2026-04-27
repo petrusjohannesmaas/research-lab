@@ -175,7 +175,6 @@ kubectl get nodes
 
 This concludes the initial testing phase. All that's left to do is to deploy containers to the cluster. For that, I'm going to need an image!
 
----
 
 ### Image repository
 

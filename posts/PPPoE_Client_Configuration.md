@@ -16,7 +16,6 @@ author: "Petrus Johannes Maas"
 - Valid PPPoE credentials (username and password)
 - Root or sudo access
 
----
 
 ### 1. **Install PPPoE Configuration Tool**
 
@@ -26,13 +25,11 @@ sudo apt install pppoeconf
 
 ```
 
----
 
 ### 2. **Connect Ethernet Cable**
 
 Plug your DSL or WAN cable into the Ethernet port (e.g., `eth0`) on your server.
 
----
 
 ### 3. **Run PPPoE Configuration Wizard**
 
@@ -50,7 +47,6 @@ This interactive wizard will:
 - Ask whether to connect at startup (select **Yes** if you want auto-connect)
 - Ask whether to establish the connection now (select **Yes**)
 
----
 
 ### 4. **Verify Configuration Files**
 
@@ -58,7 +54,6 @@ This interactive wizard will:
 - **Connection settings:** `/etc/ppp/peers/dsl-provider`
 - **Interface settings (optional):** `/etc/network/interfaces`
 
----
 
 ### 5. **Start and Stop PPPoE Connection**
 
@@ -77,7 +72,6 @@ This interactive wizard will:
     ```
     
 
----
 
 ### 6. **Enable Auto-Connect on Boot**
 
@@ -88,7 +82,6 @@ sudo systemctl enable pppd-dns
 
 ```
 
----
 
 ### 7. **Troubleshooting Tips**
 
@@ -96,7 +89,6 @@ sudo systemctl enable pppd-dns
 - Test connectivity: `ping 8.8.8.8` or `curl https://example.com`
 - Restart PPPoE: `sudo poff dsl-provider && sudo pon dsl-provider`
 
----
 
 ### Optional Enhancements
 
@@ -104,7 +96,6 @@ sudo systemctl enable pppd-dns
 - Set up NAT if sharing the connection with other devices
 - Monitor connection status with custom scripts or `pppstats`
 
----
 
 Sources:   [Appuals](https://appuals.com/how-to-setup-ubuntu-server-as-a-router-using-pppoe/)  [Ask Ubuntu](https://askubuntu.com/questions/1193856/how-to-establish-pppoe-connection-in-ubuntu)  [pcmasterx.com](https://pcmasterx.com/index.php/blog/create-pppoe-connection-on-ubuntu-server)
 

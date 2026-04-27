@@ -130,7 +130,6 @@ docker-compose up --build -d
 
 Now, clients send requests to the **rate limiter container (port 8000)**, which forwards valid requests to the **web server container (port 8080)**.
 
----
 
 This setup makes the rate limiter modular, so you can deploy it independently, scale it, and integrate caching like **Redis** for better performance.
 

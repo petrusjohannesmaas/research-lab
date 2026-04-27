@@ -12,7 +12,6 @@ author: "Petrus Johannes Maas"
 ## Overview
 Full stack deployment involves deploying both the **front-end** (client-side) and **back-end** (server-side) components of a web application so they work together seamlessly in a production environment. This includes hosting, environment configuration, database setup, and security considerations.
 
----
 
 ## ️ Technologies Typically Involved
 
@@ -24,7 +23,6 @@ Full stack deployment involves deploying both the **front-end** (client-side) an
 | Hosting      | Vercel, Netlify, Render, Heroku, AWS |
 | Deployment Tools | Docker, GitHub Actions, CI/CD pipelines |
 
----
 
 ## Project Structure Example
 ```
@@ -37,7 +35,6 @@ my-app/
 └── README.md
 ```
 
----
 
 ## Deployment Steps
 
@@ -105,7 +102,6 @@ my-app/
 - Use services like Cloudflare or Namecheap
 - Set up HTTPS with Let’s Encrypt or platform-provided SSL
 
----
 
 ## Security Checklist
 - Use HTTPS
@@ -114,7 +110,6 @@ my-app/
 - Enable CORS properly
 - Set up rate limiting and logging
 
----
 
 ## Post-Deployment Testing
 - Test all routes and endpoints
@@ -122,14 +117,12 @@ my-app/
 - Monitor logs and performance metrics
 - Validate database connections and queries
 
----
 
 ## Further Reading
 - [DigitalOcean – Full Stack Deployment Guide](https://www.digitalocean.com/community/tutorials)
 - [Docker Documentation](https://docs.docker.com/)
 - [GitHub Actions](https://docs.github.com/en/actions)
 
----
 
 ## Disclaimer & Intent 
 

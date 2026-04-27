@@ -11,7 +11,6 @@ author: "Petrus Johannes Maas"
  
  Here’s a step-by-step guide to creating a basic IDS using open-source tools and Python.
 
----
 
 ## **Step 1: Set Up Your Environment**
 You'll need:
@@ -19,7 +18,6 @@ You'll need:
 - A network monitoring tool like **Wireshark** or **tcpdump**.
 - Python and libraries such as **Scapy**, **PyShark**, and **Pandas**.
 
----
 
 ## **Step 2: Capture Network Traffic**
 Use **tcpdump** or **PyShark** to monitor real-time network packets.
@@ -37,7 +35,6 @@ Use **tcpdump** or **PyShark** to monitor real-time network packets.
        print(packet)
    ```
 
----
 
 ## **Step 3: Analyze Traffic for Suspicious Patterns**
 Use Python and Scapy to inspect packets and detect anomalies.
@@ -62,7 +59,6 @@ Use Python and Scapy to inspect packets and detect anomalies.
    sniff(filter="tcp", prn=detect_syn_scan, store=0)
    ```
 
----
 
 ## **Step 4: Log & Alert Suspicious Activity**
 - **Store logs** in a database or file for analysis.
@@ -76,7 +72,6 @@ Use Python and Scapy to inspect packets and detect anomalies.
    df.to_csv('intrusion_logs.csv', index=False)
    ```
 
----
 
 ## **Step 5: Visualize Data for Better Insights**
 Integrate a **dashboard** using Flask or Django to display logs, detected threats, and traffic statistics.
@@ -84,7 +79,6 @@ Integrate a **dashboard** using Flask or Django to display logs, detected threat
 - Use **Matplotlib** or **Dash** to create graphs showing traffic anomalies.
 - Implement a **web interface** for security monitoring.
 
----
 
 ## **Next Steps**
 - **Refine detection rules** using machine learning for better accuracy.

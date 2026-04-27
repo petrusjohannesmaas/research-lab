@@ -132,7 +132,6 @@ Then log out and back in, or run:
 newgrp docker
 ```
 
----
 
 ## Disclaimer & Intent 
 

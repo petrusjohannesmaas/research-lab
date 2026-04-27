@@ -2,39 +2,107 @@
 title: "URL Shortener Service"
 description: "Design and implementation of a scalable URL shortening application and redirection logic."
 slug: "url-shortener-service"
-date: "2026-03-24"
-tags: ['Backend', 'Project', 'Fullstack']
-author: "Petrus Johannes Maas"
+date: "2026-04-27"
+tags: ['Python', 'Flask', 'Backend', 'System Design', 'SQLite']
+author: "Petrus Johannes Maas"I
 ---
 
-# roadmap.sh
-A public repository to host all my `roadmap.sh` solution projects
+# URL Shortening Service
 
-**Links to original problems:**
+Flask is simple and flexible, perfect for building a RESTful service. Here's how you can implement it using Flask and Python's built-in SQLite library.
 
-* [Basic Dockerfile](https://roadmap.sh/projects/basic-dockerfile)
-* [Basic HTML Site](https://roadmap.sh/projects/basic-html-site)
-* [Dummy Systemd Service](https://roadmap.sh/projects/dummy-systemd-service)
-* [Caching Proxy](https://roadmap.sh/projects/caching-server)
-* [SSH Remote Server Setup](https://roadmap.sh/projects/ssh-remote-server-setup)
-* [Simple Monitoring Dashboard](https://roadmap.sh/projects/simple-monitoring-dashboard)
-* [Pomodoro Timer](https://roadmap.sh/projects/pomodoro-timer)
-* [URL Shortening Service](https://roadmap.sh/projects/url-shortening-service)
-* [Blue-Green Deployment](https://roadmap.sh/projects/blue-green-deployment)
-* [Broadcast Server](https://roadmap.sh/projects/broadcast-server)
-* [Log Archive Tool](https://roadmap.sh/projects/log-archive-tool)
+## Features
+
+✅ **Create a new short URL** (`POST /shorten`)  
+✅ **Retrieve an original URL** (`GET /shorten/<short_code>`)  
+✅ **Update an existing short URL** (`PUT /shorten/<short_code>`)  
+✅ **Delete an existing short URL** (`DELETE /shorten/<short_code>`)  
+✅ **Get statistics on the short URL** (`GET /shorten/<short_code>/stats`)  
+
+## Future Enhancements
+
+- Containerized Deployment instructions
+- Authentication  
+- Rate Limiting  
+- Advanced Analytics  
+- gRPC API
+
+## Getting Started
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/roadmap.sh/url-shortener.git && cd url-shortener
+```
+
+### Development Setup with **uv**
+
+`uv` is an extremely fast Python package and project manager. It replaces `pip`, `venv`, and `pip-tools`.
+
+**Install dependencies and create a virtual environment:**
+
+```bash
+uv sync
+```
+
+**Run the application:**
+
+```bash
+uv run main.py
+```
+
+## Running as a Tool with **uv**
+
+Instead of traditional installation methods, `uv` allows you to run the project in an isolated environment with a single command.
+
+### Project Structure
+
+```
+url_shortener/
+│── main.py         # (Your Flask app)
+│── pyproject.toml  # (Project metadata and dependencies)
+│── README.md
+```
+
+### Install the Project
+
+If you want to install the project as a globally accessible tool on your system:
+
+```bash
+uv tool install .
+```
+
+Now you can run it from anywhere:
+
+```bash
+url-shortener
+```
+
+**Uninstall it with:**
+
+```bash
+uv tool uninstall url-shortener
+```
+
+### Quick Run (Without Installation)
+
+You can also run the script directly while automatically handling dependencies defined in the `pyproject.toml`:
+
+```bash
+uv run python main.py
+```
+
+Your API will be available at **[http://127.0.0.1:5000/shorten](http://127.0.0.1:5000/shorten)** 🎉
 
 ## Disclaimer & Intent 
 
-This project was developed for **research and portfolio purposes**. The
-primary goal is to explore architectural patterns and software systems.
-It is provided for educational and demonstration purposes.
+This project was developed for **research and portfolio purposes**. The primary goal is to explore architectural patterns and software systems. It is provided for educational and demonstration purposes.
 
 ## License
 Copyright © 2026 [Petrus Johannes Maas](https://github.com/petrusjohannesmaas)
 
 Licensed under the **Apache License, Version 2.0**. You may obtain a copy of the License at:
-http://www.apache.org/licenses/LICENSE-2.0
+[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
 ### Third-Party Attribution
 All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.

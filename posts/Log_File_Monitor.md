@@ -12,14 +12,12 @@ author: "Petrus Johannes Maas"
 ### Overview
 This project creates a Python script that continuously monitors a log file (e.g., system logs, application logs) for specific keywords or patterns. When a match is found, it can trigger an alert, write to a separate file, or send a notification.
 
----
 
 ## ️ Requirements
 - Python 3.7+
 - Basic understanding of regular expressions
 - Access to log files (e.g., `/var/log/syslog`, `app.log`)
 
----
 
 ## Project Structure
 ```
@@ -29,7 +27,6 @@ log-monitor/
 └── README.md
 ```
 
----
 
 ## ️ Configuration File (config.json)
 ```json
@@ -41,7 +38,6 @@ log-monitor/
 }
 ```
 
----
 
 ## Script Logic (monitor.py)
 ```python
@@ -77,7 +73,6 @@ if __name__ == "__main__":
     monitor_log(config)
 ```
 
----
 
 ## How to Run
 ```bash
@@ -86,7 +81,6 @@ python3 monitor.py
 
 Make sure the script has permission to read the target log file.
 
----
 
 ## Features
 - Monitors log file in real-time
@@ -94,7 +88,6 @@ Make sure the script has permission to read the target log file.
 - Writes matched lines to a separate alert file
 - Configurable polling interval
 
----
 
 ## Optional Enhancements
 - Add email or SMS alerts
@@ -102,7 +95,6 @@ Make sure the script has permission to read the target log file.
 - Add a web dashboard with Flask
 - Support multiple log files
 
----
 
 ## Disclaimer & Intent 
 

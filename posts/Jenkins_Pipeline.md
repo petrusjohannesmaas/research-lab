@@ -12,7 +12,6 @@ author: "Petrus Johannes Maas"
 ## Overview
 A Jenkins pipeline automates the process of building, testing, and deploying software. It defines a series of steps in code, allowing for consistent and repeatable CI/CD workflows. This guide walks through creating a simple declarative pipeline using a `Jenkinsfile`.
 
----
 
 ## Objectives
 - Understand the structure of a Jenkins pipeline
@@ -20,7 +19,6 @@ A Jenkins pipeline automates the process of building, testing, and deploying sof
 - Configure a Jenkins job to use the pipeline
 - Trigger builds automatically on code changes
 
----
 
 ## ️ Prerequisites
 - Jenkins installed and running (local or server)
@@ -28,7 +26,6 @@ A Jenkins pipeline automates the process of building, testing, and deploying sof
 - Jenkins user with access to create jobs
 - Basic knowledge of shell commands and Git
 
----
 
 ## Project Structure Example
 ```
@@ -39,7 +36,6 @@ my-app/
 └── README.md
 ```
 
----
 
 ## Sample Jenkinsfile (Declarative Pipeline)
 ```groovy
@@ -90,7 +86,6 @@ pipeline {
 }
 ```
 
----
 
 ## ️ Setting Up the Pipeline in Jenkins
 
@@ -108,7 +103,6 @@ pipeline {
 - Click **Build Now** to trigger the pipeline
 - View progress in the **Console Output**
 
----
 
 ## Pipeline Stages Explained
 
@@ -119,7 +113,6 @@ pipeline {
 | Test      | Runs automated tests             |
 | Deploy    | Pushes code to staging/production|
 
----
 
 ## Best Practices
 - Use environment variables for secrets and config
@@ -127,14 +120,12 @@ pipeline {
 - Add notifications (Slack, email) in `post` block
 - Use shared libraries for reusable logic
 
----
 
 ## Further Reading
 - [Jenkins Pipeline Syntax](https://www.jenkins.io/doc/book/pipeline/syntax/)
 - [Jenkins Declarative vs Scripted Pipelines](https://www.jenkins.io/doc/book/pipeline/pipeline-model/)
 - [Jenkinsfile Best Practices](https://www.jenkins.io/blog/2020/05/06/pipeline-best-practices/)
 
----
 
 ## Disclaimer & Intent 
 

@@ -9,7 +9,6 @@ author: "Petrus Johannes Maas"
 
 This is a solid project that will showcase your expertise in Kubernetes networking and benchmarking strategies. Here’s how you can approach it:
 
----
 
 ### **Step 1: Set Up Your Benchmarking Environment**
 - Deploy a Kubernetes cluster using **Kind**, **K3s**, or a managed service (e.g., EKS, AKS, or GKE).
@@ -56,7 +55,6 @@ Measure latency, throughput, and packet loss under different CNIs.
 - Include graphs and tables summarizing results.
 - Highlight recommendations for different use cases (e.g., Flannel for simplicity, Cilium for performance, Calico for security).
 
----
 
 This project will **strongly** demonstrate your expertise in Kubernetes networking! Want to discuss how to package it into a portfolio-ready format? 🚀
 

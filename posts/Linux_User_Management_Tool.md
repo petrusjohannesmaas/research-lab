@@ -66,7 +66,6 @@ sudo ./usrmgr.sh
 su -
 ```
 
----
 
 ### Check out all my other projects here: [My projects](https://petrusjohannesmaas.github.io/research-lab/projects.html)
 

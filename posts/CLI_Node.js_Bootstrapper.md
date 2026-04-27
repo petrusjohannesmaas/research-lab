@@ -59,7 +59,6 @@ I was going to spend an extended period of time in an area that had **no interne
 - Improve error handling and logging.
 - Include validation checks for project name and directory existence.
 
----
 
 ## ️ Setup Instructions
 
@@ -121,7 +120,6 @@ new-project
 3. **Permissions**:
    - Ensure the script has permissions to create folders and execute commands in the target directory.
 
----
 
 ## Breakdown of my starter packages
 ##### **FullStackStarter**
@@ -144,7 +142,6 @@ new-project
 - **Includes**:
   - `express`, `postgres`, `ejs`, `dotenv`.
 
----
 
 ## ️ Creating your own starter packages (Templates) with preinstalled NPM packages
 
