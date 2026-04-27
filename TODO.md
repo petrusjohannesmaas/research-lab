@@ -9,9 +9,10 @@
 
 - 
 ## Low priority
-- [ ] Update the subscribe section to attach to MailerLite automation
+- [ ] Update the Newsletter action section to integrate with MailerLite automation
 - [ ] Fix buttons to look like portfolio buttons
 - [ ] Go through each post to identify problem areas
+- [ ] Double check all the links
 
 ## Done
 - [x] Redesign study guides in /old to use new design system.

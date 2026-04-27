@@ -12,13 +12,13 @@ const Navbar: React.FC = () => {
           to="/"
           className="flex items-center gap-3 group"
         >
-          <img 
-            src="/avatar.png" 
-            alt="PJ Maas" 
+          <img
+            src="/avatar.png"
+            alt="PJ Maas"
             className="w-10 h-10 rounded-full border-2 border-white/20 group-hover:border-white/40 transition-colors object-cover"
           />
-          <span className="text-xl font-black tracking-tight text-white uppercase">
-            Research Lab
+          <span className="text-xl font-black tracking-tight text-white">
+            PJ's Research Lab
           </span>
         </Link>
         <div className="hidden md:flex items-center space-x-8">

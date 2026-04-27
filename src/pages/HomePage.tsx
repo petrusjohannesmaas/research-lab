@@ -34,10 +34,10 @@ const HomePage: React.FC = () => {
               Coding Documentation & Projects
             </h1>
             <p className="font-body-lg text-body-lg text-blue-100 max-w-2xl">
-              Insights, tutorials, and project logs from a developer perspective. Explore our curated study guides covering frontend, backend, DevOps, and blockchain technologies.
+              Insights, tutorials, and project logs from a developer perspective. Explore my curated study guides covering frontend, backend, DevOps and blockchain technologies.
             </p>
             <div className="pt-stack-md flex items-center gap-4">
-              <button 
+              <button
                 onClick={handleReadLatest}
                 className="bg-white text-primary-container px-8 py-4 rounded-xl font-label-md text-label-md hover:bg-surface-container-lowest transition-colors shadow-lg active:scale-95 duration-150"
               >
@@ -53,9 +53,9 @@ const HomePage: React.FC = () => {
           </div>
           <div className="hidden md:block md:col-span-4 relative">
             <div className="absolute inset-0 bg-blue-400/20 blur-3xl rounded-full"></div>
-            <img 
-              alt="Clean coding workspace" 
-              className="rounded-xl shadow-2xl relative z-10 border border-white/10" 
+            <img
+              alt="Clean coding workspace"
+              className="rounded-xl shadow-2xl relative z-10 border border-white/10"
               src={heroImg}
             />
           </div>
@@ -74,13 +74,13 @@ const HomePage: React.FC = () => {
           <div className="flex items-center gap-4 bg-surface-container p-2 rounded-xl border border-outline-variant">
             {/* View Toggle */}
             <div className="flex bg-surface-container-low rounded-lg p-1 border border-outline-variant/50">
-              <button 
+              <button
                 onClick={() => setViewMode('grid')}
                 className={`p-2 rounded shadow-sm flex items-center justify-center transition-all ${viewMode === 'grid' ? 'bg-white text-primary shadow-sm' : 'text-on-surface-variant hover:text-primary'}`}
               >
                 <span className="material-symbols-outlined">grid_view</span>
               </button>
-              <button 
+              <button
                 onClick={() => setViewMode('list')}
                 className={`p-2 rounded flex items-center justify-center transition-all ${viewMode === 'list' ? 'bg-white text-primary shadow-sm' : 'text-on-surface-variant hover:text-primary'}`}
               >
@@ -89,7 +89,7 @@ const HomePage: React.FC = () => {
             </div>
             <div className="h-8 w-px bg-outline-variant"></div>
             {/* Sort Button */}
-            <button 
+            <button
               onClick={() => setSortOrder(prev => prev === 'desc' ? 'asc' : 'desc')}
               className="flex items-center gap-2 px-4 py-2 bg-white text-on-surface font-label-md text-label-md rounded-lg border border-outline-variant hover:border-primary transition-all group"
             >
