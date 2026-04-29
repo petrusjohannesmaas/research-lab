@@ -7,7 +7,12 @@ tags: ['Kubernetes', 'Networking', 'Performance']
 author: "Petrus Johannes Maas"
 ---
 
-This is a solid project that will showcase your expertise in Kubernetes networking and benchmarking strategies. Here’s how you can approach it:
+# Kubernetes Overlay Network Benchmarking
+🚧 This project is incomplete and still under construction
+
+## Overview
+
+This is a project I have planned to learn more about Kubernetes networking and benchmarking strategies. Here’s how you can approach it:
 
 
 ### **Step 1: Set Up Your Benchmarking Environment**
@@ -58,7 +63,7 @@ Measure latency, throughput, and packet loss under different CNIs.
 
 This project will **strongly** demonstrate your expertise in Kubernetes networking! Want to discuss how to package it into a portfolio-ready format? 🚀
 
-## Disclaimer & Intent 
+## Disclaimer & Intent
 
 This project was developed for **research and portfolio purposes**. The
 primary goal is to explore architectural patterns and software systems.

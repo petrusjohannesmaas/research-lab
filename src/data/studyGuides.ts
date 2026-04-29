@@ -23,7 +23,7 @@ export const studyGuides: StudyGuide[] = [
     title: 'Javascript',
     category: 'Web Development',
     description: 'The programming language of the Web. Master everything from DOM manipulation to modern ES6+ features and async programming.',
-    icon: 'javascript',
+    icon: 'devicon-javascript-plain',
     overview: [
       'JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class functions.',
       'While it is most well-known as the scripting language for Web pages, many non-browser environments also use it, such as Node.js, Apache CouchDB and Adobe Acrobat.',
@@ -103,7 +103,7 @@ export const studyGuides: StudyGuide[] = [
     title: 'Python',
     category: 'Software Engineering',
     description: 'A versatile, high-level programming language. From scripting and automation to data science and backend web development.',
-    icon: 'terminal',
+    icon: 'devicon-python-plain',
     overview: [
       'Python is a high-level, general-purpose programming language. Its design philosophy emphasizes code readability with the use of significant indentation.',
       'Python is dynamically typed and garbage-collected. It supports multiple programming paradigms, including structured (particularly procedural), object-oriented and functional programming.',
@@ -183,7 +183,7 @@ export const studyGuides: StudyGuide[] = [
     title: 'Solidity',
     category: 'Blockchain',
     description: 'The primary language for smart contract development on Ethereum. Build decentralized applications and trustless systems.',
-    icon: 'token',
+    icon: 'devicon-solidity-plain',
     overview: [
       'Solidity is a programming language for implementing smart contracts on various blockchain platforms, most notably, Ethereum.',
       'It was designed by Gavin Wood and developed by Christian Reitwiessner, Alex Beregszaszi, and several former Ethereum core contributors. Programs in Solidity run on Ethereum Virtual Machine or on compatible virtual machines.',
@@ -270,7 +270,7 @@ export const studyGuides: StudyGuide[] = [
     title: 'Linux',
     category: 'Operating Systems',
     description: 'The open-source kernel that powers the world. From embedded systems to global cloud infrastructure, master the terminal and system administration.',
-    icon: 'computer',
+    icon: 'devicon-linux-plain',
     overview: [
       'Linux is a family of open-source Unix-like operating systems based on the Linux kernel, an operating system kernel first released on September 17, 1991, by Linus Torvalds.',
       'Linux is typically packaged as a Linux distribution (distro), which includes the kernel and supporting system software and libraries—most of which are provided by third parties—to create a complete operating system.',
@@ -350,7 +350,7 @@ export const studyGuides: StudyGuide[] = [
     title: 'Databases',
     category: 'Data Management',
     description: 'The foundation of any application. Master the art of data storage, from relational SQL systems to scalable NoSQL architectures.',
-    icon: 'database',
+    icon: 'fa-solid fa-database',
     overview: [
       'In computing, a database is an organized collection of data or a type of data store based on the use of a database management system (DBMS). The DBMS software interacts with end users, applications, and the database itself to capture and analyze the data.',
       'Small databases can be stored on a file system, while large databases are hosted on computer clusters or cloud storage.',
@@ -430,7 +430,7 @@ export const studyGuides: StudyGuide[] = [
     title: 'Containerization',
     category: 'DevOps',
     description: 'The standard for modern application deployment. Package your code and dependencies into portable, isolated containers for consistent performance across any environment.',
-    icon: 'boxes',
+    icon: 'devicon-docker-plain',
     overview: [
       'In software engineering, containerization is operating-system–level virtualization or application-level virtualization over multiple network resources so that software applications can run in isolated user spaces called containers.',
       'Each container is basically a fully functional and portable computing environment surrounding the application and keeping it independent of other environments running in parallel. Multiple containers share a common operating system kernel, making them lightweight compared to virtual machines.',

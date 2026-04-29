@@ -7,7 +7,9 @@ tags: ['API', 'Backend', 'Security']
 author: "Petrus Johannes Maas"
 ---
 
-## Rate Limiter Service
+# Rate Limiter Service
+
+🚧 This project is incomplete and still under construction
 
 ### **1. Design the Rate Limiter Service**
 Your rate limiter should act as a **reverse proxy** sitting between the web server and incoming requests. The architecture looks like this:
@@ -133,7 +135,7 @@ Now, clients send requests to the **rate limiter container (port 8000)**, which 
 
 This setup makes the rate limiter modular, so you can deploy it independently, scale it, and integrate caching like **Redis** for better performance.
 
-## Disclaimer & Intent 
+## Disclaimer & Intent
 
 This project was developed for **research and portfolio purposes**. The
 primary goal is to explore architectural patterns and software systems.

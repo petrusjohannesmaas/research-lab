@@ -1,13 +1,14 @@
 ---
-title: "Proxmox Automation"
-description: "Leveraging APIs and tools to automate virtual machine and container management on Proxmox."
-slug: "proxmox-automation"
+title: "Terraform Proxmox Automation"
+description: "Leveraging APIs and IaC tools to automate virtual machine and container management on Proxmox."
+slug: "terraform_proxmox-automation"
 date: "2026-02-18"
-tags: ['Virtualization', 'Proxmox', 'Homelab']
+tags: ['Virtualization', 'Proxmox', 'Homelab', 'Terraform']
 author: "Petrus Johannes Maas"
 ---
 
 # Terraform Proxmox Automation
+🚧 This project is incomplete and still under construction
 
 Automate your Proxmox VE infrastructure provisioning with Terraform. This project helps you define and deploy virtual machines and resources using reusable Terraform modules.
 
@@ -80,7 +81,7 @@ module "vm1" {
 - Linked clone support
 - Integration with Jenkins pipelines (future)
 
-## Disclaimer & Intent 
+## Disclaimer & Intent
 
 This project was developed for **research and portfolio purposes**. The
 primary goal is to explore architectural patterns and software systems.

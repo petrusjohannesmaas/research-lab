@@ -35,15 +35,20 @@ const Navbar: React.FC = () => {
             Study Guides
           </Link>
           <a
-            href="#"
+            href="/#about"
             className="font-body-md text-body-md text-blue-100 hover:text-white transition-colors"
           >
             About
           </a>
         </div>
-        <button className="px-6 py-2 rounded-lg font-label-md text-label-md active:scale-95 transition-all duration-150 bg-white text-primary">
+        <a 
+          href="https://portfolio.pjmaasdev.workers.dev/#projects" 
+          target="_blank" 
+          rel="noreferrer"
+          className="inline-flex items-center gap-2 bg-[#1d6bf3] hover:bg-[#1558d6] text-white font-bold px-6 py-3 rounded-xl transition-all hover:shadow-lg hover:shadow-blue-500/20 active:scale-[0.98]"
+        >
           My portfolio
-        </button>
+        </a>
       </div>
     </nav>
   );

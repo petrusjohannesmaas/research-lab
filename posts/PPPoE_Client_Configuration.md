@@ -7,7 +7,7 @@ tags: ['Networking', 'ISP', 'Linux']
 author: "Petrus Johannes Maas"
 ---
 
-## ️ PPPoE Client Configuration on Ubuntu Server
+# PPPoE Client Configuration on Ubuntu Server
 
 ### Prerequisites
 
@@ -57,20 +57,17 @@ This interactive wizard will:
 
 ### 5. **Start and Stop PPPoE Connection**
 
-- **Connect:**
-    
-    ```bash
-    sudo pon dsl-provider
-    
-    ```
-    
-- **Disconnect:**
-    
-    ```bash
-    sudo poff dsl-provider
-    
-    ```
-    
+Connect with:
+
+```bash
+sudo pon dsl-provider
+```
+
+Disconnect with:
+
+```bash
+sudo poff dsl-provider
+```
 
 
 ### 6. **Enable Auto-Connect on Boot**
@@ -79,7 +76,6 @@ If you selected “connect at startup” during setup, the system will automatic
 
 ```bash
 sudo systemctl enable pppd-dns
-
 ```
 
 
@@ -97,9 +93,13 @@ sudo systemctl enable pppd-dns
 - Monitor connection status with custom scripts or `pppstats`
 
 
-Sources:   [Appuals](https://appuals.com/how-to-setup-ubuntu-server-as-a-router-using-pppoe/)  [Ask Ubuntu](https://askubuntu.com/questions/1193856/how-to-establish-pppoe-connection-in-ubuntu)  [pcmasterx.com](https://pcmasterx.com/index.php/blog/create-pppoe-connection-on-ubuntu-server)
+### Sources
 
-## Disclaimer & Intent 
+- [Appuals](https://appuals.com/how-to-setup-ubuntu-server-as-a-router-using-pppoe/)
+- [Ask Ubuntu](https://askubuntu.com/questions/1193856/how-to-establish-pppoe-connection-in-ubuntu)
+- [pcmasterx.com](https://pcmasterx.com/index.php/blog/create-pppoe-connection-on-ubuntu-server)
+
+## Disclaimer & Intent
 
 This project was developed for **research and portfolio purposes**. The
 primary goal is to explore architectural patterns and software systems.

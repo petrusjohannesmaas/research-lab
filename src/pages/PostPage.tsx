@@ -24,9 +24,9 @@ const PostPage: React.FC = () => {
       <div className="absolute top-6 left-6 z-50">
         <Link
           to="/"
-          className="flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg backdrop-blur-md border border-white/20 transition-all active:scale-95 group font-semibold shadow-lg"
+          className="inline-flex items-center gap-2 bg-[#1d6bf3] hover:bg-[#1558d6] text-white font-bold px-6 py-3 rounded-xl transition-all hover:shadow-lg hover:shadow-blue-500/20 active:scale-[0.98] backdrop-blur-md shadow-lg"
         >
-          <span className="material-symbols-outlined text-[20px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
+          <span className="material-symbols-outlined text-[20px]">arrow_back</span>
           Home
         </Link>
       </div>
@@ -135,12 +135,12 @@ const PostPage: React.FC = () => {
                     <img
                       src="/avatar.png"
                       alt={post.author}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover rounded-full"
                     />
                   </div>
                   <div className="overflow-hidden">
                     <p className="font-bold text-lg text-on-surface truncate">{post.author}</p>
-                    <p className="font-body-sm text-sm text-on-surface-variant">Technical Author</p>
+                    <p className="font-body-sm text-sm text-on-surface-variant">IT Specialist & Full Stack Developer</p>
                   </div>
                 </div>
                 <div className="flex items-center justify-between pt-4 border-t border-outline-variant/30">
@@ -165,7 +165,7 @@ const PostPage: React.FC = () => {
                   placeholder="email@example.com"
                   type="email"
                 />
-                <button className="w-full bg-primary text-on-primary font-bold text-label-md py-3 rounded-lg hover:bg-primary/90 transition-colors">
+                <button className="w-full bg-primary text-on-primary font-bold text-label-md py-3 rounded-xl hover:bg-primary/90 transition-all active:scale-[0.98]">
                   Subscribe Now
                 </button>
               </div>

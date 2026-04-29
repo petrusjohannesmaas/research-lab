@@ -97,7 +97,7 @@ const StudyGuideViewPage: React.FC = () => {
                   <img src="/avatar.png" alt="PJ Maas" className="w-12 h-12 rounded-full object-cover border border-outline-variant" />
                   <div>
                     <p className="font-bold text-on-surface">PJ Maas</p>
-                    <p className="text-xs text-on-surface-variant">Technical Author</p>
+                    <p className="text-xs text-on-surface-variant">IT Specialist & Full Stack Developer</p>
                   </div>
                 </div>
               </div>

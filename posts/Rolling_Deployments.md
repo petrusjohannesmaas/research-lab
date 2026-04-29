@@ -66,7 +66,7 @@ Start your cluster. By default, it's going to run with the VirtualBox driver:
 minikube start
 ```
 
-Minikube includes its own kubectl CLI, but using it requires longer commands since kubectl becomes a **subcommand** of minikube. While setting up an alias is an option, the recommended approach is to install kubectl separately for easier use. 
+Minikube includes its own kubectl CLI, but using it requires longer commands since kubectl becomes a **subcommand** of minikube. While setting up an alias is an option, the recommended approach is to install kubectl separately for easier use.
 
 ```sh
 brew install kubernetes-cli
@@ -78,7 +78,7 @@ Confirm the cluster is running:
 kubectl get nodes
 ```
 
-A typical helpful post-installation configuration is to enable shell autocompletion for kubectl. For bash shell it can be achieved by running the following sequence of commands: 
+A typical helpful post-installation configuration is to enable shell autocompletion for kubectl. For bash shell it can be achieved by running the following sequence of commands:
 
 ```sh
 sudo apt update && sudo apt install -y bash-completion
@@ -330,7 +330,7 @@ Verify both versions exist:
 curl -X GET http://<NODE_IP>:30500/v2/test-go-api/tags/list
 ```
 
-Now, you're ready to implement rolling updates in Kubernetes using **V1 → V2**  
+Now, you're ready to implement rolling updates in Kubernetes using **V1 → V2**
 
 ## **Stage 4: Deploy API on Kubernetes**
 
@@ -347,7 +347,7 @@ kubectl get namespace
 
 Create a file called `api-deployment.yaml`:
 
-⚠️ **Notes:** 
+⚠️ **Notes:**
 * We specify **"localhost"** instead of the node IP because the registry is running on this cluster.
 * Usually you would use a **LoadBalancer** service object, but we'll just use a simple **NodePort** again for testing purposes.
 
@@ -460,7 +460,7 @@ spec:
       nodePort: 30080
 ```
 
-### 
+###
 
 Open a second terminal and run:
 
@@ -488,10 +488,10 @@ This should return:
 {"response":"🚀 Version 2 is running"}
 ```
 
-🥳 **Congrats, your API has been successfully updated with 0 downtime!**
+🥳 **Congrats!** your API has been successfully updated with 0 downtime!**
 
 
-### ️ Housekeeping
+### ️Housekeeping
 
 **Be careful if you are using Podman or `minikube` for other projects!**
 
@@ -511,7 +511,7 @@ I like to completely purge my Podman after testing:
 podman system reset
 ```
 
-## Disclaimer & Intent 
+## Disclaimer & Intent
 
 This project was developed for **research and portfolio purposes**. The
 primary goal is to explore architectural patterns and software systems.

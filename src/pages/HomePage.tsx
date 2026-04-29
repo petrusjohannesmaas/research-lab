@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllPosts } from '../utils/posts';
 import PostCard from '../components/PostCard';
+import About from '../components/About';
 import heroImg from '../assets/hero.png';
 
 const HomePage: React.FC = () => {
@@ -39,13 +40,13 @@ const HomePage: React.FC = () => {
             <div className="pt-stack-md flex items-center gap-4">
               <button
                 onClick={handleReadLatest}
-                className="bg-white text-primary-container px-8 py-4 rounded-xl font-label-md text-label-md hover:bg-surface-container-lowest transition-colors shadow-lg active:scale-95 duration-150"
+                className="inline-flex items-center gap-2 bg-[#1d6bf3] hover:bg-[#1558d6] text-white font-bold px-6 py-3 rounded-xl transition-all hover:shadow-lg hover:shadow-blue-500/20 active:scale-[0.98]"
               >
                 Read latest post
               </button>
               <button
                 onClick={() => navigate('/study-guides')}
-                className="bg-primary/20 text-white border border-white/20 px-8 py-4 rounded-xl font-label-md text-label-md hover:bg-primary/30 transition-colors shadow-lg active:scale-95 duration-150 backdrop-blur-md"
+                className="inline-flex items-center gap-2 border-2 border-white text-white hover:bg-white hover:text-primary font-bold px-6 py-3 rounded-xl transition-all active:scale-[0.98]"
               >
                 View Study Guides
               </button>
@@ -91,7 +92,7 @@ const HomePage: React.FC = () => {
             {/* Sort Button */}
             <button
               onClick={() => setSortOrder(prev => prev === 'desc' ? 'asc' : 'desc')}
-              className="flex items-center gap-2 px-4 py-2 bg-white text-on-surface font-label-md text-label-md rounded-lg border border-outline-variant hover:border-primary transition-all group"
+              className="flex items-center gap-2 px-6 py-3 bg-white text-on-surface font-label-md text-label-md rounded-xl border border-outline-variant hover:border-primary transition-all active:scale-[0.98] group"
             >
               {sortOrder === 'desc' ? 'Newest First' : 'Oldest First'}
               <span className={`material-symbols-outlined text-[18px] transition-transform ${sortOrder === 'asc' ? 'rotate-180' : ''}`}>arrow_downward</span>
@@ -108,6 +109,9 @@ const HomePage: React.FC = () => {
           ))}
         </div>
       </main>
+
+      {/* About Section */}
+      <About />
     </div>
   );
 };
