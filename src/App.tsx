@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import PostPage from './pages/PostPage';
 import StudyGuidesLandingPage from './pages/StudyGuidesLandingPage';
 import StudyGuideViewPage from './pages/StudyGuideViewPage';
+import AboutPage from './pages/AboutPage';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -12,10 +13,11 @@ function App() {
     <Router>
       <ScrollToTop />
       <div className="flex flex-col min-h-screen bg-background">
-        <NavbarWrapper />
+        <Navbar />
         <div className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/post/:slug" element={<PostPage />} />
             <Route path="/study-guides" element={<StudyGuidesLandingPage />} />
             <Route path="/study-guides/:id" element={<StudyGuideViewPage />} />
@@ -25,12 +27,6 @@ function App() {
       </div>
     </Router>
   );
-}
-
-function NavbarWrapper() {
-  const location = useLocation();
-  if (location.pathname.startsWith('/post/')) return null;
-  return <Navbar />;
 }
 
 export default App;

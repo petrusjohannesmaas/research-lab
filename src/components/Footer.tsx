@@ -2,28 +2,42 @@ import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="w-full py-12 mt-auto bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+    <footer className="w-full py-12 bg-white border-t border-outline-variant/30">
       <div className="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-        <div className="flex flex-col items-center md:items-start space-y-2">
-          <div className="text-lg font-bold text-slate-900 dark:text-white">Research Lab Blog</div>
-          <p className="text-sm font-medium text-slate-500 dark:text-slate-400">© 2026 Research Lab. Built with precision.</p>
+        <div className="flex flex-col items-center md:items-start gap-4">
+          <div className="flex items-center gap-3">
+            <img src="/logo-favicon.png" alt="Favicon" className="w-8 h-8" />
+            <div className="text-lg font-bold tracking-tighter text-on-surface">
+              PJ'S RESEARCH LAB
+            </div>
+          </div>
+          <div className="flex flex-col items-center md:items-start">
+            <div className="text-sm font-medium text-on-surface-variant uppercase tracking-widest">
+              © 2026 PJ Maas.
+            </div>
+            <div className="text-sm font-medium text-on-surface-variant uppercase tracking-widest">
+              Built with precision.
+            </div>
+          </div>
         </div>
-        <div className="flex items-center gap-8">
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-slate-500 hover:text-primary transition-colors font-body-sm text-sm hover:underline decoration-primary underline-offset-4"
+        <div className="flex flex-col items-center md:items-end gap-4">
+          <a 
+            className="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors text-xs font-bold uppercase tracking-widest" 
+            href="https://github.com" 
+            target="_blank" 
+            rel="noreferrer"
           >
+            <i className="fa-brands fa-github text-lg"></i>
             GitHub
           </a>
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-slate-500 hover:text-primary transition-colors font-body-sm text-sm hover:underline decoration-primary underline-offset-4"
+          <a 
+            className="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors text-xs font-bold uppercase tracking-widest" 
+            href="https://upwork.com" 
+            target="_blank" 
+            rel="noreferrer"
           >
-            LinkedIn
+            <i className="fa-brands fa-upwork text-lg"></i>
+            Upwork
           </a>
         </div>
       </div>

@@ -84,7 +84,9 @@ const StudyGuideViewPage: React.FC = () => {
                 {studyGuides.filter(g => g.id !== guide.id).map(otherGuide => (
                   <li key={otherGuide.id}>
                     <Link to={`/study-guides/${otherGuide.id}`} className="flex items-center gap-3 p-4 rounded-xl bg-surface hover:bg-primary/5 border border-transparent hover:border-primary/20 transition-all group">
-                      <span className="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">{otherGuide.icon}</span>
+                      <span className="text-primary group-hover:scale-110 transition-transform flex items-center justify-center w-6 h-6">
+                        <i className={`${otherGuide.icon} text-xl`}></i>
+                      </span>
                       <span className="font-semibold text-on-surface">{otherGuide.title}</span>
                     </Link>
                   </li>

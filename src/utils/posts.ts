@@ -51,7 +51,7 @@ export const getAllPosts = (): Post[] => {
   return Object.keys(rawPosts).map((path) => {
     const rawContent = rawPosts[path].default || rawPosts[path];
     const { data, body } = parseFrontmatter(rawContent);
-    
+
     return {
       title: data.title || 'Untitled',
       description: data.description || '',

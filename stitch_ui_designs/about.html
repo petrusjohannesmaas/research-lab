@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en" style=""><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About - DevDoc Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;family=DM+Sans:wght@400;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error": "#ba1a1a",
+                      "on-error": "#ffffff",
+                      "on-primary-container": "#fcfaff",
+                      "background": "#faf8ff",
+                      "on-primary-fixed": "#001847",
+                      "tertiary-fixed-dim": "#ffb596",
+                      "surface-container-low": "#f2f3fe",
+                      "surface-dim": "#d8d9e5",
+                      "on-tertiary-container": "#fffaf9",
+                      "on-background": "#191b23",
+                      "on-secondary": "#ffffff",
+                      "secondary": "#535f74",
+                      "primary-fixed": "#dae2ff",
+                      "inverse-primary": "#b1c5ff",
+                      "surface-container-highest": "#e1e2ed",
+                      "surface-tint": "#0056d0",
+                      "on-tertiary-fixed-variant": "#7c2e00",
+                      "on-secondary-fixed": "#101c2e",
+                      "inverse-on-surface": "#eff0fc",
+                      "primary-fixed-dim": "#b1c5ff",
+                      "on-secondary-fixed-variant": "#3c475b",
+                      "on-surface-variant": "#424655",
+                      "inverse-surface": "#2e3039",
+                      "primary-container": "#1d6bf3",
+                      "outline": "#727786",
+                      "on-secondary-container": "#586378",
+                      "on-surface": "#191b23",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "secondary-container": "#d4e0f9",
+                      "surface-bright": "#faf8ff",
+                      "outline-variant": "#c2c6d7",
+                      "surface-container-high": "#e7e7f3",
+                      "surface-container": "#ecedf9",
+                      "surface": "#faf8ff",
+                      "tertiary": "#9e3c00",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed": "#d7e3fc",
+                      "on-tertiary-fixed": "#360f00",
+                      "on-primary-fixed-variant": "#0040a0",
+                      "on-primary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "primary": "#0053c9",
+                      "surface-variant": "#e1e2ed",
+                      "tertiary-container": "#c64d00",
+                      "tertiary-fixed": "#ffdbcd",
+                      "secondary-fixed-dim": "#bbc7df"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "section-gap": "5rem",
+                      "margin": "2rem",
+                      "stack-md": "1rem",
+                      "gutter": "1.5rem",
+                      "container-max": "1200px",
+                      "stack-sm": "0.5rem",
+                      "stack-lg": "2rem"
+              },
+              "fontFamily": {
+                      "body-sm": ["DM Sans"],
+                      "label-md": ["DM Sans"],
+                      "code": ["monospace"],
+                      "headline-lg": ["Montserrat"],
+                      "headline-sm": ["Montserrat"],
+                      "headline-md": ["Montserrat"],
+                      "body-lg": ["DM Sans"],
+                      "display-lg": ["Montserrat"],
+                      "body-md": ["DM Sans"]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased">
+<!-- Updated Navigation: White Navbar Design -->
+<nav class="fixed top-0 w-full z-50 bg-white border-b border-outline-variant/30">
+<div class="max-w-[1200px] mx-auto flex justify-between items-center px-6 h-20">
+<div class="flex items-center gap-12">
+<div class="text-2xl font-bold tracking-tighter text-on-surface">PJ's Research Lab</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-semibold uppercase tracking-widest" href="#">POSTS</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-semibold uppercase tracking-widest" href="#">STUDY GUIDES</a>
+<a class="text-primary border-b-2 border-primary pb-1 text-sm font-semibold uppercase tracking-widest" href="#">About</a>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-xl">search</span>
+<input class="bg-surface-container-low border-none pl-10 pr-4 py-2 text-label-md uppercase tracking-widest focus:ring-1 focus:ring-primary w-48 lg:w-64 transition-all rounded-full" placeholder="SEARCH..." type="text"/>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><img alt="User Avatar" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0uhxP7FAB1k5AHIqUBAcbekNzf2KpHR8TC9VVu3Yxih4KnjL1Ba4XxUTPNGnnMV9ommzfqJfWu_AQIG49AoXIY9vbd64sl9oL-xGhTESF-3VFQo2M5IFhwnFXHMRdf1miE0HXJSvKmS-wRbum19pFJzFafpQw4ZfFizdIQjH6-ll2lunfwn0RrGHFnHSeKyscmdImy0thfy7pj0SX7i2uvRFpMjIOEJDqnzILF0X_zUz2LvKHgtv5aAuOWrB6XjyYJ-VcdnD_sY01A"/></button>
+</div>
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<!-- Side-by-Side Content Layout -->
+<main class="pt-20">
+<div class="max-w-[1200px] mx-auto px-6 py-20 flex flex-col lg:flex-row items-stretch gap-12 min-h-[calc(100vh-80px)]">
+<!-- Left Column: Content -->
+<div class="lg:w-1/2 flex flex-col justify-center py-12">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-[0.2em] mb-6">ABOUT THE BLOG</span>
+<h1 class="font-display-lg text-4xl lg:text-5xl font-bold text-on-surface mb-8 leading-tight">
+                Architecting Knowledge Through Code
+            </h1>
+<div class="space-y-6 text-on-surface-variant max-w-xl">
+<p class="font-body-lg text-lg leading-relaxed">
+                    Welcome to DevDoc, a specialized technical documentation blog dedicated to the intersection of clean design and robust engineering. 
+                </p>
+<p class="font-body-md leading-relaxed">
+                    Here, we dive deep into <strong>project builds</strong>, transforming complex requirements into elegant technical solutions. Whether it's exploring new frameworks or optimizing existing architectures, every post is a step towards better software.
+                </p>
+<p class="font-body-md leading-relaxed">
+                    I share my <strong>personal workflows</strong> for configuring development environments and the <strong>step-by-step guides</strong> I use to maintain consistency across professional projects. This is more than just a blog; it's a living archive of technical mastery.
+                </p>
+</div>
+<div class="mt-12">
+<button class="bg-on-surface text-surface px-10 py-4 font-bold text-label-md uppercase tracking-widest hover:bg-on-surface-variant transition-colors">My portfolio</button>
+</div>
+</div>
+<!-- Right Column: Image -->
+<div class="lg:w-1/2 h-[500px] lg:h-auto">
+<div class="w-full h-full bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a modern software architect in a bright, minimalist workspace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5kjWDU6xuVRGP0BdrmD9jzWSOleJpVZ-4zp76Iw4BkLKdzt6GqQF-a7CtvaO6CEJF5rxdEGQpJYEWuQq3PZeDrqeF38w3P-0JBrWS33sTFsdkX2RD5vZsgiDexaL-G0FZGGVW-h2vbyOwSjNS8hoVkixuidGH9CrkCVLymCGqUY80ZPf22wUOEkvL9w_iSdsBPMDkj3-65qVFc-Gyj7DdsTGWKq_H7hYC8msncaXF2bjaulAmYjjwSvPDC4-4s-Ojh6Mvq0S75rw"/>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Component -->
+<footer class="w-full py-12 bg-white border-t border-outline-variant/30">
+<div class="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="text-lg font-bold tracking-tighter text-on-surface">
+            DEVDOC
+        </div>
+<div class="text-sm font-medium text-on-surface-variant uppercase tracking-widest">
+            © 2024 DevDoc Portfolio. Built with precision.
+        </div>
+<div class="flex gap-8">
+<a class="text-on-surface-variant hover:text-primary transition-colors text-xs font-bold uppercase tracking-widest underline underline-offset-8" href="#">GitHub</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-xs font-bold uppercase tracking-widest underline underline-offset-8" href="#">LinkedIn</a>
+</div>
+</div>
+</footer>
+</body></html>

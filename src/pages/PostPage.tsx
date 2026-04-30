@@ -19,18 +19,7 @@ const PostPage: React.FC = () => {
   const readingTime = Math.ceil(post.content.split(' ').length / 200);
 
   return (
-    <div className="flex flex-col min-h-screen relative">
-      {/* Go Home Button */}
-      <div className="absolute top-6 left-6 z-50">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 bg-[#1d6bf3] hover:bg-[#1558d6] text-white font-bold px-6 py-3 rounded-xl transition-all hover:shadow-lg hover:shadow-blue-500/20 active:scale-[0.98] backdrop-blur-md shadow-lg"
-        >
-          <span className="material-symbols-outlined text-[20px]">arrow_back</span>
-          Home
-        </Link>
-      </div>
-
+    <div className="flex flex-col min-h-screen relative pt-20">
       {/* Post Hero Section */}
       <header className="relative w-full h-[614px] min-h-[500px] flex items-center justify-center overflow-hidden">
         <img
