@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
   const filteredPosts = useMemo(() => {
     if (!searchValue.trim()) return [];
     const query = searchValue.toLowerCase();
-    return allPosts.filter((post: any) => 
+    return allPosts.filter((post: any) =>
       post.title.toLowerCase().includes(query) ||
       post.tags.some((tag: string) => tag.toLowerCase().includes(query))
     ).slice(0, 5); // Limit to top 5 results for dropdown
@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
           <Link to="/" className="flex items-center gap-3">
             <img src="/logo-favicon.png" alt="Favicon" className="w-10 h-10" />
             <span className="text-2xl font-bold tracking-tighter text-on-surface">
-              PJ's Research Lab
+              Research Lab
             </span>
           </Link>
           <div className="hidden md:flex items-center gap-8">
@@ -90,7 +90,7 @@ const Navbar: React.FC = () => {
             </NavLink>
           </div>
         </div>
-        
+
         <div className="hidden md:flex items-center gap-6">
           <div className="relative flex items-center" ref={searchRef}>
             <span className="material-symbols-outlined absolute left-3 text-on-surface-variant text-xl">search</span>
@@ -106,7 +106,7 @@ const Navbar: React.FC = () => {
               onFocus={() => setIsDropdownOpen(true)}
               onKeyDown={handleSearch}
             />
-            
+
             {/* Live Search Dropdown */}
             {isDropdownOpen && searchValue.trim() && (
               <div className="absolute top-full mt-2 left-0 right-0 bg-white border border-outline-variant shadow-xl rounded-2xl overflow-hidden z-[60] animate-in fade-in slide-in-from-top-2 duration-200">

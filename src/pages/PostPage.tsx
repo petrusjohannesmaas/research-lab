@@ -66,7 +66,7 @@ const PostPage: React.FC = () => {
                 components={{
                   pre({ children }: any) {
                     try {
-                      const codeElement = React.Children.only(children) as React.ReactElement;
+                      const codeElement = React.Children.only(children) as any;
                       const content = String(codeElement.props.children).replace(/\n$/, '');
 
                       return (
