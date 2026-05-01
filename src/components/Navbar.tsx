@@ -5,6 +5,7 @@ import { getAllPosts } from '../utils/posts';
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const allPosts = useMemo(() => getAllPosts(), []);
@@ -28,24 +29,51 @@ const Navbar: React.FC = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Close mobile menu when screen is resized above md breakpoint
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMenuOpen]);
+
+  // Prevent scrolling when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
+
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && searchValue.trim()) {
       setIsDropdownOpen(false);
+      setIsMenuOpen(false);
       navigate(`/?q=${encodeURIComponent(searchValue.trim())}`);
     }
   };
 
   const handleResultClick = (slug: string) => {
     setIsDropdownOpen(false);
+    setIsMenuOpen(false);
     setSearchValue('');
     navigate(`/post/${slug}`);
   };
+
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-white border-b border-outline-variant/30">
       <div className="max-w-[1200px] mx-auto flex justify-between items-center px-6 h-20">
         <div className="flex items-center gap-12">
-          <Link to="/" className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3" onClick={closeMenu}>
             <img src="/logo-favicon.png" alt="Favicon" className="w-10 h-10" />
             <span className="text-2xl font-bold tracking-tighter text-on-surface">
               Research Lab
@@ -148,11 +176,78 @@ const Navbar: React.FC = () => {
           </div>
         </div>
 
-        <button className="md:hidden text-on-surface">
-          <span className="material-symbols-outlined">menu</span>
+        <button 
+          className="md:hidden text-on-surface p-2"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        >
+          <span className="material-symbols-outlined text-3xl">
+            {isMenuOpen ? 'close' : 'menu'}
+          </span>
         </button>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`fixed inset-0 top-20 bg-white z-40 md:hidden transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+        <div className="flex flex-col h-full p-6">
+          <div className="relative mb-8">
+            <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+            <input
+              className="w-full bg-surface-container-low border-none pl-12 pr-4 py-4 rounded-2xl text-label-md uppercase tracking-widest focus:ring-2 focus:ring-primary"
+              placeholder="SEARCH..."
+              type="text"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              onKeyDown={handleSearch}
+            />
+          </div>
+
+          <div className="flex flex-col gap-6">
+            <NavLink
+              to="/"
+              onClick={closeMenu}
+              className={({ isActive }) =>
+                `text-2xl font-bold tracking-tight py-2 border-b border-outline-variant/30 ${
+                  isActive ? 'text-primary' : 'text-on-surface'
+                }`
+              }
+            >
+              POSTS
+            </NavLink>
+            <NavLink
+              to="/study-guides"
+              onClick={closeMenu}
+              className={({ isActive }) =>
+                `text-2xl font-bold tracking-tight py-2 border-b border-outline-variant/30 ${
+                  isActive ? 'text-primary' : 'text-on-surface'
+                }`
+              }
+            >
+              STUDY GUIDES
+            </NavLink>
+            <NavLink
+              to="/about"
+              onClick={closeMenu}
+              className={({ isActive }) =>
+                `text-2xl font-bold tracking-tight py-2 border-b border-outline-variant/30 ${
+                  isActive ? 'text-primary' : 'text-on-surface'
+                }`
+              }
+            >
+              ABOUT
+            </NavLink>
+          </div>
+
+          <div className="mt-auto pb-12">
+             <div className="flex flex-col gap-2 opacity-60">
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-on-surface-variant">RESEARCH LAB</span>
+                <span className="text-xs text-on-surface-variant">Personal documentation & projects archive.</span>
+             </div>
+          </div>
+        </div>
+      </div>
     </nav>
+
   );
 };
 
