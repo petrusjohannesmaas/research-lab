@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
         <div className="flex flex-col items-center md:items-end gap-4">
           <a
             className="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors text-xs font-bold uppercase tracking-widest"
-            href="https://github.com"
+            href="https://github.com/petrusjohannesmaas"
             target="_blank"
             rel="noreferrer"
           >
@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
           </a>
           <a
             className="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors text-xs font-bold uppercase tracking-widest"
-            href="https://upwork.com"
+            href="https://www.upwork.com/freelancers/~016bc9bd743abc53ca?mp_source=share"
             target="_blank"
             rel="noreferrer"
           >

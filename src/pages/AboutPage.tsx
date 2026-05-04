@@ -28,7 +28,7 @@ const AboutPage: React.FC = () => {
           </div>
           <div className="mt-12 flex flex-wrap gap-4">
             <a
-              href="https://github.com/pjmaas"
+              href="https://github.com/petrusjohannesmaas"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-3 bg-primary text-on-primary px-8 py-4 font-bold text-label-md uppercase tracking-widest rounded-xl hover:bg-primary/90 transition-all active:scale-[0.98]"
