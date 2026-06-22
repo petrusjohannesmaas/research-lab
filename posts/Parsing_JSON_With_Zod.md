@@ -195,8 +195,6 @@ This way you can confirm Zod correctly validates both arrays and nested objects.
 - Break JSON intentionally and inspect `result.error.issues`.
 - Compare `z.string().optional()` vs `z.string().nullable()`.
 
----
-
 **Disclaimer & Intent**:  
 This project was developed for research and portfolio purposes. The primary
 goal is to explore architectural patterns and software systems. It is

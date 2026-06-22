@@ -208,9 +208,10 @@ npx wrangler deploy
 npx wrangler d1 migrations apply my-db
 ```
 
-Let's do both together with a concrete example. We'll add a `posts` table that belongs to a user, then query it.
+## 11. Creating a new migration
+Let's do a new table and do a migration with a concrete example. We'll add a `posts` table that belongs to a user, then do some specific queries with a new route.
 
-**Step 1 — add the new table to schema.ts:**
+**Step 1 - Add the new table to schema.ts:**
 
 ```ts
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
@@ -231,7 +232,7 @@ export const posts = sqliteTable('posts', {
 
 `references(() => users.id)` is a foreign key — it tells D1 that every `userId` in posts must match an existing `id` in users.
 
-**Step 2 — generate and apply the migration:**
+**Step 2 — Generate and apply the migration:**
 
 ```bash
 npx drizzle-kit generate
@@ -240,7 +241,7 @@ npx wrangler d1 migrations apply test-db --local
 
 Drizzle is smart enough to only generate a migration for the new table — it won't touch `users` again.
 
-**Step 3 — export the new table from db/index.ts:**
+**Step 3 — Export the new table from db/index.ts:**
 
 ```ts
 import { drizzle } from 'drizzle-orm/d1';
@@ -253,7 +254,7 @@ export function createDb(d1: D1Database) {
 }
 ```
 
-**Step 4 — add routes to app.ts:**
+**Step 4 — Add routes to app.ts:**
 
 Add to the imports:
 
