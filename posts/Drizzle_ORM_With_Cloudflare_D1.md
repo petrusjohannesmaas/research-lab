@@ -1,13 +1,13 @@
 ---
-title: "Test Drive: Drizzle ORM with Cloudflare D1"
+title: "Drizzle ORM with Cloudflare D1"
 description: "A minimal walkthrough of connecting Drizzle ORM to a Cloudflare D1 database inside a Hono Worker, covering setup, schema, migrations, and basic queries."
-slug: "test-drive-drizzle-orm-with-cloudflare-d1"
+slug: "drizzle-orm-with-cloudflare-d1"
 date: "2026-06-22"
 tags: ['Cloudflare', 'D1', 'Drizzle', 'Hono', 'TypeScript']
 author: "Petrus Johannes Maas"
 ---
 
-# Test Drive: Drizzle ORM with Cloudflare D1
+# Drizzle ORM with Cloudflare D1
 
 ## Overview
 
@@ -95,14 +95,20 @@ For local development you won't need the credentials — `drizzle-kit generate` 
 `src/server/db/schema.ts`:
 
 ```ts
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
+import { sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
 export const users = sqliteTable('users', {
-  id: integer('id').primaryKey({ autoIncrement: true }),
+  id: text('id').primaryKey(),
   name: text('name').notNull(),
   email: text('email').notNull().unique(),
 });
 ```
+
+> **Note — why a text UUID instead of an auto-increment integer?**
+>
+> The natural instinct is to use `integer('id').primaryKey({ autoIncrement: true })` and let the database assign IDs. This works in standard SQLite, but Drizzle ORM has a known issue with D1 where it explicitly inserts `null` for the `id` column instead of omitting it — which causes D1 to reject the query with an error even when `AUTOINCREMENT` is set.
+>
+> The workaround is to use a `text` primary key and generate the ID yourself in application code using `crypto.randomUUID()`, which is available natively in Cloudflare Workers with no extra dependencies. This is also a common pattern in distributed systems where you want IDs to be unique across multiple database replicas.
 
 ## 6. Generate and apply the migration
 
@@ -160,7 +166,7 @@ app.get('/users', async (c) => {
 app.post('/users', async (c) => {
   const { name, email } = await c.req.json();
   const db = createDb(c.env.DB);
-  await db.insert(users).values({ name, email });
+  await db.insert(users).values({ id: crypto.randomUUID(), name, email });
   return c.json({ status: 'ok' });
 });
 
