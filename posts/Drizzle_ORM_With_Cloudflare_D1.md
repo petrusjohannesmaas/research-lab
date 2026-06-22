@@ -208,10 +208,122 @@ npx wrangler deploy
 npx wrangler d1 migrations apply my-db
 ```
 
+Let's do both together with a concrete example. We'll add a `posts` table that belongs to a user, then query it.
+
+**Step 1 — add the new table to schema.ts:**
+
+```ts
+import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
+
+export const users = sqliteTable('users', {
+  id: text('id').primaryKey(),
+  name: text('name').notNull(),
+  email: text('email').notNull().unique(),
+});
+
+export const posts = sqliteTable('posts', {
+  id: text('id').primaryKey(),
+  title: text('title').notNull(),
+  body: text('body').notNull(),
+  userId: text('user_id').notNull().references(() => users.id),
+});
+```
+
+`references(() => users.id)` is a foreign key — it tells D1 that every `userId` in posts must match an existing `id` in users.
+
+**Step 2 — generate and apply the migration:**
+
+```bash
+npx drizzle-kit generate
+npx wrangler d1 migrations apply test-db --local
+```
+
+Drizzle is smart enough to only generate a migration for the new table — it won't touch `users` again.
+
+**Step 3 — export the new table from db/index.ts:**
+
+```ts
+import { drizzle } from 'drizzle-orm/d1';
+import { users, posts } from './schema';
+
+export { users, posts };
+
+export function createDb(d1: D1Database) {
+  return drizzle(d1);
+}
+```
+
+**Step 4 — add routes to app.ts:**
+
+Add to the imports:
+
+```ts
+import { eq } from 'drizzle-orm';
+import { createDb, users, posts } from './db/index';
+```
+
+Add new routes:
+```ts
+// get all posts by a specific user's email
+app.get('/posts', async (c) => {
+  const email = c.req.query('email');
+  const db = createDb(c.env.DB);
+
+  const user = await db.select().from(users)
+    .where(eq(users.email, email))
+    .get();
+
+  if (!user) return c.json({ error: 'user not found' }, 404);
+
+  const result = await db.select().from(posts)
+    .where(eq(posts.userId, user.id))
+    .all();
+
+  return c.json(result);
+});
+
+// create a post
+app.post('/posts', async (c) => {
+  const { email, title, body } = await c.req.json();
+  const db = createDb(c.env.DB);
+
+  const user = await db.select().from(users)
+    .where(eq(users.email, email))
+    .get();
+
+  if (!user) return c.json({ error: 'user not found' }, 404);
+
+  await db.insert(posts).values({
+    id: crypto.randomUUID(),
+    title,
+    body,
+    userId: user.id,
+  });
+
+  return c.json({ status: 'ok' });
+});
+```
+
+A few things worth noting:
+
+- `eq(users.email, email)` is the `where` clause — `eq` is imported from `drizzle-orm` and is fully type-safe, so if you typo the column name TypeScript catches it at compile time
+- `.get()` returns a single row or `undefined`, while `.all()` returns an array — use `get` when you expect one result, `all` when you expect many
+- `c.req.query('email')` reads a URL query parameter, so you'd call this as `GET /posts?email=petrus@example.com`
+
+Test it:
+
+```bash
+# create a post for the user you inserted earlier
+curl -X POST http://localhost:8787/posts \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"petrus@example.com","title":"Hello","body":"My first post"}'
+
+# fetch their posts
+curl "http://localhost:8787/posts?email=petrus@example.com"
+```
+
 ## Where to go from here
 
-- Add more tables to `src/server/db/schema.ts` and re-run `drizzle-kit generate` + `migrations apply` for each change
-- Use `db.select().from(users).where(eq(users.email, email))` for filtered queries — all type-safe
 - Add Zod validation on the POST body (see the Zod middleware guide) before the insert
 - Use `db.batch([...])` to run multiple statements in a single round trip, which matters on Workers where latency per request is tight
 
