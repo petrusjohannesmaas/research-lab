@@ -141,7 +141,13 @@ export function createDb(d1: D1Database) {
 }
 ```
 
+> `createDb(d1: D1Database)` is a factory function rather than a singleton.
+> The reason it's a function and not just export `const db = drizzle(...)` at the top level is that in a Cloudflare Worker, the D1 binding (env.DB) only exists at request time — it's handed to you by the runtime when a request comes in.
+> You don't have access to it at module initialisation time, so you can't create the db instance upfront.
+> Instead, each request calls createDb(c.env.DB) to get a fresh instance wired to that request's binding.
+
 `D1Database` is the type Cloudflare injects for the binding. `drizzle()` wraps it and returns a fully typed query builder.
+
 
 ## 8. Wire it into Hono
 
