@@ -1,13 +1,22 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { getPostBySlug } from '../utils/posts';
 import { getRandomImage } from '../utils/images';
+import ShareModal from '../components/ShareModal';
 
 const PostPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = useMemo(() => (slug ? getPostBySlug(slug) : undefined), [slug]);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2000);
+  };
 
   // Random image cycled when a post is opened
   const headerImage = useMemo(() => getRandomImage(), [slug]);
@@ -133,13 +142,19 @@ const PostPage: React.FC = () => {
                   </div>
                 </div>
                 <div className="flex items-center justify-between pt-4 border-t border-outline-variant/30">
-                  <p className="text-sm font-medium text-on-surface-variant">Connect & Save</p>
+                  <p className="text-sm font-medium text-on-surface-variant">Connect & Share</p>
                   <div className="flex gap-2">
-                    <button className="p-2 hover:bg-surface-container-high rounded-lg transition-colors text-on-surface-variant">
+                    <button
+                      onClick={() => setIsShareModalOpen(true)}
+                      className="p-2 hover:bg-surface-container-high rounded-lg transition-colors text-on-surface-variant"
+                    >
                       <span className="material-symbols-outlined text-[20px]">share</span>
                     </button>
-                    <button className="p-2 hover:bg-surface-container-high rounded-lg transition-colors text-on-surface-variant">
-                      <span className="material-symbols-outlined text-[20px]">bookmark</span>
+                    <button
+                      onClick={handleCopyLink}
+                      className="p-2 hover:bg-surface-container-high rounded-lg transition-colors text-on-surface-variant"
+                    >
+                      <span className="material-symbols-outlined text-[20px]">content_copy</span>
                     </button>
                   </div>
                 </div>
@@ -170,6 +185,21 @@ const PostPage: React.FC = () => {
           </aside>
         </div>
       </main>
+
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        title={post.title}
+        slug={slug || ''}
+        content={post.content}
+      />
+
+      {showToast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-on-surface text-white px-5 py-3 rounded-xl shadow-lg flex items-center gap-2 animate-in fade-in slide-in-from-bottom-2 duration-200">
+          <span className="material-symbols-outlined text-[18px]">check_circle</span>
+          <span className="font-medium text-sm">Link copied to clipboard</span>
+        </div>
+      )}
     </div>
   );
 };
