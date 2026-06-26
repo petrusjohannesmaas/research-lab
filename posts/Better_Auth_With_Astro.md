@@ -1,18 +1,17 @@
-```md
 ---
-title: "Better Auth with Astro & SQLite"
-description: "A step-by-step guide to integrating Better Auth email/password authentication into an Astro project using a SQLite database."
+title: "Better Auth with Astro, Hono & SQLite"
+description: "A step-by-step guide to integrating Better Auth email/password authentication into an Astro project using Hono for API routing and SQLite as the database."
 slug: "better-auth-astro-sqlite"
 date: "2026-06-26"
-tags: ['Authentication', 'Astro', 'SQLite', 'TypeScript', 'Better Auth']
+tags: ['Authentication', 'Astro', 'SQLite', 'TypeScript', 'Better Auth', 'Hono']
 author: "Petrus Johannes Maas"
 ---
 
-# Better Auth with Astro & SQLite
+# Better Auth with Astro, Hono & SQLite
 
 ## Overview
 
-This guide covers integrating [Better Auth](https://better-auth.com) into an Astro project with email and password authentication, backed by a local SQLite database. Better Auth requires server-side request handling, so SSR mode must be enabled in Astro.
+This guide covers integrating [Better Auth](https://better-auth.com) into an Astro project with email and password authentication, backed by a local SQLite database. [Hono](https://hono.dev) is used as the API layer, simplifying route handling and making it straightforward to add additional protected endpoints alongside auth. Better Auth requires server-side request handling, so SSR mode must be enabled in Astro.
 
 ### Prerequisites
 
@@ -25,7 +24,7 @@ This guide covers integrating [Better Auth](https://better-auth.com) into an Ast
 ### Step 1 — Install Dependencies
 
 ```bash
-npm install better-auth @better-auth/cli better-sqlite3
+npm install better-auth @better-auth/cli better-sqlite3 hono
 npm install -D @types/better-sqlite3
 ```
 
@@ -102,24 +101,86 @@ Run this once after initial setup, and again any time you add plugins that intro
 
 ---
 
-### Step 6 — Create the API Route
+### Step 6 — Create the Hono API Router
 
-Better Auth uses a single catch-all route to handle all auth endpoints. Create `src/pages/api/auth/[...all].ts`:
+Instead of a plain Astro catch-all route, use Hono to wire up Better Auth and any additional API endpoints in one place. Create `src/pages/api/[...all].ts`:
 
 ```ts
-import type { APIRoute } from 'astro';
-import { auth } from '../../../lib/auth';
+import { Hono } from 'hono';
+import { auth } from '../../lib/auth';
 
-export const ALL: APIRoute = async (ctx) => {
-  return auth.handler(ctx.request);
-};
+const app = new Hono();
+
+// Mount Better Auth — handles all /api/auth/* requests
+app.on(['GET', 'POST'], '/api/auth/*', (c) => {
+  return auth.handler(c.req.raw);
+});
+
+export const ALL = app.fetch;
 ```
 
-This one file covers sign-up, sign-in, sign-out, session management, and more.
+`c.req.raw` gives Hono direct access to the native `Request` object that Better Auth expects, and `app.fetch` is the correct handler signature for Astro's `ALL` export. No manual request plumbing needed.
+
+> Note: The file moves up to `src/pages/api/[...all].ts` (not inside an `auth/` subfolder) so that Hono can also handle non-auth routes under `/api/*`.
 
 ---
 
-### Step 7 — Create the Auth Client
+### Step 7 — Adding More API Routes
+
+Because all requests flow through Hono, adding new protected endpoints is straightforward. Extend the same `[...all].ts` file:
+
+```ts
+import { Hono } from 'hono';
+import { auth } from '../../lib/auth';
+
+const app = new Hono();
+
+// Auth routes
+app.on(['GET', 'POST'], '/api/auth/*', (c) => {
+  return auth.handler(c.req.raw);
+});
+
+// Example: return the current user's session data
+app.get('/api/me', async (c) => {
+  const session = await auth.api.getSession({ headers: c.req.raw.headers });
+  if (!session) return c.json({ error: 'Unauthorized' }, 401);
+  return c.json({ user: session.user });
+});
+
+// Example: a protected data endpoint
+app.get('/api/posts', async (c) => {
+  const session = await auth.api.getSession({ headers: c.req.raw.headers });
+  if (!session) return c.json({ error: 'Unauthorized' }, 401);
+
+  // Replace with a real database query
+  const posts = [{ id: 1, title: 'Hello World', author: session.user.email }];
+  return c.json({ posts });
+});
+
+export const ALL = app.fetch;
+```
+
+Every route has access to `auth.api.getSession` for session validation. You can extract this into a reusable middleware as your API grows:
+
+```ts
+import { createMiddleware } from 'hono/factory';
+
+const requireAuth = createMiddleware(async (c, next) => {
+  const session = await auth.api.getSession({ headers: c.req.raw.headers });
+  if (!session) return c.json({ error: 'Unauthorized' }, 401);
+  c.set('session', session);
+  await next();
+});
+
+// Use it on any route
+app.get('/api/me', requireAuth, (c) => {
+  return c.json({ user: c.get('session').user });
+});
+```
+
+---
+
+### Step 8 — Create the Auth Client
 
 Create `src/lib/auth-client.ts` for use in frontend components and pages:
 
@@ -133,7 +194,7 @@ export const authClient = createAuthClient({
 
 ---
 
-### Step 8 — Build an Auth Page
+### Step 9 — Build an Auth Page
 
 Create `src/pages/auth.astro` with a simple sign-up and sign-in form:
 
@@ -179,7 +240,7 @@ Create `src/pages/auth.astro` with a simple sign-up and sign-in form:
 
 ---
 
-### Step 9 — Protect a Page Server-Side
+### Step 10 — Protect a Page Server-Side
 
 Use `auth.api.getSession` in any Astro page frontmatter to guard access:
 
@@ -206,7 +267,7 @@ if (!session) {
 |---|---|
 | `src/lib/auth.ts` | Server auth instance with SQLite config |
 | `src/lib/auth-client.ts` | Client-side auth methods |
-| `src/pages/api/auth/[...all].ts` | Catch-all API route for all auth endpoints |
+| `src/pages/api/[...all].ts` | Hono router — auth + all additional API routes |
 | `.env` | Secret key and base URLs |
 | `database.db` | Auto-created SQLite database after migration |
 
@@ -224,4 +285,3 @@ http://www.apache.org/licenses/LICENSE-2.0
 
 **Third-Party Attribution**:
 All included dependencies and libraries are the property of their respective owners and are used according to their original licensing terms.
-```
